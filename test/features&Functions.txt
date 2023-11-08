@@ -1,0 +1,14 @@
+Features
+	- base html page
+	- Search/Browse Songs view
+		- searching songs
+		- listing songs
+	- Song Details View
+		- listing song information
+		- displaying song radar chart
+	- Playlist View
+		- Listing Playlist
+	- API data processing
+	- Processing Json data
+	- Storing Data From Server Locally (impoves preformance)
+	- 
