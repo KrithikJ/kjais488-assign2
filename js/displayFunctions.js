@@ -35,3 +35,37 @@ function listData(data, columns, listName) {
         }
     }
 }
+
+function loadArtists () {
+
+    const artists = artistsArr;
+
+    //test
+
+    for(artist of artists)
+    {
+        console.log(artist["id"]);
+    }
+
+}
+
+function loadGenres () {
+
+    const genres = genresArr;
+
+    for (genre of genres)
+    {
+        console.log(genre["id"]);
+    }
+
+}
+
+function loadSampleSongs() {
+
+    const sampleSongs = sampleSongsArr;
+
+    for (song of sampleSongs) 
+    {
+        console.log(song["song_id"]);
+    }
+}
