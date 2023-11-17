@@ -1,5 +1,14 @@
 // columns objects has a list of the following  {header: str, type: str, values: array/list, valueFunction: func, prefix: str, sufix: str}
 
+const songsListFilter = [
+    { header: "Title", type: 'str', values: ["title"], valueFunction: (obj) => obj[this.values[0]], prefix: "", sufix: "" },
+    { header: "Artist", type: 'str', values: ["artist", "name"], valueFunction: (obj) => obj[this.values[0]][this.values[1]], prefix: "", sufix: "" },
+    { header: "Year", type: 'str', values: ["year"], valueFunction: (obj) => obj[this.values[0]], prefix: "", sufix: "" },
+    { header: "Genre", type: 'str', values: ["genre", "name"], valueFunction: (obj) => obj[this.values[0]][this.values[1]], prefix: "", sufix: "" },
+    { header: "Popularity", type: 'str', values: ["details", "popularity"], valueFunction: (obj) => obj[this.values[0]][this.values[1]], prefix: "", sufix: "" },
+    { header: "", type: 'btn', values: ["song_id"], valueFunction: (obj) => obj[this.values[0]], prefix: "", sufix: "" } // favorites column
+];
+
 function listData(data, columns, listName) {
     let container = document.createElement('div');
     container.id = listName;
@@ -26,6 +35,10 @@ function listData(data, columns, listName) {
                 case 'img':
                     value = document.createElement('img');
                     value.src = column.valueFunction(obj);
+                    break;
+                case 'btn':
+                    value = document.createElement('button');
+                    value.textContent = column.valueFunction(obj);
                     break;
                 default:
                     value = document.createElement('div');
@@ -75,7 +88,7 @@ function songSearchForm() {
     const artists = artistsArr;
     const genres = genresArr;
 
-    document.addEventListener("DOMContentLoaded", function() {
+    document.addEventListener("DOMContentLoaded", function () {
 
         const form = document.querySelector("form");
 
