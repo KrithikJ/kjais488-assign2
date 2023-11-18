@@ -63,9 +63,6 @@ function loadGenres() {
 
     const genres = genresArr;
 
-    for (genre of genres) {
-        console.log(genre["id"]);
-    }
 
 }
 
@@ -73,154 +70,216 @@ function loadSampleSongs() {
 
     const sampleSongs = sampleSongsArr;
 
-    for (song of sampleSongs) {
-        console.log(song["song_id"]);
+}
+
+function dissableInput(radioOne, radioTwo, radioThree, selectOne, selectTwo, inputOne, form) {
+
+
+    function formHandler(e) {
+
+        if (e.target.tagName == "INPUT" && e.target.className == "radio")
+
+        {
+            if (e.target == radioOne) {
+
+                selectOne.setAttribute("disabled", "disabled");
+                selectTwo.setAttribute("disabled", "disabled");
+
+                if (inputOne.getAttribute("disabled")) {
+                    inputOne.removeAttribute("disabled");
+                }
+
+
+
+            } else if (e.target == radioTwo) {
+
+                inputOne.setAttribute("disabled", "disabled");
+                selectTwo.setAttribute("disabled", "disabled");
+
+                if (selectOne.getAttribute("disabled")) {
+                    selectOne.removeAttribute("disabled");
+                }
+
+
+            } else if (e.target == radioThree) {
+
+                inputOne.setAttribute("disabled", "disabled");
+                selectOne.setAttribute("disabled", "disabled");
+
+                if (selectTwo.getAttribute("disabled")) {
+                    selectTwo.removeAttribute("disabled");
+                }
+
+            }
+
+        }
     }
+
+    //Event delegation onto the form tag
+    form.addEventListener('click', formHandler);
+
+
+
+
 }
 
 function songSearchForm() {
 
-    //This function loads the form via js. Will be adding events later on
+    //This function loads the form via JS
 
-
-    // loadArtists();
 
     const artists = artistsArr;
+
     const genres = genresArr;
 
-    document.addEventListener("DOMContentLoaded", function () {
+    const form = document.querySelector("form");
 
-        const form = document.querySelector("form");
+    //Section 1 Song name
 
-        //Section 1 Song name
+    const radioOne = document.createElement("input");
+    radioOne.setAttribute('id', 't');
+    radioOne.setAttribute('type', 'radio');
+    radioOne.setAttribute('name', 'typeSelection');
+    radioOne.className = "radio";
 
-        const radioOne = document.createElement("input");
-        radioOne.setAttribute('id', 't');
-        radioOne.setAttribute('type', 'radio');
-        radioOne.setAttribute('name', 'typeSelection')
+    form.appendChild(radioOne);
 
-        form.appendChild(radioOne);
+    const labelOne = document.createElement("label");
+    labelOne.setAttribute('for', 'title');
+    labelOne.textContent = "Title";
 
-        const labelOne = document.createElement("label");
-        labelOne.setAttribute('for', 'title');
-        labelOne.textContent = "Title";
+    form.appendChild(labelOne);
 
-        form.appendChild(labelOne);
+    const inputOne = document.createElement("input");
+    inputOne.setAttribute('type', 'text');
+    inputOne.setAttribute('id', 'title');
 
-        const inputOne = document.createElement("input");
-        inputOne.setAttribute('type', 'text');
-        inputOne.setAttribute('id', 'title');
+    form.appendChild(inputOne);
 
-        form.appendChild(inputOne);
+    // Section 2 Artists
 
-        // Section 2 Artists
-
-        const radioTwo = document.createElement("input");
-        radioTwo.setAttribute('id', 'a');
-        radioTwo.setAttribute('type', 'radio');
-        radioTwo.setAttribute('name', 'typeSelection')
-
-        form.appendChild(radioTwo);
-
-        const labelTwo = document.createElement("label");
-        labelTwo.setAttribute('for', 'title');
-        labelTwo.textContent = "Artist";
-
-        form.appendChild(labelTwo);
-
-        const selectOne = document.createElement("select");
-        selectOne.setAttribute('id', 'selectOne');
+    const radioTwo = document.createElement("input");
+    radioTwo.setAttribute('id', 'a');
+    radioTwo.setAttribute('type', 'radio');
+    radioTwo.setAttribute('name', 'typeSelection');
+    radioTwo.className = "radio";
 
 
-        //loading artist names into the select via option tags=
+    form.appendChild(radioTwo);
+
+    const labelTwo = document.createElement("label");
+    labelTwo.setAttribute('for', 'title');
+    labelTwo.textContent = "Artist";
+
+    form.appendChild(labelTwo);
+
+    const selectOne = document.createElement("select");
+    selectOne.setAttribute('id', 'selectOne');
 
 
-        const blankOption1 = document.createElement("option");
-
-        selectOne.appendChild(blankOption1);
-
-        for (artist of artists) {
-
-            const option = document.createElement("option");
-
-            option.setAttribute("value", artist['id']);
-
-            option.textContent = artist['name'];
-
-            selectOne.appendChild(option);
-
-        }
-
-        inputOne.setAttribute('id', 'title');
-
-        form.appendChild(selectOne);
-
-        // Section 3 Genres
-
-        const radioThree = document.createElement("input");
-        radioThree.setAttribute('id', 'g');
-        radioThree.setAttribute('type', 'radio');
-        radioThree.setAttribute('name', 'typeSelection')
-
-        form.appendChild(radioThree);
+    //loading artist names into the select via option tags
 
 
-        const labelThree = document.createElement("label");
-        labelThree.setAttribute('for', 'title');
-        labelThree.textContent = "Genre";
+    const blankOption1 = document.createElement("option");
 
-        form.appendChild(labelThree);
+    selectOne.appendChild(blankOption1);
 
-        const selectTwo = document.createElement("select");
-        selectTwo.setAttribute('id', 'selectTwo');
+    for (artist of artists) {
 
-        const blankOption2 = document.createElement("option");
+        const option = document.createElement("option");
 
-        selectTwo.appendChild(blankOption2);
+        option.setAttribute("value", artist['id']);
 
-        for (genre of genres) {
+        option.textContent = artist['name'];
 
-            const option = document.createElement("option");
+        selectOne.appendChild(option);
 
-            option.setAttribute("value", genre['id']);
+    }
 
-            option.textContent = genre['name'];
+    inputOne.setAttribute('id', 'title');
 
-            selectTwo.appendChild(option);
+    form.appendChild(selectOne);
 
-        }
+    // Section 3 Genres
 
-        form.appendChild(selectTwo);
-
-
-        //clear button
-
-        const clearButton = document.createElement("button");
-        clearButton.textContent = "Clear";
-
-        clearButton.setAttribute("id", "clearBtn");
-        clearButton.setAttribute('type', 'reset');
-
-        form.appendChild(clearButton);
+    const radioThree = document.createElement("input");
+    radioThree.setAttribute('id', 'g');
+    radioThree.setAttribute('type', 'radio');
+    radioThree.setAttribute('name', 'typeSelection');
+    radioThree.className = "radio";
 
 
-        //filter button
-
-        const filterButton = document.createElement("button");
-        filterButton.textContent = "Filter";
-
-        filterButton.setAttribute("id", "filterBtn");
-
-        form.appendChild(filterButton);
+    form.appendChild(radioThree);
 
 
-        //Add functionality for this
+    const labelThree = document.createElement("label");
+    labelThree.setAttribute('for', 'title');
+    labelThree.textContent = "Genre";
+
+    form.appendChild(labelThree);
+
+    const selectTwo = document.createElement("select");
+    selectTwo.setAttribute('id', 'selectTwo');
+
+    const blankOption2 = document.createElement("option");
+
+    selectTwo.appendChild(blankOption2);
+
+    //Loading genre names into the select via option tags
+
+    for (genre of genres) {
+
+        const option = document.createElement("option");
+
+        option.setAttribute("value", genre['id']);
+
+        option.textContent = genre['name'];
+
+        selectTwo.appendChild(option);
+
+    }
+
+    form.appendChild(selectTwo);
+
+
+    //clear button
+
+    const clearButton = document.createElement("button");
+    clearButton.textContent = "Clear";
+
+    clearButton.setAttribute("id", "clearBtn");
+    clearButton.setAttribute('type', 'reset');
+
+    form.appendChild(clearButton);
+
+
+    //filter button
+
+    const filterButton = document.createElement("button");
+    filterButton.textContent = "Filter";
+
+    filterButton.setAttribute("id", "filterBtn");
+
+    form.appendChild(filterButton);
 
 
 
-    });
+
+    dissableInput(radioOne, radioTwo, radioThree, selectOne, selectTwo, inputOne, form);
 
 
 }
 
-songSearchForm();
+function displaySongSearch() {
+
+    document.addEventListener("DOMContentLoaded", function() {
+
+        songSearchForm();
+
+    });
+
+
+
+}
+
+displaySongSearch();
