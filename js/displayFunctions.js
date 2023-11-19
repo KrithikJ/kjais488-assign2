@@ -75,7 +75,7 @@ document.addEventListener("DOMContentLoaded", function() {
         //     console.log("artist id:" + artist["id"]); //test
         // }
 
-        return artistsArr;
+        return JSON.parse(artistsArr);
     }
 
     function loadGenres() {
@@ -83,14 +83,14 @@ document.addEventListener("DOMContentLoaded", function() {
         //     console.log("genre id:" + genre["id"]);
         // }
 
-        return genresArr;
+        return JSON.parse(genresArr);
     }
 
     function loadSampleSongs() {
         // for (song of sampleSongsArr) {
         //     console.log("song id:" + song["song_id"]);
         // }
-        return sampleSongsArr;
+        return JSON.parse(sampleSongsArr);
     }
 
 
@@ -127,11 +127,6 @@ document.addEventListener("DOMContentLoaded", function() {
     function generateSearchForm() {
 
         //This function loads the form via JS
-
-
-        const artists = artistsArr;
-
-        const genres = genresArr;
 
         const form = document.querySelector("form");
 
