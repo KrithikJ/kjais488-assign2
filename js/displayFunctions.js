@@ -1,19 +1,32 @@
 // columns objects has a list of the following  {header: str, type: str, values: array/list, valueFunction: func, prefix: str, sufix: str}
 
 const songsListFilter = [
-    { header: "Title", type: 'str', values: ["title"], valueFunction: (obj) => obj[this.values[0]], prefix: "", sufix: "" },
-    { header: "Artist", type: 'str', values: ["artist", "name"], valueFunction: (obj) => obj[this.values[0]][this.values[1]], prefix: "", sufix: "" },
-    { header: "Year", type: 'str', values: ["year"], valueFunction: (obj) => obj[this.values[0]], prefix: "", sufix: "" },
-    { header: "Genre", type: 'str', values: ["genre", "name"], valueFunction: (obj) => obj[this.values[0]][this.values[1]], prefix: "", sufix: "" },
-    { header: "Popularity", type: 'str', values: ["details", "popularity"], valueFunction: (obj) => obj[this.values[0]][this.values[1]], prefix: "", sufix: "" },
-    { header: "", type: 'btn', values: ["song_id"], valueFunction: (obj) => obj[this.values[0]], prefix: "", sufix: "" } // favorites column
+    { header: "Title", type: 'str', values: ["title"], valueFunction: (obj, values) => obj[values[0]], prefix: "", sufix: "" },
+    { header: "Artist", type: 'str', values: ["artist", "name"], valueFunction: (obj, values) => obj[values[0]][values[1]], prefix: "", sufix: "" },
+    { header: "Year", type: 'str', values: ["year"], valueFunction: (obj, values) => obj[values[0]], prefix: "", sufix: "" },
+    { header: "Genre", type: 'str', values: ["genre", "name"], valueFunction: (obj, values) => obj[values[0]][values[1]], prefix: "", sufix: "" },
+    { header: "Popularity", type: 'str', values: ["details", "popularity"], valueFunction: (obj, values) => obj[values[0]][values[1]], prefix: "", sufix: "" },
+    { header: "", type: 'btn', values: ["song_id"], valueFunction: (obj, values) => obj[values[0]], prefix: "", sufix: "" } // favorites column
 ];
+
+const genresListFilter = [
+    { header: "Genre", type: 'str', values: ["name"], valueFunction: (obj, values) => obj[values[0]], prefix: "", sufix: "" }
+];
+
+const artistsListFilter = [
+    { header: "Artist", type: 'str', values: ["name"], valueFunction: (obj, values) => obj[values[0]], prefix: "", sufix: "" },
+    { header: "Type", type: 'str', values: ["type"], valueFunction: (obj, values) => obj[values[0]], prefix: "", sufix: "" }
+];
+
+const sampleSongs = loadSampleSongs();
+const genres = loadGenres();
+const artists = loadArtists();
 
 function listData(data, columns, listName) {
     let container = document.createElement('div');
     container.id = listName;
-    constainer.style.display = 'grid';
-    let grid;
+    container.style.display = 'grid';
+    container.style.gridTemplateColumns = `repeat(${columns.length}, 1fr)`;
     for (let column of columns) {
         let header = document.createElement('p');
         header.textContent = column.header;
@@ -25,57 +38,58 @@ function listData(data, columns, listName) {
             switch (column['type']) {
                 case 'str':
                     value = document.createElement('p');
-                    value.textContent = column.valueFunction(obj);
+                    value.textContent = column.valueFunction(obj, column.values);
                     break;
                 case 'link':
                     value = document.createElement('a');
                     value.textContent = obj[column.values[0]];
-                    value.href = column.valueFunction(obj);
+                    value.href = column.valueFunction(obj, column.values);
                     break;
                 case 'img':
                     value = document.createElement('img');
-                    value.src = column.valueFunction(obj);
+                    value.src = column.valueFunction(obj, column.values);
                     break;
                 case 'btn':
                     value = document.createElement('button');
-                    value.textContent = column.valueFunction(obj);
+                    value.textContent = column.valueFunction(obj, column.values);
                     break;
                 default:
                     value = document.createElement('div');
                     console.warn('Missing/Incorrect List Column Type');
                     break;
             }
+            if((data.indexOf(obj) % 2) == 1){
+                // console.log('Testing');
+                value.classList.add('altRowCell');
+            }
             container.appendChild(value);
         }
     }
+    return container;
 }
 
 function loadArtists() {
-
-    const artists = artistsArr;
-
-    //test
-
-
+    // for (artist of artistsArr) {
+    //     console.log("artist id:" + artist["id"]); //test
+    // }
+    
+    return artistsArr;
 }
 
 function loadGenres() {
-
-    const genres = genresArr;
-
-    for (genre of genres) {
-        console.log(genre["id"]);
-    }
-
+    // for (genre of genresArr) {
+    //     console.log("genre id:" + genre["id"]);
+    // }
+    
+    return genresArr;
 }
 
 function loadSampleSongs() {
 
-    const sampleSongs = sampleSongsArr;
-
-    for (song of sampleSongs) {
-        console.log(song["song_id"]);
-    }
+    // for (song of sampleSongsArr) {
+    //     console.log("song id:" + song["song_id"]);
+    // }
+    return sampleSongsArr;
 }
 
 function songSearchForm() {
@@ -224,3 +238,6 @@ function songSearchForm() {
 }
 
 songSearchForm();
+document.querySelector('body').appendChild(listData(sampleSongs, songsListFilter, 'all-songs'));
+// document.querySelector('body').appendChild(listData(genres, genresListFilter, 'all-genres'));
+// document.querySelector('body').appendChild(listData(artists, artistsListFilter, 'all-artists'));
