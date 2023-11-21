@@ -1,7 +1,5 @@
-var userInput = [];
-
 // columns objects has a list of the following  {header: str, type: str, values: array/list, valueFunction: func, prefix: str, sufix: str}
-
+const userInput = [];
 document.addEventListener("DOMContentLoaded", function() {
 
     const songsListFilter = [
@@ -123,32 +121,9 @@ document.addEventListener("DOMContentLoaded", function() {
     //This function is responsible for extracting the values that the user selected
     function filterHandler(e) {
 
-        if (e.target.tagName == "BUTTON" && e.target.className == "filter") {
 
-
-            const divs = document.querySelectorAll("div");
-            for (div of divs) {
-
-                if (div.firstChild.checked) {
-
-                    if (div.firstChild.nextSibling.nextSibling.tagName == "INPUT") {
-                        userInput.push(div.firstChild.nextSibling.nextSibling.value);
-
-
-                    }
-                }
-            }
-
-
-
-
-            // We could possibly add extracted info into a global array which will get populated once the filter
-            // button has been clicked ??
-
-
-
-
-        }
+        // We could possibly add extracted info into a global array which will get populated once the filter
+        // button has been clicked ??
 
     }
 
@@ -234,7 +209,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
         }
 
-        inputOne.setAttribute('id', 'title');
 
         divTwo.appendChild(selectOne);
 
@@ -301,11 +275,10 @@ document.addEventListener("DOMContentLoaded", function() {
         //filter button
 
         const filterButton = document.createElement("button");
+        //filterButton.textContent = "Filter";
+        filterButton.className = "filter";
         filterButton.textContent = "Filter";
-
-
         filterButton.setAttribute("id", "filterBtn");
-
 
         form.appendChild(filterButton);
 
@@ -320,12 +293,41 @@ document.addEventListener("DOMContentLoaded", function() {
 
     form.addEventListener('click', formHandler);
 
-    form.addEventListener('click', filterHandler);
+    form.addEventListener('click', function(e) {
+        if (e.target.className == "filter") {
+
+            const userInput = [];
+
+
+            const radOne = document.querySelector("#t");
+            const radTwo = document.querySelector("#a");
+            const radThree = document.querySelector("#g");
+
+
+            if (radOne.checked) {
+
+
+
+                e.target.style.backgroundColor = "yellow";
+
+
+                info = radOne.nextSibling.nextSibling.value;
+
+                userInput.push(info);
+
+                e.preventDefault();
+            }
+
+        }
+
+
+    });
+
+
 
     //Testing to see if global array is populating
-    console.log(userInput[0]);
 
-
+    console.log(userInput);
 
     //Test code for making the search work
 
