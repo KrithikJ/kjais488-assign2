@@ -1,5 +1,5 @@
 // columns objects has a list of the following  {header: str, type: str, values: array/list, valueFunction: func, prefix: str, sufix: str}
-const userInput = [];
+userInput = [];
 document.addEventListener("DOMContentLoaded", function() {
 
     const songsListFilter = [
@@ -121,14 +121,22 @@ document.addEventListener("DOMContentLoaded", function() {
     //This function is responsible for extracting the values that the user selected
     function filterHandler(e) {
 
+        if (e.target.tagName == "BUTTON") {
+            const divs = document.querySelectorAll("divs");
 
-        // We could possibly add extracted info into a global array which will get populated once the filter
-        // button has been clicked ??
+            divs.forEach(function(d) {
 
+                if (d.firstChild.checked) {
+
+                    text = d.firstChild.nextSibling.nextSibling.value;
+                    userInput.push(text);
+
+                }
+
+            });
+
+        }
     }
-
-    //Event delegation onto the form tag
-
 
 
 
@@ -293,35 +301,33 @@ document.addEventListener("DOMContentLoaded", function() {
 
     form.addEventListener('click', formHandler);
 
+    form.addEventListener('click', filterHandler);
+    /*
     form.addEventListener('click', function(e) {
         if (e.target.className == "filter") {
 
-            const userInput = [];
+            const divs = document.querySelectorAll("div");
+
+            let item = divs.find(function(d) {
+
+                if (d.firstChild.checked) {
+
+                    let extracton = d.firstChild.nextSibling.nextSibling.value;
+
+                    return extracton;
+
+                }
 
 
-            const radOne = document.querySelector("#t");
-            const radTwo = document.querySelector("#a");
-            const radThree = document.querySelector("#g");
 
+            });
 
-            if (radOne.checked) {
-
-
-
-                e.target.style.backgroundColor = "yellow";
-
-
-                info = radOne.nextSibling.nextSibling.value;
-
-                userInput.push(info);
-
-                e.preventDefault();
-            }
+            userInput.push(item);
 
         }
-
-
     });
+*/
+
 
 
 
@@ -335,7 +341,5 @@ document.addEventListener("DOMContentLoaded", function() {
     document.querySelector('body').appendChild(listData(sampleSongs, songsListFilter, 'all-songs'));
     // document.querySelector('body').appendChild(listData(genres, genresListFilter, 'all-genres'));
     // document.querySelector('body').appendChild(listData(artists, artistsListFilter, 'all-artists')); 
-
-
 
 });
