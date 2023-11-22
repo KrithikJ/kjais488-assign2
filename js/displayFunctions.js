@@ -1,5 +1,5 @@
 // columns objects has a list of the following  {header: str, type: str, values: array/list, valueFunction: func, prefix: str, sufix: str}
-userInput = [];
+
 document.addEventListener("DOMContentLoaded", function() {
 
     const songsListFilter = [
@@ -128,10 +128,22 @@ document.addEventListener("DOMContentLoaded", function() {
 
                 if (d.firstChild.checked) {
 
-                    text = d.firstChild.nextSibling.nextSibling.value;
-                    userInput.push(text);
+
+                    let text = d.firstChild.nextSibling.nextSibling.value;
+
+                    //NOW ADD code for using data.
+                    //Searching will most likely occur here?
+                    console.log(text);
+
+                    const newDiv = document.createElement("div");
+
+                    newDiv.textContent = text;
+
+                    d.appendChild(newDiv);
+
 
                 }
+
 
             });
 
@@ -302,40 +314,6 @@ document.addEventListener("DOMContentLoaded", function() {
     form.addEventListener('click', formHandler);
 
     form.addEventListener('click', filterHandler);
-    /*
-    form.addEventListener('click', function(e) {
-        if (e.target.className == "filter") {
-
-            const divs = document.querySelectorAll("div");
-
-            let item = divs.find(function(d) {
-
-                if (d.firstChild.checked) {
-
-                    let extracton = d.firstChild.nextSibling.nextSibling.value;
-
-                    return extracton;
-
-                }
-
-
-
-            });
-
-            userInput.push(item);
-
-        }
-    });
-*/
-
-
-
-
-    //Testing to see if global array is populating
-
-    console.log(userInput);
-
-    //Test code for making the search work
 
 
     document.querySelector('body').appendChild(listData(sampleSongs, songsListFilter, 'all-songs'));
