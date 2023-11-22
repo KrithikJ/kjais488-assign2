@@ -119,36 +119,45 @@ document.addEventListener("DOMContentLoaded", function() {
 
     //This is a test function.
     //This function is responsible for extracting the values that the user selected
+
+
     function filterHandler(e) {
 
-        if (e.target.tagName == "BUTTON") {
-            const divs = document.querySelectorAll("divs");
+        if (e.target.tagName == "BUTTON" && e.target.textContent == "Filter") {
+            const divs = document.querySelectorAll("div");
 
-            divs.forEach(function(d) {
+            //  e.target.style.backgroundColor = "yellow";
+
+            for (d of divs) {
 
                 if (d.firstChild.checked) {
 
+
+                    e.target.style.backgroundColor = "yellow";
 
                     let text = d.firstChild.nextSibling.nextSibling.value;
 
                     //NOW ADD code for using data.
                     //Searching will most likely occur here?
+
                     console.log(text);
 
+
+                    //Test to see if the extracted value stays.
                     const newDiv = document.createElement("div");
 
                     newDiv.textContent = text;
 
                     d.appendChild(newDiv);
 
-
                 }
 
 
-            });
+            }
 
         }
     }
+
 
 
 
@@ -162,6 +171,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
         const divOne = document.createElement("div");
+        divOne.className = "formDiv";
         const radioOne = document.createElement("input");
         radioOne.setAttribute('id', 't');
         radioOne.setAttribute('type', 'radio');
@@ -190,6 +200,7 @@ document.addEventListener("DOMContentLoaded", function() {
         // Section 2 Artists
 
         const divTwo = document.createElement("div");
+        divTwo.className = "formDiv";
         const radioTwo = document.createElement("input");
         radioTwo.setAttribute('id', 'a');
         radioTwo.setAttribute('type', 'radio');
@@ -238,6 +249,7 @@ document.addEventListener("DOMContentLoaded", function() {
         // Section 3 Genres
 
         const divThree = document.createElement("div");
+        divThree.className = "formDiv";
         const radioThree = document.createElement("input");
         radioThree.setAttribute('id', 'g');
         radioThree.setAttribute('type', 'radio');
