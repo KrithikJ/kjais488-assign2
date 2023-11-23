@@ -150,6 +150,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
                     d.appendChild(newDiv);
 
+
+
                 }
 
 
@@ -313,6 +315,8 @@ document.addEventListener("DOMContentLoaded", function() {
         filterButton.setAttribute("id", "filterBtn");
 
         form.appendChild(filterButton);
+
+        console.log("hello");
 
 
         return form;
