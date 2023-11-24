@@ -135,7 +135,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
                     e.target.style.backgroundColor = "yellow";
 
-                    let text = d.firstChild.nextSibling.nextSibling.value;
+                    var text = d.firstChild.nextSibling.nextSibling.value;
 
                     //NOW ADD code for using data.
                     //Searching will most likely occur here?
@@ -170,7 +170,6 @@ document.addEventListener("DOMContentLoaded", function() {
         const form = document.querySelector("form");
 
         //Section 1 Song name
-
 
         const divOne = document.createElement("div");
         divOne.className = "formDiv";
@@ -309,28 +308,24 @@ document.addEventListener("DOMContentLoaded", function() {
         //filter button
 
         const filterButton = document.createElement("button");
-        //filterButton.textContent = "Filter";
         filterButton.className = "filter";
         filterButton.textContent = "Filter";
         filterButton.setAttribute("id", "filterBtn");
+        filterButton.setAttribute("type", "button");
 
         form.appendChild(filterButton);
 
         console.log("hello");
 
-
-        return form;
     }
 
 
 
-
-    const form = generateSearchForm();
+    generateSearchForm();
 
     form.addEventListener('click', formHandler);
 
     form.addEventListener('click', filterHandler);
-
 
     document.querySelector('body').appendChild(listData(sampleSongs, songsListFilter, 'all-songs'));
     // document.querySelector('body').appendChild(listData(genres, genresListFilter, 'all-genres'));
