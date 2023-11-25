@@ -1,23 +1,23 @@
 // columns objects has a list of the following  {header: str, type: str, values: array/list, valueFunction: func, prefix: str, sufix: str}
 
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
 
     const songsListFilter = [
-        { header: "Title", type: 'str', values: ["title"], valueFunction: (obj, values) => obj[values[0]], prefix: "", sufix: "" },
-        { header: "Artist", type: 'str', values: ["artist", "name"], valueFunction: (obj, values) => obj[values[0]][values[1]], prefix: "", sufix: "" },
-        { header: "Year", type: 'str', values: ["year"], valueFunction: (obj, values) => obj[values[0]], prefix: "", sufix: "" },
-        { header: "Genre", type: 'str', values: ["genre", "name"], valueFunction: (obj, values) => obj[values[0]][values[1]], prefix: "", sufix: "" },
-        { header: "Popularity", type: 'str', values: ["details", "popularity"], valueFunction: (obj, values) => obj[values[0]][values[1]], prefix: "", sufix: "" },
-        { header: "", type: 'btn', values: ["song_id"], valueFunction: (obj, values) => obj[values[0]], prefix: "", sufix: "" } // favorites column
+        { header: "Title", type: 'str', values: ["title"], valueFunction: (obj, values) => obj[values[0]], prefix: "", sufix: "", spacing: "5"},
+        { header: "Artist", type: 'str', values: ["artist", "name"], valueFunction: (obj, values) => obj[values[0]][values[1]], prefix: "", sufix: "", spacing: "2"},
+        { header: "Year", type: 'str', values: ["year"], valueFunction: (obj, values) => obj[values[0]], prefix: "", sufix: "", spacing: "1"},
+        { header: "Genre", type: 'str', values: ["genre", "name"], valueFunction: (obj, values) => obj[values[0]][values[1]], prefix: "", sufix: "", spacing: "2"},
+        { header: "Popularity", type: 'str', values: ["details", "popularity"], valueFunction: (obj, values) => obj[values[0]][values[1]], prefix: "", sufix: "", spacing: "1"},
+        { header: "", type: 'btn', values: ["song_id"], valueFunction: (obj, values) => obj[values[0]], prefix: "", sufix: "", spacing: "1"} // favorites column
     ];
 
     const genresListFilter = [
-        { header: "Genre", type: 'str', values: ["name"], valueFunction: (obj, values) => obj[values[0]], prefix: "", sufix: "" }
+        { header: "Genre", type: 'str', values: ["name"], valueFunction: (obj, values) => obj[values[0]], prefix: "", sufix: "", spacing: "1"}
     ];
 
     const artistsListFilter = [
-        { header: "Artist", type: 'str', values: ["name"], valueFunction: (obj, values) => obj[values[0]], prefix: "", sufix: "" },
-        { header: "Type", type: 'str', values: ["type"], valueFunction: (obj, values) => obj[values[0]], prefix: "", sufix: "" }
+        { header: "Artist", type: 'str', values: ["name"], valueFunction: (obj, values) => obj[values[0]], prefix: "", sufix: "", spacing: "1"},
+        { header: "Type", type: 'str', values: ["type"], valueFunction: (obj, values) => obj[values[0]], prefix: "", sufix: "", spacing: "1"}
     ];
 
     const sampleSongs = loadSampleSongs();
@@ -25,49 +25,65 @@ document.addEventListener("DOMContentLoaded", function() {
     const artists = loadArtists();
 
     function listData(data, columns, listName) {
+        // console.log(data);
         let container = document.createElement('div');
         container.id = listName;
         container.style.display = 'grid';
-        container.style.gridTemplateColumns = `repeat(${columns.length}, 1fr)`;
+        let spacing = "";
+        columns.forEach(element => {
+            spacing += element.spacing + "fr ";
+        });
+        container.style.gridTemplateColumns = spacing;
+        container.classList.add("data-list");
         for (let column of columns) {
             let header = document.createElement('p');
             header.textContent = column.header;
+            header.classList.add("list-header");
             container.appendChild(header);
         }
+        let n = 50;
         for (const obj of data) {
-            for (let column of columns) {
-                let value;
-                switch (column['type']) {
-                    case 'str':
-                        value = document.createElement('p');
-                        value.textContent = column.valueFunction(obj, column.values);
-                        break;
-                    case 'link':
-                        value = document.createElement('a');
-                        value.textContent = obj[column.values[0]];
-                        value.href = column.valueFunction(obj, column.values);
-                        break;
-                    case 'img':
-                        value = document.createElement('img');
-                        value.src = column.valueFunction(obj, column.values);
-                        break;
-                    case 'btn':
-                        value = document.createElement('button');
-                        value.textContent = column.valueFunction(obj, column.values);
-                        break;
-                    default:
-                        value = document.createElement('div');
-                        console.warn('Missing/Incorrect List Column Type');
-                        break;
-                }
-                if ((data.indexOf(obj) % 2) == 1) {
-                    // console.log('Testing');
-                    value.classList.add('altRowCell');
-                }
-                container.appendChild(value);
-            }
+            let row = generateListRow(obj, ((data.indexOf(obj) % 2) == 1), columns);
+            setTimeout(() => { row.forEach(column => { container.appendChild(column)})}, n);
+            n += 50;
         }
         return container;
+    }
+
+    function generateListRow(obj, alt, columns) {
+        let row = [];
+        for (let column of columns) {
+            let value;
+            switch (column['type']) {
+                case 'str':
+                    value = document.createElement('p');
+                    value.textContent = column.valueFunction(obj, column.values);
+                    break;
+                case 'link':
+                    value = document.createElement('a');
+                    value.textContent = obj[column.values[0]];
+                    value.href = column.valueFunction(obj, column.values);
+                    break;
+                case 'img':
+                    value = document.createElement('img');
+                    value.src = column.valueFunction(obj, column.values);
+                    break;
+                case 'btn':
+                    value = document.createElement('button');
+                    value.textContent = column.valueFunction(obj, column.values);
+                    break;
+                default:
+                    value = document.createElement('div');
+                    console.warn('Missing/Incorrect List Column Type');
+                    break;
+            }
+            if (alt) {
+                value.classList.add('altRowCell');
+            }
+            // value.style.display = "none";
+            row.push(value);
+        }
+        return row;
     }
 
     function loadArtists() {
@@ -327,7 +343,16 @@ document.addEventListener("DOMContentLoaded", function() {
 
     form.addEventListener('click', filterHandler);
 
-    document.querySelector('body').appendChild(listData(sampleSongs, songsListFilter, 'all-songs'));
+    
+    function loadPageComponents() {
+        let list = listData(songs, songsListFilter, 'all-songs');
+        document.querySelector('body').appendChild(list);
+    }
+
+    // loadPageComponents();
+    setTimeout(loadPageComponents, 1000);
+    // let list = listData(songs, songsListFilter, 'all-songs');
+    // document.querySelector('body').appendChild(list);
     // document.querySelector('body').appendChild(listData(genres, genresListFilter, 'all-genres'));
     // document.querySelector('body').appendChild(listData(artists, artistsListFilter, 'all-artists')); 
 
