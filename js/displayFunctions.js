@@ -1,23 +1,23 @@
 // columns objects has a list of the following  {header: str, type: str, values: array/list, valueFunction: func, prefix: str, sufix: str}
 
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", function() {
 
     const songsListFilter = [
-        { header: "Title", type: 'str', values: ["title"], valueFunction: (obj, values) => obj[values[0]], prefix: "", sufix: "", spacing: "5"},
-        { header: "Artist", type: 'str', values: ["artist", "name"], valueFunction: (obj, values) => obj[values[0]][values[1]], prefix: "", sufix: "", spacing: "2"},
-        { header: "Year", type: 'str', values: ["year"], valueFunction: (obj, values) => obj[values[0]], prefix: "", sufix: "", spacing: "1"},
-        { header: "Genre", type: 'str', values: ["genre", "name"], valueFunction: (obj, values) => obj[values[0]][values[1]], prefix: "", sufix: "", spacing: "2"},
-        { header: "Popularity", type: 'str', values: ["details", "popularity"], valueFunction: (obj, values) => obj[values[0]][values[1]], prefix: "", sufix: "", spacing: "1"},
-        { header: "", type: 'btn', values: ["song_id"], valueFunction: (obj, values) => obj[values[0]], prefix: "", sufix: "", spacing: "1"} // favorites column
+        { header: "Title", type: 'str', values: ["title"], valueFunction: (obj, values) => obj[values[0]], prefix: "", sufix: "", spacing: "5" },
+        { header: "Artist", type: 'str', values: ["artist", "name"], valueFunction: (obj, values) => obj[values[0]][values[1]], prefix: "", sufix: "", spacing: "2" },
+        { header: "Year", type: 'str', values: ["year"], valueFunction: (obj, values) => obj[values[0]], prefix: "", sufix: "", spacing: "1" },
+        { header: "Genre", type: 'str', values: ["genre", "name"], valueFunction: (obj, values) => obj[values[0]][values[1]], prefix: "", sufix: "", spacing: "2" },
+        { header: "Popularity", type: 'str', values: ["details", "popularity"], valueFunction: (obj, values) => obj[values[0]][values[1]], prefix: "", sufix: "", spacing: "1" },
+        { header: "", type: 'btn', values: ["song_id"], valueFunction: (obj, values) => obj[values[0]], prefix: "", sufix: "", spacing: "1" } // favorites column
     ];
 
     const genresListFilter = [
-        { header: "Genre", type: 'str', values: ["name"], valueFunction: (obj, values) => obj[values[0]], prefix: "", sufix: "", spacing: "1"}
+        { header: "Genre", type: 'str', values: ["name"], valueFunction: (obj, values) => obj[values[0]], prefix: "", sufix: "", spacing: "1" }
     ];
 
     const artistsListFilter = [
-        { header: "Artist", type: 'str', values: ["name"], valueFunction: (obj, values) => obj[values[0]], prefix: "", sufix: "", spacing: "1"},
-        { header: "Type", type: 'str', values: ["type"], valueFunction: (obj, values) => obj[values[0]], prefix: "", sufix: "", spacing: "1"}
+        { header: "Artist", type: 'str', values: ["name"], valueFunction: (obj, values) => obj[values[0]], prefix: "", sufix: "", spacing: "1" },
+        { header: "Type", type: 'str', values: ["type"], valueFunction: (obj, values) => obj[values[0]], prefix: "", sufix: "", spacing: "1" }
     ];
 
     const sampleSongs = loadSampleSongs();
@@ -44,7 +44,7 @@ document.addEventListener("DOMContentLoaded", function () {
         let n = 50;
         for (const obj of data) {
             let row = generateListRow(obj, ((data.indexOf(obj) % 2) == 1), columns);
-            setTimeout(() => { row.forEach(column => { container.appendChild(column)})}, n);
+            setTimeout(() => { row.forEach(column => { container.appendChild(column) }) }, n);
             n += 50;
         }
         return container;
@@ -117,7 +117,7 @@ document.addEventListener("DOMContentLoaded", function () {
         if (e.target.className == "radio") {
 
             const parent = e.target.parentElement;
-            const divs = document.querySelectorAll("div");
+            const divs = document.querySelectorAll(".formDiv");
             for (div of divs) {
 
                 if (div.firstChild != e.target) {
@@ -140,7 +140,7 @@ document.addEventListener("DOMContentLoaded", function () {
     function filterHandler(e) {
 
         if (e.target.tagName == "BUTTON" && e.target.textContent == "Filter") {
-            const divs = document.querySelectorAll("div");
+            const divs = document.querySelectorAll(".formDiv");
 
             //  e.target.style.backgroundColor = "yellow";
 
@@ -165,7 +165,6 @@ document.addEventListener("DOMContentLoaded", function () {
                     newDiv.textContent = text;
 
                     d.appendChild(newDiv);
-
 
 
                 }
@@ -343,7 +342,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     form.addEventListener('click', filterHandler);
 
-    
+
     function loadPageComponents() {
         let list = listData(songs, songsListFilter, 'all-songs');
         document.querySelector('body').appendChild(list);
