@@ -1,3 +1,15 @@
 .altRowCell {
     background-color: aqua;
 }
+
+.hidden {
+    display: none;
+}
+
+.data-list * {
+    height: 50px;
+}
+
+.data-list {
+    transition-duration: 10ms;
+}

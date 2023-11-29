@@ -1,6 +1,6 @@
 // columns objects has a list of the following  {header: str, type: str, values: array/list, valueFunction: func, prefix: str, sufix: str}
 
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
 
     const songsListFilter = [
         { header: "Title", type: 'str', values: ["title"], valueFunction: (obj, values) => obj[values[0]], prefix: "", sufix: "", spacing: "5" },
@@ -29,6 +29,7 @@ document.addEventListener("DOMContentLoaded", function() {
         let container = document.createElement('div');
         container.id = listName;
         container.style.display = 'grid';
+        container.style.backgroundColor = "red"
         let spacing = "";
         columns.forEach(element => {
             spacing += element.spacing + "fr ";
@@ -41,12 +42,15 @@ document.addEventListener("DOMContentLoaded", function() {
             header.classList.add("list-header");
             container.appendChild(header);
         }
-        let n = 50;
         for (const obj of data) {
             let row = generateListRow(obj, ((data.indexOf(obj) % 2) == 1), columns);
-            setTimeout(() => { row.forEach(column => { container.appendChild(column) }) }, n);
-            n += 50;
+            row.forEach(column => {
+                column.classList.toggle("hidden");
+                column.setAttribute("disabled", "disabled");
+                container.appendChild(column);
+             });
         }
+        container.childNodes
         return container;
     }
 
@@ -346,10 +350,11 @@ document.addEventListener("DOMContentLoaded", function() {
     function loadPageComponents() {
         let list = listData(songs, songsListFilter, 'all-songs');
         document.querySelector('body').appendChild(list);
+        animateLists(true, list, songsListFilter);
     }
 
     // loadPageComponents();
-    setTimeout(loadPageComponents, 1000);
+    setTimeout(loadPageComponents, 2000);
     // let list = listData(songs, songsListFilter, 'all-songs');
     // document.querySelector('body').appendChild(list);
     // document.querySelector('body').appendChild(listData(genres, genresListFilter, 'all-genres'));
