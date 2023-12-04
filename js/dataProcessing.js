@@ -16,36 +16,53 @@ const artistsListFilter = [
     { header: "Type", type: 'p', values: ["type"], valueFunction: (obj, values) => obj[values[0]], classList: [], prefix: "", sufix: "", spacing: "1" }
 ];
 let songs = [];
-
-function songRetrival () {
+let rawSongs = [];
+let songsHeaders = generateListHeader(songsListFilter);
+// listData([...data], songsListFilter, "search-songs-list", ['song-list-format'])
+function songRetrival() {
     if (localStorage.getItem("songs") === null) {
+        localStorage.clear();
         console.log("fetching");
         fetch(api)
             .then(response => response.json())
             .then(data => {
-                songs = listData([...data], songsListFilter, "search-songs-list", ['song-list-format']);
-                localStorage.setItem("songs", songs);
-                console.log(data);
+                rawSongs = [...data];
+                [...data].forEach((s) => {
+                    songs.push(generateListRow(s, songsListFilter));
+                });
+                localStorage.setItem("songs", JSON.stringify(rawSongs));
+                // console.log(songs);
             })
             .catch(error => console.error(error));
     } else {
         console.log("retrieving");
-        songs = localStorage.getItem("songs");
+        rawSongs = JSON.parse(localStorage.getItem("songs"));
+        [...rawSongs].forEach((s) => {
+            songs.push(generateListRow(s, songsListFilter));
+        })
+        // console.log(songs);
     }
+    // listData(songs, songsListFilter, 'all-songs', ['song-list-format']);
 }
 
 function listData(data, columns, listName, extraclasses = []) {
     // console.log(data);
-    let container = document.createElement('ul');
+    let container = document.createElement('ul');;
     container.id = listName;
-    container.style.backgroundColor = "red"
+    container.style.backgroundColor = "red";
     container.classList.add("data-list");
-    container.appendChild(generateListHeader(columns));
+    if (document.querySelector("#"+listName) !== null){
+        container = document.querySelector("#"+listName);
+    } else {
+        document.querySelector('body').appendChild(container);
+    }
+    container.replaceChildren(songsHeaders);
     for (const obj of data) {
-        container.appendChild(generateListRow(obj, columns));
+        console.log(obj);
+        container.appendChild(obj);
     }
     extraclasses.forEach((c) => {container.classList.add(c)});
-    return container;
+    
 }
 
 function generateListHeader(columns){
