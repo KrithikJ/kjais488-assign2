@@ -1,6 +1,6 @@
 // columns objects has a list of the following  {header: str, type: str, values: array/list, valueFunction: func, prefix: str, sufix: str}
 
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", function() {
 
     const songsListFilter = [
         { header: "Title", type: 'str', values: ["title"], valueFunction: (obj, values) => obj[values[0]], prefix: "", sufix: "", spacing: "5" },
@@ -37,18 +37,47 @@ document.addEventListener("DOMContentLoaded", function () {
         container.style.gridTemplateColumns = spacing;
         container.classList.add("data-list");
         for (let column of columns) {
-            let header = document.createElement('p');
+            let header = document.createElement('button');
             header.textContent = column.header;
             header.classList.add("list-header");
             container.appendChild(header);
+
+            //Working on the sorts here. Using event delegation
+
+
+            header.addEventListener("click", function(e) {
+
+                if (e.target.tagName == "BUTTON") {
+
+                    if (e.target.textContent == "Title") {
+
+                        data.sort(function(a, b) {
+
+                            if (a.title < b.title) {
+
+                                return -1;
+
+                            } else if (a.title > b.title) {
+                                return 1;
+                            } else {
+                                return 0;
+                            }
+
+
+                        });
+
+                    }
+                }
+            });
         }
+
         for (const obj of data) {
             let row = generateListRow(obj, ((data.indexOf(obj) % 2) == 1), columns);
             row.forEach(column => {
                 column.classList.toggle("hidden");
                 column.setAttribute("disabled", "disabled");
                 container.appendChild(column);
-             });
+            });
         }
         container.childNodes
         return container;
@@ -90,6 +119,8 @@ document.addEventListener("DOMContentLoaded", function () {
         return row;
     }
 
+
+    //Do we even need these anymore?
     function loadArtists() {
         // for (artist of artistsArr) {
         //     console.log("artist id:" + artist["id"]); //test
@@ -140,6 +171,7 @@ document.addEventListener("DOMContentLoaded", function () {
     //This is a test function.
     //This function is responsible for extracting the values that the user selected
 
+    //Need to fix this still
 
     function filterHandler(e) {
 
@@ -334,6 +366,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         form.appendChild(filterButton);
 
+
         console.log("hello");
 
     }
@@ -346,12 +379,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
     form.addEventListener('click', filterHandler);
 
-
     function loadPageComponents() {
         let list = listData(songs, songsListFilter, 'all-songs');
         document.querySelector('body').appendChild(list);
         animateLists(true, list, songsListFilter);
     }
+
+
+
 
     // loadPageComponents();
     setTimeout(loadPageComponents, 2000);
