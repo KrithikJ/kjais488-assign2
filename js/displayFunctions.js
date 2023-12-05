@@ -1,7 +1,8 @@
 // columns objects has a list of the following  {header: str, type: str, values: array/list, valueFunction: func, prefix: str, sufix: str}
 songRetrival();
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", function() {
     listData(songs, songsListFilter, 'all-songs', ['song-list-format']);
+
     /*
 
 
@@ -382,11 +383,19 @@ document.addEventListener("DOMContentLoaded", function () {
         form.appendChild(filterButton);
 
 
+        const viewFav = document.createElement("button");
+
+        viewFav.textContent = "View Favourites";
+        viewFav.setAttribute("id", "favBtn");
+        viewFav.setAttribute("type", "button");
+
+        form.appendChild(viewFav);
+
+
+
         console.log("hello");
 
     }
-
-
 
     generateSearchForm();
 
@@ -394,8 +403,43 @@ document.addEventListener("DOMContentLoaded", function () {
 
     form.addEventListener('click', filterHandler);
 
-    const favBtns = document.querySelectorAll(".fav-button");
 
+    const parent = document.querySelector("#all-songs");
+
+    parent.addEventListener("click", function(e) {
+
+        if (e.target.tagName == "BUTTON") {
+            e.target.style.backgroundColor = "yellow";
+            e.target.parentElement.classList.add("favourite");
+        }
+
+        const viewFav = document.querySelector("#favBtn");
+
+        viewFav.addEventListener("click", function() {
+
+            const lis = document.querySelectorAll(".table-row");
+
+            lis.forEach(function(li) {
+
+
+                if (!li.classList.contains("favourite")) {
+
+                    li.classList.add("hidden");
+
+                }
+
+
+
+            })
+
+
+        })
+
+    })
+
+
+
+    //adding songs to favourties
 
     function loadPageComponents() {
         let list = listData(songs, songsListFilter, 'all-songs');
