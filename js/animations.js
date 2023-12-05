@@ -1,5 +1,5 @@
 function animateLists(closed, listContainer) {
-    
+
     if (closed) {
         console.log("opening");
         setTimeout(() => {

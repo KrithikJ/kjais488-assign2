@@ -1,10 +1,10 @@
 const songsListFilter = [
-    { header: "Title", type: 'p', values: ["title"], valueFunction: (obj, values) => obj[values[0]], classList: [], prefix: "", sufix: ""},
-    { header: "Artist", type: 'p', values: ["artist", "name"], valueFunction: (obj, values) => obj[values[0]][values[1]], classList: [], prefix: "", sufix: ""},
-    { header: "Year", type: 'p', values: ["year"], valueFunction: (obj, values) => obj[values[0]], classList: [], prefix: "", sufix: ""},
-    { header: "Genre", type: 'p', values: ["genre", "name"], valueFunction: (obj, values) => obj[values[0]][values[1]], classList: [], prefix: "", sufix: ""},
-    { header: "Popularity", type: 'p', values: ["details", "popularity"], valueFunction: (obj, values) => obj[values[0]][values[1]], classList: [], prefix: "", sufix: ""},
-    { header: "", type: 'button', values: ["song_id"], valueFunction: (obj, values) => obj[values[0]], classList: ['fav-button'], prefix: "", sufix: ""} // favorites column
+    { header: "Title", type: 'p', values: ["title"], valueFunction: (obj, values) => obj[values[0]], classList: [], prefix: "", sufix: "" },
+    { header: "Artist", type: 'p', values: ["artist", "name"], valueFunction: (obj, values) => obj[values[0]][values[1]], classList: [], prefix: "", sufix: "" },
+    { header: "Year", type: 'p', values: ["year"], valueFunction: (obj, values) => obj[values[0]], classList: [], prefix: "", sufix: "" },
+    { header: "Genre", type: 'p', values: ["genre", "name"], valueFunction: (obj, values) => obj[values[0]][values[1]], classList: [], prefix: "", sufix: "" },
+    { header: "Popularity", type: 'p', values: ["details", "popularity"], valueFunction: (obj, values) => obj[values[0]][values[1]], classList: [], prefix: "", sufix: "" },
+    { header: "", type: 'button', values: ["song_id"], valueFunction: (obj, values) => obj[values[0]], classList: ['fav-button'], prefix: "", sufix: "" } // favorites column
 ];
 
 const genresListFilter = [
@@ -38,9 +38,9 @@ function songRetrival() {
         console.log("retrieving");
         rawSongs = JSON.parse(localStorage.getItem("songs"));
         [...rawSongs].forEach((s) => {
-            songs.push(generateListRow(s, songsListFilter));
-        })
-        // console.log(songs);
+                songs.push(generateListRow(s, songsListFilter));
+            })
+            // console.log(songs);
     }
     // listData(songs, songsListFilter, 'all-songs', ['song-list-format']);
 }
@@ -51,8 +51,8 @@ function listData(data, columns, listName, extraclasses = []) {
     container.id = listName;
     container.style.backgroundColor = "red";
     container.classList.add("data-list");
-    if (document.querySelector("#"+listName) !== null){
-        container = document.querySelector("#"+listName);
+    if (document.querySelector("#" + listName) !== null) {
+        container = document.querySelector("#" + listName);
     } else {
         document.querySelector('body').appendChild(container);
     }
@@ -61,11 +61,11 @@ function listData(data, columns, listName, extraclasses = []) {
         console.log(obj);
         container.appendChild(obj);
     }
-    extraclasses.forEach((c) => {container.classList.add(c)});
-    
+    extraclasses.forEach((c) => { container.classList.add(c) });
+
 }
 
-function generateListHeader(columns){
+function generateListHeader(columns) {
     let headers = document.createElement('li');
     headers.classList.add("list-headers");
     for (let column of columns) {
@@ -82,7 +82,7 @@ function generateListRow(obj, columns) {
     row.id = obj.song_id;
     for (let column of columns) {
         let value = document.createElement(column['type']);
-        column['classList'].forEach(c => {value.classList.add(c);});
+        column['classList'].forEach(c => { value.classList.add(c); });
         switch (column['type']) {
             case 'p':
                 value.textContent = column.valueFunction(obj, column.values);
