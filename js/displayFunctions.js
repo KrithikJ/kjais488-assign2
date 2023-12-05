@@ -217,7 +217,15 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 
-
+    //create side div bars - NOT CALLED HAVENT IMPLEMENTED
+    function createLeftDivBar () {
+        const body = this.querySelector("body");
+        const sideDivBarLeft = document.createElement("div")
+        sideDivBarLeft.setAttribute("class", "sidebar-left");
+        sideDivBarLeft.style.width = '100px';
+        sideDivBarLeft.style.backgroundColor = "red";
+        body.appendChild(sideDivBarLeft);
+        }
 
 
     function generateSearchForm() {

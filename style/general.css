@@ -21,3 +21,9 @@
 .data-list {
     transition-duration: 10ms;
 }
+.sidebar-left {
+    box-sizing: border-box;
+    padding: 20px;
+    width: 200px;
+    background-color: #d41919;
+}
