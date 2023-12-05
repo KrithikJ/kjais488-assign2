@@ -1,6 +1,7 @@
 // columns objects has a list of the following  {header: str, type: str, values: array/list, valueFunction: func, prefix: str, sufix: str}
-
-document.addEventListener("DOMContentLoaded", function() {
+songRetrival();
+document.addEventListener("DOMContentLoaded", function () {
+    listData(songs, songsListFilter, 'all-songs', ['song-list-format']);
     /*
 
 
@@ -218,14 +219,14 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     //create side div bars - NOT CALLED HAVENT IMPLEMENTED
-    function createLeftDivBar () {
+    function createLeftDivBar() {
         const body = this.querySelector("body");
         const sideDivBarLeft = document.createElement("div")
         sideDivBarLeft.setAttribute("class", "sidebar-left");
         sideDivBarLeft.style.width = '100px';
         sideDivBarLeft.style.backgroundColor = "red";
         body.appendChild(sideDivBarLeft);
-        }
+    }
 
 
     function generateSearchForm() {
@@ -405,7 +406,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
     // loadPageComponents();
-    setTimeout(loadPageComponents, 2000);
+    // setTimeout(loadPageComponents, 2000);
     // let list = listData(songs, songsListFilter, 'all-songs');
     // document.querySelector('body').appendChild(list);
     // document.querySelector('body').appendChild(listData(genres, genresListFilter, 'all-genres'));
