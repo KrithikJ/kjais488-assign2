@@ -18,6 +18,8 @@ const artistsListFilter = [
 let songs = [];
 let rawSongs = [];
 let songsHeaders = generateListHeader(songsListFilter);
+
+
 // listData([...data], songsListFilter, "search-songs-list", ['song-list-format'])
 function songRetrival() {
     if (localStorage.getItem("songs") === null) {

@@ -3,6 +3,8 @@ songRetrival();
 document.addEventListener("DOMContentLoaded", function() {
     listData(songs, songsListFilter, 'all-songs', ['song-list-format']);
 
+    //var favourites = [];
+
     /*
 
 
@@ -404,6 +406,11 @@ document.addEventListener("DOMContentLoaded", function() {
     form.addEventListener('click', filterHandler);
 
 
+
+    //adding songs to favourties
+
+
+
     const parent = document.querySelector("#all-songs");
 
     parent.addEventListener("click", function(e) {
@@ -411,35 +418,41 @@ document.addEventListener("DOMContentLoaded", function() {
         if (e.target.tagName == "BUTTON") {
             e.target.style.backgroundColor = "yellow";
             e.target.parentElement.classList.add("favourite");
-        }
-
-        const viewFav = document.querySelector("#favBtn");
-
-        viewFav.addEventListener("click", function() {
-
-            const lis = document.querySelectorAll(".table-row");
-
-            lis.forEach(function(li) {
 
 
-                if (!li.classList.contains("favourite")) {
+            const viewFav = document.querySelector("#favBtn");
 
-                    li.classList.add("hidden");
+            viewFav.addEventListener("click", function() {
+
+                const lis = document.querySelectorAll(".table-row");
+
+                for (li of lis) {
+
+                    if (!li.classList.contains("favourite")) {
+
+
+                        li.classList.add("hidden");
+
+                    }
 
                 }
 
-
-
             })
-
-
-        })
+        }
 
     })
 
 
 
-    //adding songs to favourties
+
+
+    //Still need to load all of the favourite items onto an array.
+
+
+
+    //console.log(favourites);
+    //console.log(songs);
+
 
     function loadPageComponents() {
         let list = listData(songs, songsListFilter, 'all-songs');
