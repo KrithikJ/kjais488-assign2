@@ -3,7 +3,7 @@ songRetrival();
 document.addEventListener("DOMContentLoaded", function() {
     listData(songs, songsListFilter, 'all-songs', ['song-list-format']);
 
-    //var favourites = [];
+    var favourites = [];
 
     /*
 
@@ -409,8 +409,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
     //adding songs to favourties
 
-
-
     const parent = document.querySelector("#all-songs");
 
     parent.addEventListener("click", function(e) {
@@ -418,30 +416,21 @@ document.addEventListener("DOMContentLoaded", function() {
         if (e.target.tagName == "BUTTON") {
             e.target.style.backgroundColor = "yellow";
             e.target.parentElement.classList.add("favourite");
-
-
-            const viewFav = document.querySelector("#favBtn");
-
-            viewFav.addEventListener("click", function() {
-
-                const lis = document.querySelectorAll(".table-row");
-
-                for (li of lis) {
-
-                    if (!li.classList.contains("favourite")) {
-
-
-                        li.classList.add("hidden");
-
-                    }
-
-                }
-
-            })
         }
-
     })
 
+
+    const viewFav = document.querySelector("#favBtn");
+    const lis = document.querySelectorAll(".table-row");
+    viewFav.addEventListener("click", function() {
+        for (li of lis) {
+
+            if (!li.classList.contains("favourite")) {
+                li.classList.add("hidden");
+            }
+
+        }
+    })
 
 
 
