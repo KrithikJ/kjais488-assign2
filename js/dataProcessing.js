@@ -55,6 +55,13 @@ function loadFavs(){
     } else {
         favs = JSON.parse(localStorage.getItem("favs"));
     }
+    favs.forEach(id => {
+        songs.forEach(s => {
+            if(s.id == id && s.hasClass("favs")){
+                id.classList.add("favs");
+            }
+        });
+    });
 }  
 
 function saveFavs() {
@@ -71,18 +78,17 @@ function listData(data, columns, listName, extraclasses = []) {
     container.id = listName;
     container.style.backgroundColor = "red";
     container.classList.add("data-list");
-    if (document.querySelector("#" + listName) !== null) {
-        container = document.querySelector("#" + listName);
-    } else {
-        document.querySelector('body').appendChild(container);
-    }
     container.replaceChildren(songsHeaders);
     for (const obj of data) {
         //console.log(obj);
         container.appendChild(obj);
     }
     extraclasses.forEach((c) => { container.classList.add(c) });
-
+    if (document.querySelector("#" + listName) !== null) {
+        container = document.querySelector("#" + listName);
+    } else {
+        return container;
+    }
 }
 
 function generateListHeader(columns) {
