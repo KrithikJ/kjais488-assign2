@@ -179,20 +179,18 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     function favouritesHandler(e) {
-        if (e.target.tagName == "BUTTON" && e.target.className == "fav-button") {
+        if (e.target.tagName == "BUTTON") {
 
             e.target.style.backgroundColor = "yellow";
 
-            e.target.parentElement.classList.add("fav");
+            e.target.parentElement.classList.add("favs");
+        }
+    }
 
-            const favBtn = document.querySelector("#favBtn");
+    function addHandler(e) {
+        if (e.targer.tagName == "BUTTON" && e.target.textContent == "Add") {
 
-            const lis = document.querySelectorAll("li");
-
-            // listData(songs, songsListFilter, favourites, ['song-list-format']);
-
-
-            // console.log(favourites);
+            loadFavs();
 
 
         }
@@ -423,7 +421,15 @@ document.addEventListener("DOMContentLoaded", function() {
 
     form.addEventListener('click', filterHandler);
 
+    form.addEventListener('click', favouritesHandler);
 
+    form.addEventListener('click', addHandler);
+
+
+
+
+
+    /*
 
     const parent = document.querySelector("#all-songs");
 
@@ -443,7 +449,7 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
     console.log(favourites);
-
+*/
 
 
     //console.log(favourites);
