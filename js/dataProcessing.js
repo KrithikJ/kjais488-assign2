@@ -78,7 +78,7 @@ function listData(data, columns, listName, extraclasses = []) {
     }
     container.replaceChildren(songsHeaders);
     for (const obj of data) {
-        console.log(obj);
+        //console.log(obj);
         container.appendChild(obj);
     }
     extraclasses.forEach((c) => { container.classList.add(c) });

@@ -3,7 +3,7 @@ songRetrival();
 document.addEventListener("DOMContentLoaded", function() {
     listData(songs, songsListFilter, 'all-songs', ['song-list-format']);
 
-    var favouriteSongs = [];
+    //favourites = [];
 
     /*
 
@@ -177,6 +177,28 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
     }
+
+    function favouritesHandler(e) {
+        if (e.target.tagName == "BUTTON" && e.target.className == "fav-button") {
+
+            e.target.style.backgroundColor = "yellow";
+
+            e.target.parentElement.classList.add("fav");
+
+            const favBtn = document.querySelector("#favBtn");
+
+            const lis = document.querySelectorAll("li");
+
+            // listData(songs, songsListFilter, favourites, ['song-list-format']);
+
+
+            // console.log(favourites);
+
+
+        }
+    }
+
+
 
     //This is a test function.
     //This function is responsible for extracting the values that the user selected
@@ -387,15 +409,11 @@ document.addEventListener("DOMContentLoaded", function() {
 
         const viewFav = document.createElement("button");
 
-        viewFav.textContent = "View Favourites";
+        viewFav.textContent = "Add";
         viewFav.setAttribute("id", "favBtn");
         viewFav.setAttribute("type", "button");
 
         form.appendChild(viewFav);
-
-
-
-        console.log("hello");
 
     }
 
@@ -405,89 +423,39 @@ document.addEventListener("DOMContentLoaded", function() {
 
     form.addEventListener('click', filterHandler);
 
-    addToFavourites();
 
 
+    const parent = document.querySelector("#all-songs");
 
-    function addToFavourites() {
+    parent.addEventListener("click", favouritesHandler);
 
-        const parent = document.querySelector("#all-songs");
 
-        parent.addEventListener("click", function(e) {
+    const favourites = songs.filter(function(s) {
 
-            if (e.target.tagName == "BUTTON") {
-                e.target.style.backgroundColor = "yellow";
-                e.target.parentElement.classList.add("favourite");
-            }
-        })
+        console.log(s);
 
-        const favourites = document.querySelectorAll(".favourite");
+        if (s.classList.contains("fav")) {
 
-        for (s of songs) {
-            for (fav of favourites) {
-                if (s["song_id"] == fav.getAttribute("id")) {
-
-                    favouriteSongs.push(s);
-
-                }
-            }
+            return s;
 
         }
 
+    });
 
-    }
-
-
-    //adding songs to favourties
-
-
-    addToFavourites();
-    console.log(favouriteSongs);
-    //console.log(songs);
-
-    listData(songs, songsListFilter, 'favourite');
-
-
-    /*
-        const parent = document.querySelector("#all-songs");
-
-        parent.addEventListener("click", function(e) {
-
-            if (e.target.tagName == "BUTTON") {
-                e.target.style.backgroundColor = "yellow";
-                e.target.parentElement.classList.add("favourite");
-            }
-        })
-
-
-        const viewFav = document.querySelector("#favBtn");
-        const lis = document.querySelectorAll(".table-row");
-        viewFav.addEventListener("click", function() {
-            for (li of lis) {
-
-                if (!li.classList.contains("favourite")) {
-                    li.classList.add("hidden");
-                }
-
-            }
-        })
-
-    */
-
-
-    //Still need to load all of the favourite items onto an array.
+    console.log(favourites);
 
 
 
     //console.log(favourites);
-    //console.log(songs);
-
 
     function loadPageComponents() {
         let list = listData(songs, songsListFilter, 'all-songs');
         document.querySelector('body').appendChild(list);
         animateLists(true, list, songsListFilter);
     }
+
+
+
 
 
 
