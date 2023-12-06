@@ -3,7 +3,7 @@ songRetrival();
 document.addEventListener("DOMContentLoaded", function() {
     listData(songs, songsListFilter, 'all-songs', ['song-list-format']);
 
-    var favourites = [];
+    var favouriteSongs = [];
 
     /*
 
@@ -405,34 +405,74 @@ document.addEventListener("DOMContentLoaded", function() {
 
     form.addEventListener('click', filterHandler);
 
+    addToFavourites();
+
+
+
+    function addToFavourites() {
+
+        const parent = document.querySelector("#all-songs");
+
+        parent.addEventListener("click", function(e) {
+
+            if (e.target.tagName == "BUTTON") {
+                e.target.style.backgroundColor = "yellow";
+                e.target.parentElement.classList.add("favourite");
+            }
+        })
+
+        const favourites = document.querySelectorAll(".favourite");
+
+        for (s of songs) {
+            for (fav of favourites) {
+                if (s["song_id"] == fav.getAttribute("id")) {
+
+                    favouriteSongs.push(s);
+
+                }
+            }
+
+        }
+
+
+    }
 
 
     //adding songs to favourties
 
-    const parent = document.querySelector("#all-songs");
 
-    parent.addEventListener("click", function(e) {
+    addToFavourites();
+    console.log(favouriteSongs);
+    //console.log(songs);
 
-        if (e.target.tagName == "BUTTON") {
-            e.target.style.backgroundColor = "yellow";
-            e.target.parentElement.classList.add("favourite");
-        }
-    })
+    listData(songs, songsListFilter, 'favourite');
 
 
-    const viewFav = document.querySelector("#favBtn");
-    const lis = document.querySelectorAll(".table-row");
-    viewFav.addEventListener("click", function() {
-        for (li of lis) {
+    /*
+        const parent = document.querySelector("#all-songs");
 
-            if (!li.classList.contains("favourite")) {
-                li.classList.add("hidden");
+        parent.addEventListener("click", function(e) {
+
+            if (e.target.tagName == "BUTTON") {
+                e.target.style.backgroundColor = "yellow";
+                e.target.parentElement.classList.add("favourite");
             }
-
-        }
-    })
+        })
 
 
+        const viewFav = document.querySelector("#favBtn");
+        const lis = document.querySelectorAll(".table-row");
+        viewFav.addEventListener("click", function() {
+            for (li of lis) {
+
+                if (!li.classList.contains("favourite")) {
+                    li.classList.add("hidden");
+                }
+
+            }
+        })
+
+    */
 
 
     //Still need to load all of the favourite items onto an array.
