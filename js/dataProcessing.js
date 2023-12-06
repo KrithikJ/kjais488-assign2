@@ -18,6 +18,7 @@ const artistsListFilter = [
 let songs = [];
 let rawSongs = [];
 let songsHeaders = generateListHeader(songsListFilter);
+let favs = [];
 
 
 // listData([...data], songsListFilter, "search-songs-list", ['song-list-format'])
@@ -44,7 +45,24 @@ function songRetrival() {
             })
             // console.log(songs);
     }
+    loadFavs();
     // listData(songs, songsListFilter, 'all-songs', ['song-list-format']);
+}
+
+function loadFavs(){
+    if(localStorage.getItem("favs") === null){
+        localStorage.setItem("favs", JSON.stringify([]));
+    } else {
+        favs = JSON.parse(localStorage.getItem("favs"));
+    }
+}  
+
+function saveFavs() {
+    if(localStorage.getItem("favs") === null){
+        localStorage.setItem("favs", JSON.stringify([]));
+    } else {
+        localStorage.setItem("favs", JSON.stringify(favs));
+    }
 }
 
 function listData(data, columns, listName, extraclasses = []) {
@@ -100,3 +118,4 @@ function generateListRow(obj, columns) {
     }
     return row;
 }
+

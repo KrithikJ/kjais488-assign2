@@ -1,4 +1,4 @@
-const artistsArr = `[{
+const artistsArr = [{
 		"id": 1,
 		"name": "2 Chainz",
 		"type": "Solo"
@@ -848,4 +848,4 @@ const artistsArr = `[{
 		"name": "ZAYN",
 		"type": "Solo"
 	}
-]`;
+];
