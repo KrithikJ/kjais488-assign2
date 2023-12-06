@@ -1,22 +1,20 @@
-.data-list :nth-child(2n) {
+tr:nth-child(2n) {
     background-color: aqua;
 }
 
-.data-list :nth-child(2n - 1) *{
+tr:nth-child(2n - 1) {
     background-color: red;
 }
+
 .hidden {
     display: none;
 }
 
 .data-list * {
     height: 50px;
-    display: inline-flexbox;
 }
 
-.data-list *  *{
-    display: inline-block;
-}
+
 
 .data-list {
     transition-duration: 10ms;

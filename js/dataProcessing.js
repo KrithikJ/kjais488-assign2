@@ -74,7 +74,7 @@ function saveFavs() {
 
 function listData(data, columns, listName, extraclasses = []) {
     // console.log(data);
-    let container = document.createElement('ul');;
+    let container = document.createElement('table');;
     container.id = listName;
     container.style.backgroundColor = "red";
     container.classList.add("data-list");
@@ -92,18 +92,20 @@ function listData(data, columns, listName, extraclasses = []) {
 }
 
 function generateListHeader(columns) {
-    let headers = document.createElement('li');
+    let headers = document.createElement('tr');
     headers.classList.add("list-headers");
     for (let column of columns) {
         let header = document.createElement('button');
         header.textContent = column.header;
-        headers.appendChild(header);
+        let c = document.createElement('th');
+        c.appendChild(header);
+        headers.appendChild(c);
     }
     return headers;
 }
 
 function generateListRow(obj, columns) {
-    let row = document.createElement('li');
+    let row = document.createElement('tr');
     row.classList.add('table-row');
     row.id = obj.song_id;
     for (let column of columns) {
@@ -120,7 +122,9 @@ function generateListRow(obj, columns) {
                 console.warn('Missing/Incorrect List Column Type');
                 break;
         }
-        row.appendChild(value);
+        let c = document.createElement('td');
+        c.appendChild(value);
+        row.appendChild(c);
     }
     return row;
 }
