@@ -1,7 +1,41 @@
 // columns objects has a list of the following  {header: str, type: str, values: array/list, valueFunction: func, prefix: str, sufix: str}
 songRetrival();
 document.addEventListener("DOMContentLoaded", function() {
-    listData(songs, songsListFilter, 'all-songs', ['song-list-format']);
+    document.querySelector("body").appendChild(listData(songs, songsListFilter, 'all-songs', ['song-list-format']));
+
+    //need to simplify this
+
+    const add = document.createElement("button");
+    add.textContent = "Add";
+    add.setAttribute("id", "add");
+    add.setAttribute("type", "button");
+
+    document.querySelector("#span").appendChild(add)
+
+
+    const view = document.createElement("button");
+    view.textContent = "View";
+    view.setAttribute("id", "view");
+    view.setAttribute("type", "button");
+
+
+    document.querySelector("#span").appendChild(view)
+
+    const backBtn = document.createElement("button");
+
+    backBtn.textContent = "Back";
+    backBtn.setAttribute("id", "back");
+    backBtn.classList.add("hidden");
+    document.querySelector("#span").appendChild(backBtn);
+
+
+    const remove = document.createElement("button");
+    remove.textContent = "Remove";
+    remove.setAttribute("id", "remove");
+    remove.setAttribute("type", "button");
+    remove.classList.add("hidden");
+    document.querySelector("#span").appendChild(remove);
+
 
     //favourites = [];
 
@@ -29,7 +63,7 @@ document.addEventListener("DOMContentLoaded", function() {
             { header: "Type", type: 'str', values: ["type"], valueFunction: (obj, values) => obj[values[0]], prefix: "", sufix: "", spacing: "1" }
         ];
     */
-    const sampleSongs = loadSampleSongs();
+    //const sampleSongs = loadSampleSongs();
     const genres = loadGenres();
     const artists = loadArtists();
 
@@ -136,7 +170,7 @@ document.addEventListener("DOMContentLoaded", function() {
         //     console.log("artist id:" + artist["id"]); //test
         // }
 
-        return JSON.parse(artistsArr);
+        return artistsArr; //JSON.parse(artistsArr);
     }
 
     function loadGenres() {
@@ -144,16 +178,16 @@ document.addEventListener("DOMContentLoaded", function() {
         //     console.log("genre id:" + genre["id"]);
         // }
 
-        return JSON.parse(genresArr);
+        return genresArr; //JSON.parse(genresArr)
     }
-
-    function loadSampleSongs() {
-        // for (song of sampleSongsArr) {
-        //     console.log("song id:" + song["song_id"]);
-        // }
-        return JSON.parse(sampleSongsArr);
-    }
-
+    /*
+        function loadSampleSongs() {
+            // for (song of sampleSongsArr) {
+            //     console.log("song id:" + song["song_id"]);
+            // }
+            return JSON.parse(sampleSongsArr);
+        }
+     */
 
 
     function formHandler(e) {
@@ -179,23 +213,142 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     function favouritesHandler(e) {
-        if (e.target.tagName == "BUTTON") {
 
-            e.target.style.backgroundColor = "yellow";
+        if (e.target.tagName == "BUTTON" && e.target.classList.contains("fav-button")) {
 
-            e.target.parentElement.classList.add("favs");
+            //check for favs class, 
+
+            if (e.target.parentElement.parentElement.classList.contains("favs")) {
+
+                e.target.parentElement.parentElement.classList.remove("favs");
+                e.target.style.backgroundColor = "";
+
+
+            } else {
+                e.target.style.backgroundColor = "yellow";
+
+                e.target.parentElement.parentElement.classList.add("favs");
+
+                favs.push(e.target.parentElement.id);
+
+            }
+            if (e.target.parentElement.parentElement.classList.contains("favs")) {
+
+            }
+
         }
     }
 
     function addHandler(e) {
-        if (e.targer.tagName == "BUTTON" && e.target.textContent == "Add") {
+        if (e.target.tagName == "BUTTON" && e.target.id == "add") {
 
-            loadFavs();
+            const trs = document.querySelectorAll(".favs");
+
+            const message = document.createElement("div");
+
+            message.textContent = "The selected song has been added to your playlist";
+
+            document.querySelector("#span").appendChild(message);
+
+
+            for (tr of trs) {
+                tr.firstChild.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.firstChild.style.backgroundColor = "";
+            }
+
+            console.log(localStorage.getItem("favs"));
 
 
         }
+        saveFavs();
     }
 
+    function removeHandler(e) {
+
+        if (e.target.tagName == "BUTTON") {
+
+            const trs = document.querySelectorAll(".favs");
+
+            if (e.target.parentElement.parentElement.classList.contains("favs")) {
+                e.target.parentElement.parentElement.classList.remove("favs");
+                e.target.parentElement.parentElement.classList.add("hidden");
+
+            }
+
+
+
+        }
+
+    }
+
+
+    function viewHandler(e) {
+        //call displayFavView() function
+
+
+        if (e.target.tagName == "BUTTON" && e.target.id == "view") {
+
+            console.log("gello");
+
+            backBtn.classList.remove("hidden");
+
+            remove.classList.remove("hidden");
+
+            displayFavView();
+
+        }
+
+
+
+    }
+
+
+    function displayFavView() {
+
+        //This function will be responsible for creating the view of the playlist
+
+        const trs = document.querySelectorAll(".table-row");
+
+        trs.forEach(function(tr) {
+
+            if (!tr.classList.contains("favs")) {
+                tr.classList.add("hidden");
+            }
+
+        })
+
+        document.querySelector("form").classList.add("hidden");
+
+
+        remove.addEventListener("click", function() {
+            trs.forEach(function(tr) {
+
+                if ((!tr.classList.contains("hidden") && !tr.classList.contains("favs"))) {
+                    tr.classList.add("hidden");
+                }
+            })
+        })
+
+        backBtn.addEventListener("click", function() {
+
+            trs.forEach(function(tr) {
+
+                if (tr.classList.contains("hidden")) {
+                    tr.classList.remove("hidden");
+                }
+
+                if (document.querySelector("form").classList.contains("hidden")) {
+
+                    document.querySelector("form").classList.remove("hidden")
+                }
+
+            })
+
+            backBtn.classList.add("hidden");
+            remove.classList.add("hidden");
+
+        })
+
+    }
 
 
     //This is a test function.
@@ -240,6 +393,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
         }
     }
+
+    //Still need to implement removing from playlist.
 
     //create side div bars - NOT CALLED HAVENT IMPLEMENTED
     function createLeftDivBar() {
@@ -403,53 +558,28 @@ document.addEventListener("DOMContentLoaded", function() {
         filterButton.setAttribute("type", "button");
 
         form.appendChild(filterButton);
-
-
-        const viewFav = document.createElement("button");
-
-        viewFav.textContent = "Add";
-        viewFav.setAttribute("id", "favBtn");
-        viewFav.setAttribute("type", "button");
-
-        form.appendChild(viewFav);
-
     }
 
     generateSearchForm();
+
+
+
 
     form.addEventListener('click', formHandler);
 
     form.addEventListener('click', filterHandler);
 
-    form.addEventListener('click', favouritesHandler);
+    document.querySelector("body").addEventListener('click', favouritesHandler);
 
-    form.addEventListener('click', addHandler);
-
-
-
+    document.querySelector("body").addEventListener('click', addHandler);
+    document.querySelector("body").addEventListener('click', viewHandler);
 
 
-    /*
+    //add playlist button
 
-    const parent = document.querySelector("#all-songs");
-
-    parent.addEventListener("click", favouritesHandler);
+    //add add to playlist button
 
 
-    const favourites = songs.filter(function(s) {
-
-        console.log(s);
-
-        if (s.classList.contains("fav")) {
-
-            return s;
-
-        }
-
-    });
-
-    console.log(favourites);
-*/
 
 
     //console.log(favourites);
