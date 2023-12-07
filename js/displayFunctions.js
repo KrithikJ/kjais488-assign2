@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
     const view = document.createElement("button");
-    view.textContent = "View";
+    view.textContent = "View Favorites";
     view.setAttribute("id", "view");
     view.setAttribute("type", "button");
 
@@ -410,6 +410,8 @@ document.addEventListener("DOMContentLoaded", function() {
     function generateSearchForm() {
 
         //This function loads the form via JS
+
+        
 
         const form = document.querySelector("form");
 

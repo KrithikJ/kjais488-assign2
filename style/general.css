@@ -1,3 +1,6 @@
+:root{
+    font-family: Arial, Helvetica, sans-serif;
+}
 tr:nth-child(2n) {
     background-color: aqua;
 }
@@ -13,7 +16,9 @@ tr:nth-child(2n - 1) {
 .data-list * {
     height: 50px;
 }
-
+header {
+    text-align: center;
+}
 
 
 .data-list {
@@ -24,4 +29,7 @@ tr:nth-child(2n - 1) {
     padding: 20px;
     width: 200px;
     background-color: #d41919;
+}
+@media screen and (max-width: 920px) {
+
 }
