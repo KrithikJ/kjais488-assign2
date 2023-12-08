@@ -11,7 +11,10 @@ document.addEventListener("DOMContentLoaded", function() {
     view.setAttribute("type", "button");
 
 
-    document.querySelector("#span").appendChild(view)
+
+    document.querySelector("#span").appendChild(view);
+    createCreditsButton()
+
 
     const backBtn = document.createElement("button");
 
@@ -408,7 +411,7 @@ document.addEventListener("DOMContentLoaded", function() {
         const credits = document.createElement("button");
         credits.textContent = "Credits";
         credits.setAttribute("id", "creditButton")
-        header1.appendChild(credits);
+            //header1.appendChild(credits);
 
         credits.addEventListener("mouseover", function() {
             creditPanel.style.display = "block";
@@ -417,6 +420,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 creditPanel.style.display = "none";
             }, 3000);
         });
+        document.querySelector("#span").appendChild(credits);
     }
 
 
@@ -581,7 +585,7 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     generateSearchForm();
-    createCreditsButton();
+
 
     form.addEventListener('click', formHandler);
 

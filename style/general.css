@@ -43,10 +43,10 @@ span button, form button {
     border-radius: 6px;
 }
 #creditButton {
-    color: #000000;
-    position: absolute;
-    right: 25px;
-    top: 240px;
+    color: black;
+    /* position: absolute;
+    right: 120px;
+    top: 240px; */
     background-color: rgb(127, 223, 140);
     padding: 10px 20px;
     border-radius: 6px;
@@ -94,15 +94,18 @@ body{
     margin: 0;
 }
 #leftDiv {
-    width: 100px; /* Adjust the width as needed */
-    height: 100%; /* Adjust the height as needed */
+    width: 10%; /* Adjust the width as needed */
+    height: 17280px; /* Adjust the height as needed */
     margin: 10px; /* Adjust the margin as needed */
     background-color: #ccc;
 }
+#centerDiv {
+    width: 90%;
+}
 #rightDiv {
-    
-    width: 100px; /* Adjust the width as needed */
-    height: 100%; /* Adjust the height as needed */
+    justify-content: flex-end;
+    width: 10%; /* Adjust the width as needed */
+    height: 17280px; /* Adjust the height as needed */
     margin: 10px; /* Adjust the margin as needed */
     background-color: #ccc;
 }
