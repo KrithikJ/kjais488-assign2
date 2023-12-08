@@ -85,6 +85,28 @@ span button, form button {
     padding-bottom: 10px;
 }
 
+.container {
+    display: flex;
+    height: 100%;
+}
+body{
+    height: 100%;
+    margin: 0;
+}
+#leftDiv {
+    width: 100px; /* Adjust the width as needed */
+    height: 100%; /* Adjust the height as needed */
+    margin: 10px; /* Adjust the margin as needed */
+    background-color: #ccc;
+}
+#rightDiv {
+    
+    width: 100px; /* Adjust the width as needed */
+    height: 100%; /* Adjust the height as needed */
+    margin: 10px; /* Adjust the margin as needed */
+    background-color: #ccc;
+}
+
 @keyframes boxAnimation {
     0% {
         opacity: 0;
