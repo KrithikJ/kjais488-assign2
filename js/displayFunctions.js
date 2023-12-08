@@ -394,14 +394,32 @@ document.addEventListener("DOMContentLoaded", function() {
         body.appendChild(sideDivBarLeft);
     }
 
+    function createCreditsButton() {
+        const header1 = document.querySelector("#header1");
+        const credits = document.createElement("button");
+        credits.textContent = "Credits";
+        credits.setAttribute("id", "creditButton")
+        header1.appendChild(credits);
+
+        credits.addEventListener("mouseover", function() {
+            creditPanel.style.display = "block";
+
+            setTimeout(function() {
+                creditPanel.style.display = "none";
+            }, 3000);
+        });
+    }
+
 
     function generateSearchForm() {
 
         //This function loads the form via JS
-
-
-
         const form = document.querySelector("form");
+
+        const formTitle = document.createElement("p");
+        formTitle.textContent = "Song Search";
+        formTitle.setAttribute("id", "formTitle")
+        form.appendChild(formTitle);
 
         //Section 1 Song name
 
@@ -416,6 +434,7 @@ document.addEventListener("DOMContentLoaded", function() {
         divOne.appendChild(radioOne);
 
         const labelOne = document.createElement("label");
+        labelOne.setAttribute("id", "labelOne");
         labelOne.setAttribute('for', 'title');
         labelOne.textContent = "Title";
 
@@ -446,6 +465,7 @@ document.addEventListener("DOMContentLoaded", function() {
         divTwo.appendChild(radioTwo);
 
         const labelTwo = document.createElement("label");
+        labelTwo.setAttribute("id", "labelTwo");
         labelTwo.setAttribute('for', 'title');
         labelTwo.textContent = "Artist";
 
@@ -496,6 +516,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
         const labelThree = document.createElement("label");
+        labelThree.setAttribute("id", "labelThree");
         labelThree.setAttribute('for', 'title');
         labelThree.textContent = "Genre";
 
@@ -551,23 +572,7 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     generateSearchForm();
-    const header1 = document.querySelector("#header1");
-
-    const credits = document.createElement("button");
-    credits.textContent = "Credits";
-    credits.setAttribute("id", "creditButton")
-    header1.appendChild(credits);
-
-    credits.addEventListener("mouseover", function() {
-        // Display the credits panel
-        creditPanel.style.display = "block";
-
-        // Set a timeout to hide the panel after 5 seconds
-        setTimeout(function() {
-            creditPanel.style.display = "none";
-        }, 3000);
-    });
-
+    createCreditsButton();
 
     form.addEventListener('click', formHandler);
 

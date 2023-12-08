@@ -43,10 +43,10 @@ span button, form button {
     border-radius: 6px;
 }
 #creditButton {
-    color: black;
-    position: fixed;
+    color: #000000;
+    position: absolute;
     right: 25px;
-    top: 150px;
+    top: 240px;
     background-color: rgb(127, 223, 140);
     padding: 10px 20px;
     border-radius: 6px;
@@ -61,7 +61,28 @@ span button, form button {
     border: 1px solid black;
     padding: 10px;
     border-radius: 10px;
-    height: 200px;
+    height: 150px;
+}
+
+#formTitle {
+    font-weight: bold;
+    font-size: larger;
+    position: relative;
+    left: 50px;
+}
+
+#labelOne{
+    padding-right: 20px;
+}
+#labelTwo{
+    padding-right: 15px;
+}
+#labelThree{
+    padding-right: 8px;
+}
+
+.formDiv{
+    padding-bottom: 10px;
 }
 
 @keyframes boxAnimation {
