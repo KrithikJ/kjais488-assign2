@@ -551,8 +551,22 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     generateSearchForm();
+    const header1 = document.querySelector("#header1");
 
+    const credits = document.createElement("button");
+    credits.textContent = "Credits";
+    credits.setAttribute("id", "creditButton")
+    header1.appendChild(credits);
 
+    credits.addEventListener("mouseover", function() {
+        // Display the credits panel
+        creditPanel.style.display = "block";
+
+        // Set a timeout to hide the panel after 5 seconds
+        setTimeout(function() {
+            creditPanel.style.display = "none";
+        }, 3000);
+    });
 
 
     form.addEventListener('click', formHandler);

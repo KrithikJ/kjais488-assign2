@@ -26,13 +26,6 @@ header {
     transition-duration: 10ms;
 }
 
-.sidebar-left {
-    box-sizing: border-box;
-    padding: 20px;
-    width: 200px;
-    background-color: #d41919;
-}
-
 .animateBox {
     display: block;
     animation-iteration-count: 1;
@@ -41,6 +34,34 @@ header {
     animation-duration: 1s;
     animation-timing-function: ease-out;
     animation-delay: 0s;
+}
+
+span button, form button {
+    color: black;
+    background-color: rgb(127, 223, 140);
+    padding: 10px 20px;
+    border-radius: 6px;
+}
+#creditButton {
+    color: black;
+    position: fixed;
+    right: 25px;
+    top: 150px;
+    background-color: rgb(127, 223, 140);
+    padding: 10px 20px;
+    border-radius: 6px;
+}
+
+#creditPanel {
+    display: none;
+    position: absolute;
+    right: 120px;
+    top: 50px;
+    background-color: rgba(189, 109, 109, 0.842);
+    border: 1px solid black;
+    padding: 10px;
+    border-radius: 10px;
+    height: 200px;
 }
 
 @keyframes boxAnimation {
