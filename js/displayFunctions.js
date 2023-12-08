@@ -5,16 +5,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
     //need to simplify this
 
-    const add = document.createElement("button");
-    add.textContent = "Add";
-    add.setAttribute("id", "add");
-    add.setAttribute("type", "button");
-
-    document.querySelector("#span").appendChild(add)
-
-
     const view = document.createElement("button");
-    view.textContent = "View Favorites";
+    view.textContent = "View Playlist";
     view.setAttribute("id", "view");
     view.setAttribute("type", "button");
 
@@ -27,14 +19,6 @@ document.addEventListener("DOMContentLoaded", function() {
     backBtn.setAttribute("id", "back");
     backBtn.classList.add("hidden");
     document.querySelector("#span").appendChild(backBtn);
-
-
-    const remove = document.createElement("button");
-    remove.textContent = "Remove";
-    remove.setAttribute("id", "remove");
-    remove.setAttribute("type", "button");
-    remove.classList.add("hidden");
-    document.querySelector("#span").appendChild(remove);
 
 
     //favourites = [];
@@ -220,6 +204,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 e.target.style.backgroundColor = "";
 
 
+
             } else {
                 e.target.style.backgroundColor = "yellow";
 
@@ -228,15 +213,33 @@ document.addEventListener("DOMContentLoaded", function() {
 
                 favs.push(e.target.parentElement.id);
 
+
+                const trs = document.querySelectorAll(".favs");
+
+                const message = document.createElement("div");
+
+                message.textContent = "The selected song has been added to your playlist";
+
+                message.classList.add("animateBox");
+
+                document.querySelector("#span").appendChild(message);
+
+
             }
-            if (e.target.parentElement.parentElement.classList.contains("favs")) {
+            if (!e.target.parentElement.parentElement.classList.contains("favs")) {
+
+                e.target.parentElement.parentElement.classList.add("hidden");
 
             }
 
         }
+        saveFavs();
+
     }
 
+    /*
     function addHandler(e) {
+       
         if (e.target.tagName == "BUTTON" && e.target.id == "add") {
 
             const trs = document.querySelectorAll(".favs");
@@ -260,14 +263,12 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
         }
-        saveFavs();
-    }
+
+    }*/
 
 
 
     function viewHandler(e) {
-        //call displayFavView() function
-
 
         if (e.target.tagName == "BUTTON" && e.target.id == "view") {
 
@@ -275,7 +276,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
             backBtn.classList.remove("hidden");
 
-            remove.classList.remove("hidden");
+            // remove.classList.remove("hidden");
 
             displayFavView();
 
@@ -302,15 +303,15 @@ document.addEventListener("DOMContentLoaded", function() {
 
         document.querySelector("form").classList.add("hidden");
 
+        /*
+                remove.addEventListener("click", function() {
+                    trs.forEach(function(tr) {
 
-        remove.addEventListener("click", function() {
-            trs.forEach(function(tr) {
-
-                if ((!tr.classList.contains("hidden") && !tr.classList.contains("favs"))) {
-                    tr.classList.add("hidden");
-                }
-            })
-        })
+                        if ((!tr.classList.contains("hidden") && !tr.classList.contains("favs"))) {
+                            tr.classList.add("hidden");
+                        }
+                    })
+                })*/
 
         backBtn.addEventListener("click", function(e) {
 
@@ -332,7 +333,7 @@ document.addEventListener("DOMContentLoaded", function() {
             })
 
             backBtn.classList.add("hidden");
-            remove.classList.add("hidden");
+            //remove.classList.add("hidden");
 
         })
 
@@ -580,7 +581,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     document.querySelector("body").addEventListener('click', favouritesHandler);
 
-    document.querySelector("body").addEventListener('click', addHandler);
+    //document.querySelector("body").addEventListener('click', addHandler);
 
     document.querySelector("body").addEventListener('click', viewHandler);
 
