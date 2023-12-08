@@ -41,10 +41,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
     /*
 
-
-
-
-
         const songsListFilter = [
             { header: "Title", type: 'str', values: ["title"], valueFunction: (obj, values) => obj[values[0]], prefix: "", sufix: "", spacing: "5" },
             { header: "Artist", type: 'str', values: ["artist", "name"], valueFunction: (obj, values) => obj[values[0]][values[1]], prefix: "", sufix: "", spacing: "2" },
@@ -228,6 +224,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 e.target.style.backgroundColor = "yellow";
 
                 e.target.parentElement.parentElement.classList.add("favs");
+                e.target.parentElement.parentElement.classList.add("verify");
 
                 favs.push(e.target.parentElement.id);
 
@@ -248,6 +245,10 @@ document.addEventListener("DOMContentLoaded", function() {
 
             message.textContent = "The selected song has been added to your playlist";
 
+
+            message.classList.add("animateBox");
+
+
             document.querySelector("#span").appendChild(message);
 
 
@@ -262,23 +263,6 @@ document.addEventListener("DOMContentLoaded", function() {
         saveFavs();
     }
 
-    function removeHandler(e) {
-
-        if (e.target.tagName == "BUTTON") {
-
-            const trs = document.querySelectorAll(".favs");
-
-            if (e.target.parentElement.parentElement.classList.contains("favs")) {
-                e.target.parentElement.parentElement.classList.remove("favs");
-                e.target.parentElement.parentElement.classList.add("hidden");
-
-            }
-
-
-
-        }
-
-    }
 
 
     function viewHandler(e) {
@@ -328,9 +312,13 @@ document.addEventListener("DOMContentLoaded", function() {
             })
         })
 
-        backBtn.addEventListener("click", function() {
+        backBtn.addEventListener("click", function(e) {
 
-            trs.forEach(function(tr) {
+            if (e.target.tagName == "BUTTON" && e.target.id == "back")
+
+
+                trs.forEach(function(tr) {
+
 
                 if (tr.classList.contains("hidden")) {
                     tr.classList.remove("hidden");
@@ -338,7 +326,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
                 if (document.querySelector("form").classList.contains("hidden")) {
 
-                    document.querySelector("form").classList.remove("hidden")
+                    document.querySelector("form").classList.remove("hidden");
                 }
 
             })
@@ -411,7 +399,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
         //This function loads the form via JS
 
-        
+
 
         const form = document.querySelector("form");
 
@@ -574,7 +562,10 @@ document.addEventListener("DOMContentLoaded", function() {
     document.querySelector("body").addEventListener('click', favouritesHandler);
 
     document.querySelector("body").addEventListener('click', addHandler);
+
     document.querySelector("body").addEventListener('click', viewHandler);
+
+
 
 
     //add playlist button
