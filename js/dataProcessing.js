@@ -74,6 +74,7 @@ function saveFavs() {
 
 function listData(data, columns, listName, extraclasses = []) {
     // console.log(data);
+    let parent = document.querySelector("#centerDiv");
     let container = document.createElement('table');;
     container.id = listName;
     container.style.backgroundColor = "red";
@@ -81,7 +82,7 @@ function listData(data, columns, listName, extraclasses = []) {
     container.replaceChildren(songsHeaders);
     for (const obj of data) {
         //console.log(obj);
-        container.appendChild(obj);
+        parent.appendChild(obj);
     }
     extraclasses.forEach((c) => { container.classList.add(c) });
     if (document.querySelector("#" + listName) !== null) {
@@ -92,6 +93,7 @@ function listData(data, columns, listName, extraclasses = []) {
 }
 
 function generateListHeader(columns) {
+    let parent = document.querySelector("#centerDiv");
     let headers = document.createElement('tr');
     headers.classList.add("list-headers");
     for (let column of columns) {
@@ -100,6 +102,7 @@ function generateListHeader(columns) {
         let c = document.createElement('th');
         c.appendChild(header);
         headers.appendChild(c);
+        //parent.appendChild(headers);
     }
     return headers;
 }
