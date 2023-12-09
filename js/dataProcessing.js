@@ -35,15 +35,22 @@ function songRetrival() {
                 });
                 localStorage.setItem("songs", JSON.stringify(rawSongs));
                 // console.log(songs);
+                // listData(songs, songsListFilter, 'all-songs', "#centerDiv", ['song-list-format']);
+                // let canvasElement = document.createElement('canvas');
+                // canvasElement.setAttribute("id", "test");
+                // // console.log(canvasElement);
+                // let content = document.querySelector("#centerDiv");
+                // content.appendChild(canvasElement);
+                // generateSongRadar(1168, canvasElement);
             })
             .catch(error => console.error(error));
     } else {
         console.log("retrieving");
         rawSongs = JSON.parse(localStorage.getItem("songs"));
         [...rawSongs].forEach((s) => {
-                songs.push(generateListRow(s, songsListFilter));
-            })
-            // console.log(songs);
+            songs.push(generateListRow(s, songsListFilter));
+        })
+        // console.log(songs);
     }
     // let canvasElement = document.createElement('canvas');
     // canvasElement.setAttribute("id", "test");
@@ -79,6 +86,10 @@ function saveFavs() {
 }
 
 function generateSongRadar(id, canvas) {
+    // console.log(Chart.getChart(canvas));
+    if (Chart.getChart(canvas) != null) {
+        Chart.getChart(canvas).destroy();
+    }
     let song = rawSongs.find((s) => s.song_id == id);
     console.log("test");
     new Chart(canvas, {
@@ -105,14 +116,39 @@ function generateSongRadar(id, canvas) {
             }
         }
     });
+
 }
 
 // Title s => s.querySelector('.title p').textContent.includes(searchquery))
 // year s => s.querySelector('.year p').textContent > #
 
-function songsLimiter(filtering, sorting) {
+function songsLimiter(filtering) {
     let songsFiltered = songs.filter(filtering(s));
-    return songsFiltered.sort(sorting(s));
+    let sorted;
+    let coloum = document.querySelector('#all-songs tr th.sorted');
+    switch (coloum.classList[0]) {
+        case 'title':
+            sorted = songsFiltered.sort((s1, s2) => s1.querySelector('.title p').textContent.localCompare(s2));
+            break;
+        case 'artist':
+            sorted = songsFiltered.sort((s1, s2) => s1.querySelector('.artist p').textContent.localCompare(s2));
+            break;
+        case 'year':
+            sorted = songsFiltered.sort((s1, s2) => s1.querySelector('.year p').textContent.localCompare(s2));
+            break;
+        case 'genre':
+            sorted = songsFiltered.sort((s1, s2) => s1.querySelector('.genre p').textContent.localCompare(s2));
+            break;
+        case 'popularity':
+            sorted = songsFiltered.sort((s1, s2) => parseInt(s1.querySelector('.popularity p').textContent) - parseInt(s2.querySelector('.title p').textContent));
+            break;
+        case 'fav-button':
+            sorted = songsFiltered.sort((s1, s2) => ((s1.classList.contains("favs")) ? -1 : 0) + ((s2.classList.contains("favs")) ? 0 : 1));
+            break;
+        default:
+            console.warn("unsortable option");
+    }
+    return ((coloum.classList.contains("descending")) ? sorted : songsFiltered.reverse());
 }
 
 function listData(data, columns, listName, parentNodeQuery = "body", extraclasses = []) {
@@ -145,9 +181,10 @@ function generateListHeader(columns) {
     for (let column of columns) {
         let header = document.createElement('button');
         header.textContent = column.header;
-        let c = document.createElement('th');
-        c.appendChild(header);
-        headers.appendChild(c);
+        let cell = document.createElement('th');
+        cell.appendChild(header);
+        column['classList'].forEach(c => { cell.classList.add(c); });
+        headers.appendChild(cell);
         //parent.appendChild(headers);
     }
     return headers;
