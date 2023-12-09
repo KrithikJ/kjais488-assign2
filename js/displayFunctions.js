@@ -203,20 +203,26 @@ document.addEventListener("DOMContentLoaded", function() {
 
     function favouritesHandler(e) {
 
-        if (e.target.tagName == "BUTTON" && e.target.classList.contains("fav-button")) {
 
+
+        if (e.target.tagName == "BUTTON" && e.target.parentElement.classList.contains("fav-button")) {
+
+            console.log(e.target);
             //check for favs class, 
 
             if (e.target.parentElement.parentElement.classList.contains("favs")) {
 
+
                 e.target.parentElement.parentElement.classList.remove("favs");
 
                 favs = favs.filter(function(f) {
-                    if (f.id != e.target.parentElement.parentElement.id) {
+                    if (f != e.target.parentElement.parentElement.id) {
                         return f;
                     }
 
+
                 });
+
 
                 e.target.style.backgroundColor = "";
 
@@ -227,10 +233,10 @@ document.addEventListener("DOMContentLoaded", function() {
                 e.target.style.backgroundColor = "yellow";
 
                 e.target.parentElement.parentElement.classList.add("favs");
+
                 //e.target.parentElement.parentElement.classList.add("verify");
 
                 favs.push(e.target.parentElement.parentElement.id);
-
 
                 const trs = document.querySelectorAll(".favs");
 
@@ -245,16 +251,10 @@ document.addEventListener("DOMContentLoaded", function() {
 
             }
 
-            /*
-                        if (!e.target.parentElement.parentElement.classList.contains("favs") && !backBtn.classList.contains("hidden")) {
-
-                            e.target.parentElement.parentElement.classList.add("hidden");
-                        }
-
-                        */
             favs.forEach(function(f) {
 
-                if (f.id != e.target.parentElement.parentElement.id && !backBtn.classList.contains("hidden")) {
+                if (f != e.target.parentElement.parentElement.id && !backBtn.classList.contains("hidden")) {
+
                     e.target.parentElement.parentElement.classList.add("hidden");
 
                     console.log(favs);
@@ -629,11 +629,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     document.querySelector("body").addEventListener('click', favouritesHandler);
 
-
-
     document.querySelector("body").addEventListener('click', sortHandler);
-
-
 
     document.querySelector("body").addEventListener('click', viewHandler);
 
