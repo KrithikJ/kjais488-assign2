@@ -215,15 +215,11 @@ document.addEventListener("DOMContentLoaded", function() {
                         return f;
                     }
 
-<<<<<<< HEAD
 
                 });
 
                 e.target.style.backgroundColor = "";
 
-=======
-                
->>>>>>> ebaa6131fedc6f5af31b424f88487c46ce15f2a8
             } else {
 
                 e.target.style.backgroundColor = "yellow";                
