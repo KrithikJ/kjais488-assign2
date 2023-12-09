@@ -130,7 +130,7 @@ function listData(data, columns, listName, parentNodeQuery = "body", extraclasse
     }
 
     extraclasses.forEach((c) => { container.classList.add(c) });
-    
+
     if (document.querySelector("#" + listName) !== null) {
         container = document.querySelector("#" + listName);
     } else {
