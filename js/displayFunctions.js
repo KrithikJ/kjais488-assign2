@@ -1,8 +1,13 @@
 // columns objects has a list of the following  {header: str, type: str, values: array/list, valueFunction: func, prefix: str, sufix: str}
 songRetrival();
 document.addEventListener("DOMContentLoaded", function() {
-    document.querySelector("body").appendChild(listData(songs, songsListFilter, 'all-songs', ['song-list-format']));
-
+    listData(songs, songsListFilter, 'all-songs', "#centerDiv", ['song-list-format']);
+    let canvasElement = document.createElement('canvas');
+    canvasElement.setAttribute("id", "test");
+    console.log(canvasElement);
+    let content = document.querySelector("#centerDiv");
+    content.appendChild(canvasElement);
+    generateSongRadar(1168, canvasElement);
     //need to simplify this
 
     const view = document.createElement("button");
@@ -210,13 +215,18 @@ document.addEventListener("DOMContentLoaded", function() {
                         return f;
                     }
 
+<<<<<<< HEAD
 
                 });
 
                 e.target.style.backgroundColor = "";
 
+=======
+                
+>>>>>>> ebaa6131fedc6f5af31b424f88487c46ce15f2a8
             } else {
-                e.target.style.backgroundColor = "yellow";
+
+                e.target.style.backgroundColor = "yellow";                
 
                 e.target.parentElement.parentElement.classList.add("favs");
                 //e.target.parentElement.parentElement.classList.add("verify");
@@ -623,7 +633,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     document.querySelector("body").addEventListener('click', viewHandler);
 
-
+    createPlaylistSnackbar();
 
 
     //add playlist button
@@ -641,7 +651,45 @@ document.addEventListener("DOMContentLoaded", function() {
         animateLists(true, list, songsListFilter);
     }
 
+    function createPlaylistSnackbar() {
+        const playlistSnackbar = document.querySelectorAll(".fav-button");
 
+
+
+            for (let p of playlistSnackbar){
+
+                let computedStyle = window.getComputedStyle(p);
+
+                // Get the background color property
+                let backgroundColor = computedStyle.backgroundColor;
+                console.log('Background Color:', backgroundColor);
+                
+                if (backgroundColor = "rgb(240, 240, 240)"){
+                p.addEventListener("click", function() {
+                playlistPanelAdd.style.display = "block";
+
+                setTimeout(function() {
+                    playlistPanelAdd.style.display = "none";
+                }, 3000);
+                console.log('Background Color:', backgroundColor);
+            });
+        }
+                
+                else {
+                    p.addEventListener("click", function() {
+                        playlistPanelAdd.style.display = "block";
+        
+                        setTimeout(function() {
+                            playlistPanelAdd.style.display = "none";
+                        }, 3000);
+                        console.log('Background Color:', backgroundColor);
+                    });
+                }
+
+            }
+                
+            }
+    
 
 
 
