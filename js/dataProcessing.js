@@ -87,7 +87,7 @@ function listData(data, columns, listName, extraclasses = []) {
     }
 
     extraclasses.forEach((c) => { container.classList.add(c) });
-    
+
     if (document.querySelector("#" + listName) !== null) {
         container = document.querySelector("#" + listName);
     } else {

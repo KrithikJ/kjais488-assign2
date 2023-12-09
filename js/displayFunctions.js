@@ -204,11 +204,16 @@ document.addEventListener("DOMContentLoaded", function() {
             if (e.target.parentElement.parentElement.classList.contains("favs")) {
 
                 e.target.parentElement.parentElement.classList.remove("favs");
-                //e.target.parentElement.parentElement.classList.remove("verify");
+
+                favs = favs.filter(function(f) {
+                    if (f != e.target.parentElement.parentElement.id) {
+                        return f;
+                    }
+
+
+                });
+
                 e.target.style.backgroundColor = "";
-
-
-
 
             } else {
                 e.target.style.backgroundColor = "yellow";
@@ -232,16 +237,13 @@ document.addEventListener("DOMContentLoaded", function() {
 
             }
 
-
-            if (!e.target.parentElement.parentElement.classList.contains("favs") && !backBtn.classList.contains("hidden")) {
-
-                e.target.parentElement.parentElement.classList.add("hidden");
-            }
-
             favs.forEach(function(f) {
 
-                if (!f.id == e.target.parentElement.parentElement.id && backBtn.classList.contains("hidden")) {
+                if (f != e.target.parentElement.parentElement.id && !backBtn.classList.contains("hidden")) {
+
                     e.target.parentElement.parentElement.classList.add("hidden");
+
+                    console.log(favs);
 
                 }
 
@@ -249,7 +251,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
         }
-        //saveFavs();
+        saveFavs();
 
         console.log(favs);
     }
@@ -309,7 +311,7 @@ document.addEventListener("DOMContentLoaded", function() {
     function displayFavView() {
 
 
-        
+
         //This function will be responsible for creating the view of the playlist
 
         const trs = document.querySelectorAll(".table-row");
@@ -406,6 +408,12 @@ document.addEventListener("DOMContentLoaded", function() {
             }
 
         }
+    }
+
+    function sortHandler(e) {
+
+
+
     }
 
     //Still need to implement removing from playlist.
@@ -607,7 +615,11 @@ document.addEventListener("DOMContentLoaded", function() {
 
     document.querySelector("body").addEventListener('click', favouritesHandler);
 
-    //document.querySelector("body").addEventListener('click', addHandler);
+
+
+    document.querySelector("body").addEventListener('click', sortHandler);
+
+
 
     document.querySelector("body").addEventListener('click', viewHandler);
 
@@ -628,6 +640,7 @@ document.addEventListener("DOMContentLoaded", function() {
         document.querySelector('body').appendChild(list);
         animateLists(true, list, songsListFilter);
     }
+
 
 
 
