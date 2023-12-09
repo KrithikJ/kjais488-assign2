@@ -55,8 +55,8 @@ span button, form button {
 #creditPanel {
     display: none;
     position: absolute;
-    right: 120px;
-    top: 50px;
+    right: 410px;
+    top: 150px;
     background-color: rgba(189, 109, 109, 0.842);
     border: 1px solid black;
     padding: 10px;
