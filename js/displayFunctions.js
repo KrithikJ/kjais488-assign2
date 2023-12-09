@@ -218,6 +218,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
                 });
 
+                //e.target.parentElement.parentElement.classList.remove("verify");
                 e.target.style.backgroundColor = "";
 
             } else {
@@ -241,6 +242,12 @@ document.addEventListener("DOMContentLoaded", function() {
                 document.querySelector("#span").appendChild(message);
 
 
+            }
+
+
+            if (!e.target.parentElement.parentElement.classList.contains("favs") && !backBtn.classList.contains("hidden")) {
+
+                e.target.parentElement.parentElement.classList.add("hidden");
             }
 
             favs.forEach(function(f) {
