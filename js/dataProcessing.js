@@ -41,9 +41,9 @@ function songRetrival() {
         console.log("retrieving");
         rawSongs = JSON.parse(localStorage.getItem("songs"));
         [...rawSongs].forEach((s) => {
-            songs.push(generateListRow(s, songsListFilter));
-        })
-        // console.log(songs);
+                songs.push(generateListRow(s, songsListFilter));
+            })
+            // console.log(songs);
     }
     // let canvasElement = document.createElement('canvas');
     // canvasElement.setAttribute("id", "test");
@@ -63,7 +63,7 @@ function loadFavs() {
     }
     favs.forEach(id => {
         songs.forEach(s => {
-            if (s.id == id && s.hasClass("favs")) {
+            if (s.id == id && s.classList.contains("favs")) {
                 id.classList.add("favs");
             }
         });
