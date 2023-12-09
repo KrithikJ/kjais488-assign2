@@ -242,7 +242,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
                 const message = document.createElement("div");
 
-                message.textContent = "The selected song has been added to your playlist";
+                //message.textContent = "The selected song has been added to your playlist";
 
                 message.classList.add("animateBox");
 
@@ -629,6 +629,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
     document.querySelector("body").addEventListener('click', favouritesHandler);
 
+
+
     document.querySelector("body").addEventListener('click', sortHandler);
 
     document.querySelector("body").addEventListener('click', viewHandler);
@@ -652,10 +654,44 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
 
+    function createPlaylistSnackbar() {
+        const playlistSnackbar = document.querySelectorAll(".fav-button");
+
+            for (let p of playlistSnackbar){
+
+                let computedStyle = window.getComputedStyle(p);
+
+                // Get the background color property
+                let backgroundColor = computedStyle.backgroundColor;
+                console.log('Background Color:', backgroundColor);
+                
+                if (backgroundColor = "rgb(240, 240, 240)"){
+                p.addEventListener("click", function() {
+                playlistPanelAdd.style.display = "block";
+
+                setTimeout(function() {
+                    playlistPanelAdd.style.display = "none";
+                }, 3000);
+                console.log('Background Color:', backgroundColor);
+            });
+        }               
+                else {
+                    p.addEventListener("click", function() {
+                        playlistPanelAdd.style.display = "block";
+        
+                        setTimeout(function() {
+                            playlistPanelAdd.style.display = "none";
+                        }, 3000);
+                        console.log('Background Color:', backgroundColor);
+                    });
+                }
+
+            }
+                
+            }
 
 
-
-
+            createPlaylistSnackbar()
 
 
     // loadPageComponents();
