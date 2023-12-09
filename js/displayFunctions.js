@@ -308,6 +308,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
     function displayFavView() {
 
+
+        
         //This function will be responsible for creating the view of the playlist
 
         const trs = document.querySelectorAll(".table-row");
