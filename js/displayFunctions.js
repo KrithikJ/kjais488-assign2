@@ -8,13 +8,13 @@ document.addEventListener("DOMContentLoaded", function() {
     const view = document.createElement("button");
     view.textContent = "View Playlist";
     view.setAttribute("id", "view");
-    view.setAttribute("type", "button");    
+    view.setAttribute("type", "button");
 
-    
-    
+
+
     document.querySelector("#span").appendChild(view);
     createCreditsButton()
-    
+
 
     const backBtn = document.createElement("button");
 
@@ -204,7 +204,9 @@ document.addEventListener("DOMContentLoaded", function() {
             if (e.target.parentElement.parentElement.classList.contains("favs")) {
 
                 e.target.parentElement.parentElement.classList.remove("favs");
+                e.target.parentElement.parentElement.classList.remove("verify");
                 e.target.style.backgroundColor = "";
+
 
 
 
@@ -229,11 +231,11 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
             }
-            if (!e.target.parentElement.parentElement.classList.contains("favs")) {
+            if (!e.target.parentElement.parentElement.classList.contains("favs") && !backBtn.classList.contains("hidden")) {
 
                 e.target.parentElement.parentElement.classList.add("hidden");
-
             }
+
 
         }
         saveFavs();
@@ -279,6 +281,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
             backBtn.classList.remove("hidden");
 
+
+
             // remove.classList.remove("hidden");
 
             displayFavView();
@@ -301,7 +305,12 @@ document.addEventListener("DOMContentLoaded", function() {
         trs.forEach(function(tr) {
 
             if (!tr.classList.contains("favs")) {
+
                 tr.classList.add("hidden");
+
+
+
+
             }
 
         })
@@ -318,12 +327,10 @@ document.addEventListener("DOMContentLoaded", function() {
                     })
                 })*/
 
-        backBtn.addEventListener("click", function(e) {
-
-            if (e.target.tagName == "BUTTON" && e.target.id == "back")
+        backBtn.addEventListener("click", function() {
 
 
-                trs.forEach(function(tr) {
+            trs.forEach(function(tr) {
 
 
                 if (tr.classList.contains("hidden")) {
@@ -337,10 +344,11 @@ document.addEventListener("DOMContentLoaded", function() {
 
             })
 
+
             backBtn.classList.add("hidden");
             //remove.classList.add("hidden");
 
-        })
+        });
 
     }
 
@@ -405,7 +413,7 @@ document.addEventListener("DOMContentLoaded", function() {
         const credits = document.createElement("button");
         credits.textContent = "Credits";
         credits.setAttribute("id", "creditButton")
-        //header1.appendChild(credits);
+            //header1.appendChild(credits);
 
         credits.addEventListener("mouseover", function() {
             creditPanel.style.display = "block";
@@ -579,7 +587,7 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     generateSearchForm();
-    
+
 
     form.addEventListener('click', formHandler);
 
