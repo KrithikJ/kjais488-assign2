@@ -622,9 +622,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
     //add add to playlist button
 
-
-
-
     //console.log(favourites);
 
     function loadPageComponents() {
@@ -635,8 +632,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
     function createPlaylistSnackbar() {
         const playlistSnackbar = document.querySelectorAll(".fav-button");
-
-
 
             for (let p of playlistSnackbar){
 
@@ -656,7 +651,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 console.log('Background Color:', backgroundColor);
             });
         }
-                
+            
                 else {
                     p.addEventListener("click", function() {
                         playlistPanelAdd.style.display = "block";
@@ -667,10 +662,8 @@ document.addEventListener("DOMContentLoaded", function() {
                         console.log('Background Color:', backgroundColor);
                     });
                 }
-
-            }
-                
-            }
+            }               
+        }
     
 
 
