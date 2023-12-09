@@ -49,23 +49,23 @@ function songRetrival() {
     // listData(songs, songsListFilter, 'all-songs', ['song-list-format']);
 }
 
-function loadFavs(){
-    if(localStorage.getItem("favs") === null){
+function loadFavs() {
+    if (localStorage.getItem("favs") === null) {
         localStorage.setItem("favs", JSON.stringify([]));
     } else {
         favs = JSON.parse(localStorage.getItem("favs"));
     }
     favs.forEach(id => {
         songs.forEach(s => {
-            if(s.id == id && s.hasClass("favs")){
+            if (s.id == id && s.hasClass("favs")) {
                 id.classList.add("favs");
             }
         });
     });
-}  
+}
 
 function saveFavs() {
-    if(localStorage.getItem("favs") === null){
+    if (localStorage.getItem("favs") === null) {
         localStorage.setItem("favs", JSON.stringify([]));
     } else {
         localStorage.setItem("favs", JSON.stringify(favs));
@@ -131,4 +131,3 @@ function generateListRow(obj, columns) {
     }
     return row;
 }
-

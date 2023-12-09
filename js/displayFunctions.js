@@ -231,7 +231,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
             }
-            if (!e.target.parentElement.parentElement.classList.contains("favs") && !e.target.parentElement.parentElement.classList.contains("verify")) {
+            if (!e.target.parentElement.parentElement.classList.contains("favs") && !backBtn.classList.contains("hidden")) {
 
                 e.target.parentElement.parentElement.classList.add("hidden");
             }
