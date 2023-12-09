@@ -212,11 +212,10 @@ document.addEventListener("DOMContentLoaded", function() {
                 //e.target.parentElement.parentElement.classList.remove("verify");
                 e.target.style.backgroundColor = "";
 
-
-
-
+                
             } else {
-                e.target.style.backgroundColor = "yellow";
+
+                e.target.style.backgroundColor = "yellow";                
 
                 e.target.parentElement.parentElement.classList.add("favs");
                 //e.target.parentElement.parentElement.classList.add("verify");
@@ -616,7 +615,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     document.querySelector("body").addEventListener('click', viewHandler);
 
-
+    createPlaylistSnackbar();
 
 
     //add playlist button
@@ -634,7 +633,45 @@ document.addEventListener("DOMContentLoaded", function() {
         animateLists(true, list, songsListFilter);
     }
 
+    function createPlaylistSnackbar() {
+        const playlistSnackbar = document.querySelectorAll(".fav-button");
 
+
+
+            for (let p of playlistSnackbar){
+
+                let computedStyle = window.getComputedStyle(p);
+
+                // Get the background color property
+                let backgroundColor = computedStyle.backgroundColor;
+                console.log('Background Color:', backgroundColor);
+                
+                if (backgroundColor = "rgb(240, 240, 240)"){
+                p.addEventListener("click", function() {
+                playlistPanelAdd.style.display = "block";
+
+                setTimeout(function() {
+                    playlistPanelAdd.style.display = "none";
+                }, 3000);
+                console.log('Background Color:', backgroundColor);
+            });
+        }
+                
+                else {
+                    p.addEventListener("click", function() {
+                        playlistPanelAdd.style.display = "block";
+        
+                        setTimeout(function() {
+                            playlistPanelAdd.style.display = "none";
+                        }, 3000);
+                        console.log('Background Color:', backgroundColor);
+                    });
+                }
+
+            }
+                
+            }
+    
 
 
 
