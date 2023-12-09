@@ -45,10 +45,12 @@ function songRetrival() {
         })
         // console.log(songs);
     }
-    let canvasElement = document.createElement("canvas");
-    canvasElement.id = "test";
-    document.querySelector("body").appendChild(canvasElement);
-    generateSongRadar(1168, canvasElement);
+    // let canvasElement = document.createElement('canvas');
+    // canvasElement.setAttribute("id", "test");
+    // console.log(canvasElement);
+    // let content = document.querySelector("#centerDiv");
+    // content.appendChild(canvasElement);
+    // generateSongRadar(1168, canvasElement);
     loadFavs();
     // listData(songs, songsListFilter, 'all-songs', ['song-list-format']);
 }
@@ -115,16 +117,20 @@ function songsLimiter(filtering, sorting) {
 
 function listData(data, columns, listName, parentNodeQuery = "body", extraclasses = []) {
     // console.log(data);
+    let parent = document.querySelector(parentNodeQuery);
     let container = document.createElement('table');;
     container.id = listName;
     container.style.backgroundColor = "red";
     container.classList.add("data-list");
     container.replaceChildren(songsHeaders);
+
     for (const obj of data) {
         //console.log(obj);
         container.appendChild(obj);
     }
+
     extraclasses.forEach((c) => { container.classList.add(c) });
+    
     if (document.querySelector("#" + listName) !== null) {
         container = document.querySelector("#" + listName);
     } else {
@@ -133,6 +139,7 @@ function listData(data, columns, listName, parentNodeQuery = "body", extraclasse
 }
 
 function generateListHeader(columns) {
+    let parent = document.querySelector("#centerDiv");
     let headers = document.createElement('tr');
     headers.classList.add("list-headers");
     for (let column of columns) {
@@ -141,6 +148,7 @@ function generateListHeader(columns) {
         let c = document.createElement('th');
         c.appendChild(header);
         headers.appendChild(c);
+        //parent.appendChild(headers);
     }
     return headers;
 }
@@ -169,4 +177,3 @@ function generateListRow(obj, columns) {
     }
     return row;
 }
-

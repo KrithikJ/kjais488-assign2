@@ -1,8 +1,13 @@
 // columns objects has a list of the following  {header: str, type: str, values: array/list, valueFunction: func, prefix: str, sufix: str}
 songRetrival();
 document.addEventListener("DOMContentLoaded", function() {
-    document.querySelector("body").appendChild(listData(songs, songsListFilter, 'all-songs', ['song-list-format']));
-
+    listData(songs, songsListFilter, 'all-songs', "#centerDiv", ['song-list-format']);
+    let canvasElement = document.createElement('canvas');
+    canvasElement.setAttribute("id", "test");
+    console.log(canvasElement);
+    let content = document.querySelector("#centerDiv");
+    content.appendChild(canvasElement);
+    generateSongRadar(1168, canvasElement);
     //need to simplify this
 
     const view = document.createElement("button");
@@ -11,7 +16,10 @@ document.addEventListener("DOMContentLoaded", function() {
     view.setAttribute("type", "button");
 
 
-    document.querySelector("#span").appendChild(view)
+
+    document.querySelector("#span").appendChild(view);
+    createCreditsButton()
+
 
     const backBtn = document.createElement("button");
 
@@ -201,7 +209,9 @@ document.addEventListener("DOMContentLoaded", function() {
             if (e.target.parentElement.parentElement.classList.contains("favs")) {
 
                 e.target.parentElement.parentElement.classList.remove("favs");
+                //e.target.parentElement.parentElement.classList.remove("verify");
                 e.target.style.backgroundColor = "";
+
 
 
 
@@ -209,9 +219,9 @@ document.addEventListener("DOMContentLoaded", function() {
                 e.target.style.backgroundColor = "yellow";
 
                 e.target.parentElement.parentElement.classList.add("favs");
-                e.target.parentElement.parentElement.classList.add("verify");
+                //e.target.parentElement.parentElement.classList.add("verify");
 
-                favs.push(e.target.parentElement.id);
+                favs.push(e.target.parentElement.parentElement.id);
 
 
                 const trs = document.querySelectorAll(".favs");
@@ -226,15 +236,27 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
             }
-            if (!e.target.parentElement.parentElement.classList.contains("favs")) {
+
+
+            if (!e.target.parentElement.parentElement.classList.contains("favs") && !backBtn.classList.contains("hidden")) {
 
                 e.target.parentElement.parentElement.classList.add("hidden");
-
             }
 
-        }
-        saveFavs();
+            favs.forEach(function(f) {
 
+                if (!f.id == e.target.parentElement.parentElement.id && backBtn.classList.contains("hidden")) {
+                    e.target.parentElement.parentElement.classList.add("hidden");
+
+                }
+
+            });
+
+
+        }
+        //saveFavs();
+
+        console.log(favs);
     }
 
     /*
@@ -276,6 +298,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
             backBtn.classList.remove("hidden");
 
+
+
             // remove.classList.remove("hidden");
 
             displayFavView();
@@ -289,6 +313,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
     function displayFavView() {
 
+
+        
         //This function will be responsible for creating the view of the playlist
 
         const trs = document.querySelectorAll(".table-row");
@@ -296,7 +322,12 @@ document.addEventListener("DOMContentLoaded", function() {
         trs.forEach(function(tr) {
 
             if (!tr.classList.contains("favs")) {
+
                 tr.classList.add("hidden");
+
+
+
+
             }
 
         })
@@ -313,12 +344,10 @@ document.addEventListener("DOMContentLoaded", function() {
                     })
                 })*/
 
-        backBtn.addEventListener("click", function(e) {
-
-            if (e.target.tagName == "BUTTON" && e.target.id == "back")
+        backBtn.addEventListener("click", function() {
 
 
-                trs.forEach(function(tr) {
+            trs.forEach(function(tr) {
 
 
                 if (tr.classList.contains("hidden")) {
@@ -332,10 +361,11 @@ document.addEventListener("DOMContentLoaded", function() {
 
             })
 
+
             backBtn.classList.add("hidden");
             //remove.classList.add("hidden");
 
-        })
+        });
 
     }
 
@@ -400,7 +430,7 @@ document.addEventListener("DOMContentLoaded", function() {
         const credits = document.createElement("button");
         credits.textContent = "Credits";
         credits.setAttribute("id", "creditButton")
-        header1.appendChild(credits);
+            //header1.appendChild(credits);
 
         credits.addEventListener("mouseover", function() {
             creditPanel.style.display = "block";
@@ -409,6 +439,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 creditPanel.style.display = "none";
             }, 3000);
         });
+        document.querySelector("#span").appendChild(credits);
     }
 
 
@@ -573,7 +604,7 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     generateSearchForm();
-    createCreditsButton();
+
 
     form.addEventListener('click', formHandler);
 
