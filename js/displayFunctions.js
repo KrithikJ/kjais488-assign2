@@ -204,7 +204,7 @@ document.addEventListener("DOMContentLoaded", function() {
             if (e.target.parentElement.parentElement.classList.contains("favs")) {
 
                 e.target.parentElement.parentElement.classList.remove("favs");
-                e.target.parentElement.parentElement.classList.remove("verify");
+                //e.target.parentElement.parentElement.classList.remove("verify");
                 e.target.style.backgroundColor = "";
 
 
@@ -214,9 +214,9 @@ document.addEventListener("DOMContentLoaded", function() {
                 e.target.style.backgroundColor = "yellow";
 
                 e.target.parentElement.parentElement.classList.add("favs");
-                e.target.parentElement.parentElement.classList.add("verify");
+                //e.target.parentElement.parentElement.classList.add("verify");
 
-                favs.push(e.target.parentElement.id);
+                favs.push(e.target.parentElement.parentElement.id);
 
 
                 const trs = document.querySelectorAll(".favs");
@@ -231,15 +231,27 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
             }
+
+
             if (!e.target.parentElement.parentElement.classList.contains("favs") && !backBtn.classList.contains("hidden")) {
 
                 e.target.parentElement.parentElement.classList.add("hidden");
             }
 
+            favs.forEach(function(f) {
+
+                if (!f.id == e.target.parentElement.parentElement.id && backBtn.classList.contains("hidden")) {
+                    e.target.parentElement.parentElement.classList.add("hidden");
+
+                }
+
+            });
+
 
         }
-        saveFavs();
+        //saveFavs();
 
+        console.log(favs);
     }
 
     /*

@@ -57,7 +57,7 @@ function loadFavs() {
     }
     favs.forEach(id => {
         songs.forEach(s => {
-            if (s.id == id && s.hasClass("favs")) {
+            if (s.id == id && s.classList.contains("favs")) {
                 id.classList.add("favs");
             }
         });
