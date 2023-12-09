@@ -80,11 +80,14 @@ function listData(data, columns, listName, extraclasses = []) {
     container.style.backgroundColor = "red";
     container.classList.add("data-list");
     container.replaceChildren(songsHeaders);
+
     for (const obj of data) {
         //console.log(obj);
         parent.appendChild(obj);
     }
+
     extraclasses.forEach((c) => { container.classList.add(c) });
+    
     if (document.querySelector("#" + listName) !== null) {
         container = document.querySelector("#" + listName);
     } else {
