@@ -1,7 +1,13 @@
 // columns objects has a list of the following  {header: str, type: str, values: array/list, valueFunction: func, prefix: str, sufix: str}
 songRetrival();
 document.addEventListener("DOMContentLoaded", function() {
-    document.querySelector("body").appendChild(listData(songs, songsListFilter, 'all-songs', ['song-list-format']));
+    listData(songs, songsListFilter, 'all-songs', "#centerDiv", ['song-list-format']);
+    let canvasElement = document.createElement('canvas');
+    canvasElement.setAttribute("id", "test");
+    console.log(canvasElement);
+    let content = document.querySelector("#centerDiv");
+    content.appendChild(canvasElement);
+    generateSongRadar(1168, canvasElement);
 
     //need to simplify this
 
