@@ -85,6 +85,7 @@ function saveFavs() {
     }
 }
 
+
 function generateSongRadar(id, canvas) {
     // console.log(Chart.getChart(canvas));
     if (Chart.getChart(canvas) != null) {
@@ -92,6 +93,7 @@ function generateSongRadar(id, canvas) {
     }
     let song = rawSongs.find((s) => s.song_id == id);
     console.log("test");
+
     new Chart(canvas, {
         type: 'radar',
         data: {
@@ -115,9 +117,11 @@ function generateSongRadar(id, canvas) {
                 }
             }
         }
-    });
 
+    });
 }
+
+
 
 // Title s => s.querySelector('.title p').textContent.includes(searchquery))
 // year s => s.querySelector('.year p').textContent > #
