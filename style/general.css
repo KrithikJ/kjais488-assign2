@@ -36,12 +36,14 @@ header {
     animation-delay: 0s;
 }
 
-span button, form button {
+span button,
+form button {
     color: black;
     background-color: rgb(127, 223, 140);
     padding: 10px 20px;
     border-radius: 6px;
 }
+
 #creditButton {
     color: black;
     /* position: absolute;
@@ -74,6 +76,7 @@ span button, form button {
     padding: 10px;
     border-radius: 10px;
 }
+
 #playlistPanelRemove {
     display: none;
     position: absolute;
@@ -92,17 +95,19 @@ span button, form button {
     left: 50px;
 }
 
-#labelOne{
+#labelOne {
     padding-right: 20px;
 }
-#labelTwo{
+
+#labelTwo {
     padding-right: 15px;
 }
-#labelThree{
+
+#labelThree {
     padding-right: 8px;
 }
 
-.formDiv{
+.formDiv {
     padding-bottom: 10px;
 }
 
@@ -110,33 +115,42 @@ span button, form button {
     display: flex;
     height: 100%;
 }
-body{
+
+body {
     display: flexbox;
     height: 100%;
     margin: 0;
 }
+
 #leftDiv {
-    width: 135px; /* Adjust the width as needed */
-    height: 17280px; /* Adjust the height as needed */
+    width: 135px;
+    /* Adjust the width as needed */
+    height: 17280px;
+    /* Adjust the height as needed */
     padding: 20px;
     background-color: #ccc;
     background-image: url("../images/SpeakerImage2.png");
     background-repeat: repeat-y;
     padding-right: 10px;
 }
+
 #parentDiv {
     align-items: center;
     justify-content: center;
     display: flex;
 }
+
 #centerDiv {
     width: 90%;
     justify-content: center;
 }
+
 #rightDiv {
     justify-content: flex-center;
-    width: 135px; /* Adjust the width as needed */
-    height: 17280px; /* Adjust the height as needed */
+    width: 135px;
+    /* Adjust the width as needed */
+    height: 17280px;
+    /* Adjust the height as needed */
     background-color: #ccc;
     background-image: url("../images/SpeakerImage2.png");
     background-repeat: repeat-y;
