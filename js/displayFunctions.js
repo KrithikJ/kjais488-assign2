@@ -30,6 +30,37 @@ document.addEventListener("DOMContentLoaded", function() {
     document.querySelector("#span").appendChild(backBtn);
 
 
+    const backBtn2 = document.createElement("button");
+    backBtn2.textContent = "View All Songs";
+    backBtn2.classList.add("hidden");
+    backBtn.setAttribute("id", "back2");
+    document.querySelector("span").appendChild(backBtn2);
+
+    backBtn.addEventListener("click", function() {
+
+        const trs = document.querySelectorAll(".table-row");
+
+        trs.forEach(function(tr) {
+
+
+            if (tr.classList.contains("hidden")) {
+                tr.classList.remove("hidden");
+            }
+
+            if (document.querySelector("form").classList.contains("hidden")) {
+
+                document.querySelector("form").classList.remove("hidden");
+            }
+
+        })
+
+
+        backBtn.classList.add("hidden");
+        //remove.classList.add("hidden");
+
+    });
+
+
     //favourites = [];
 
     /*
@@ -224,8 +255,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
                 });
 
-
-
                 e.target.style.backgroundColor = "";
 
             } else {
@@ -280,8 +309,105 @@ document.addEventListener("DOMContentLoaded", function() {
 
             displayFavView();
 
-        }
+            if (!document.querySelector("#test").classList.contains("hidden")) {
+                document.querySelector("#test").classList.add("hidden");
+                document.querySelector("#test").style.display = "none";
+            }
 
+
+        } else if (e.target.tagName == "P" && e.target.parentElement.classList.contains("title")) {
+
+            if (document.querySelector("#test").classList.contains("hidden")) {
+                document.querySelector("#test").classList.remove("hidden");
+            }
+
+            console.log(e.target);
+
+            e.target.classList.add("clicked");
+
+            const tds = document.querySelectorAll(".title");
+
+            backBtn.classList.remove("hidden");
+
+            for (td of tds) {
+                if (!td.firstChild.classList.contains("clicked")) {
+
+                    td.parentElement.classList.add("hidden");
+
+                } else if (td.firstChild.classList.contains("clicked")) {
+
+
+                    generateSongRadar(e.target.parentElement.parentElement.id, canvasElement);
+
+                    console.log(rawSongs);
+
+
+
+                    rawSongs.forEach(function(s) {
+
+                        if (s["song_id"] == e.target.parentElement.parentElement.id) {
+
+
+                            const songUl = document.createElement("ul");
+
+                            songUl.classList.add("info");
+
+                            console.log(s.song_id + s.title + s.year + s.analytics.energy);
+
+                            const bpm = document.createElement("li");
+                            bpm.textContent = "BPM: " + s.details.bpm;
+                            songUl.appendChild(bpm);
+
+                            const energy = document.createElement("li");
+                            energy.textContent = "Energy: " + s.analytics.energy;
+                            songUl.appendChild(energy);
+
+                            const danceability = document.createElement("li");
+                            danceability.textContent = "Danceability: " + +s.analytics.danceability;
+                            songUl.appendChild(danceability);
+
+                            const liveness = document.createElement("li");
+                            liveness.textContent = "Liveness: " + s.analytics.liveness;
+                            songUl.appendChild(liveness);
+
+                            const valence = document.createElement("li");
+                            valence.textContent = "Valence: " + s.analytics.valence;
+                            songUl.appendChild(valence);
+
+                            const acousticness = document.createElement("li");
+                            acousticness.textContent = "Acousticness: " + s.analytics.acousticness;
+                            songUl.appendChild(acousticness);
+
+                            const speechiness = document.createElement("li");
+                            speechiness.textContent = "Speechiness: " + s.analytics.speechiness;
+                            songUl.appendChild(speechiness);
+
+                            const popularity = document.createElement("li");
+                            popularity.textContent = "Popularity: " + s.details.popularity;
+                            songUl.appendChild(popularity);
+
+
+                            document.querySelector("#centerDiv").appendChild(songUl);
+
+                        }
+
+
+
+
+                    });
+
+                }
+
+            }
+
+            e.target.classList.remove("clicked");
+
+            if (document.querySelector(".list-headers").classList.contains("hidden")) {
+                document.querySelector(".list-headers").classList.remove("hidden");
+            }
+
+
+        }
     }
 
 
@@ -296,37 +422,11 @@ document.addEventListener("DOMContentLoaded", function() {
             if (!tr.classList.contains("favs")) {
 
                 tr.classList.add("hidden");
-
             }
 
         })
 
         document.querySelector("form").classList.add("hidden");
-
-
-        backBtn.addEventListener("click", function() {
-
-
-            trs.forEach(function(tr) {
-
-
-                if (tr.classList.contains("hidden")) {
-                    tr.classList.remove("hidden");
-                }
-
-                if (document.querySelector("form").classList.contains("hidden")) {
-
-                    document.querySelector("form").classList.remove("hidden");
-                }
-
-            })
-
-
-            backBtn.classList.add("hidden");
-            //remove.classList.add("hidden");
-
-        });
-
     }
 
 
@@ -580,40 +680,39 @@ document.addEventListener("DOMContentLoaded", function() {
     document.querySelector("body").addEventListener('click', viewHandler);
 
     //leaving this like this for now
+    /*
+        document.querySelector("body").addEventListener('click', function(e) {
 
-    document.querySelector("body").addEventListener('click', function(e) {
+            if (e.target.tagName == "P" && e.target.parentElement.classList.contains("title")) {
 
-        if (e.target.tagName == "P" && e.target.parentElement.classList.contains("title")) {
+                console.log(e.target);
 
-            console.log(e.target);
+                e.target.classList.add("clicked");
 
-            e.target.classList.add("clicked");
+                const tds = document.querySelectorAll(".title");
 
-
-            const tds = document.querySelectorAll(".title");
-
-            let x = false;
-
-
-            for (td of tds) {
-                if (!td.firstChild.classList.contains("clicked")) {
-
-                    td.parentElement.classList.add("hidden");
+                let x = false;
 
 
+                for (td of tds) {
+                    if (!td.firstChild.classList.contains("clicked")) {
 
-                } else if (td.firstChild.classList.contains("clicked")) {
+                        td.parentElement.classList.add("hidden");
 
-                    generateSongRadar(e.target.parentElement.parentElement.id, canvasElement);
+                    } else if (td.firstChild.classList.contains("clicked")) {
+
+                        generateSongRadar(e.target.parentElement.parentElement.id, canvasElement);
+
+                    }
                 }
+
+                e.target.classList.remove("clicked");
+
+
             }
 
-            e.target.classList.remove("clicked");
-
-        }
-
-    });
-
+        });
+    */
 
 
     function loadPageComponents() {

@@ -36,12 +36,14 @@ header {
     animation-delay: 0s;
 }
 
-span button, form button {
+span button,
+form button {
     color: black;
     background-color: rgb(127, 223, 140);
     padding: 10px 20px;
     border-radius: 6px;
 }
+
 #creditButton {
     color: black;
     /* position: absolute;
@@ -74,6 +76,7 @@ span button, form button {
     padding: 10px;
     border-radius: 10px;
 }
+
 #playlistPanelRemove {
     display: none;
     position: absolute;
@@ -92,17 +95,19 @@ span button, form button {
     left: 50px;
 }
 
-#labelOne{
+#labelOne {
     padding-right: 20px;
 }
-#labelTwo{
+
+#labelTwo {
     padding-right: 15px;
 }
-#labelThree{
+
+#labelThree {
     padding-right: 8px;
 }
 
-.formDiv{
+.formDiv {
     padding-bottom: 10px;
 }
 
@@ -110,24 +115,34 @@ span button, form button {
     display: flex;
     height: 100%;
 }
-body{
+
+body {
     height: 100%;
     margin: 0;
 }
+
 #leftDiv {
-    width: 10%; /* Adjust the width as needed */
-    height: 17280px; /* Adjust the height as needed */
-    margin: 10px; /* Adjust the margin as needed */
+    width: 10%;
+    /* Adjust the width as needed */
+    height: 17280px;
+    /* Adjust the height as needed */
+    margin: 10px;
+    /* Adjust the margin as needed */
     background-color: #ccc;
 }
+
 #centerDiv {
     width: 90%;
 }
+
 #rightDiv {
     justify-content: flex-end;
-    width: 10%; /* Adjust the width as needed */
-    height: 17280px; /* Adjust the height as needed */
-    margin: 10px; /* Adjust the margin as needed */
+    width: 10%;
+    /* Adjust the width as needed */
+    height: 17280px;
+    /* Adjust the height as needed */
+    margin: 10px;
+    /* Adjust the margin as needed */
     background-color: #ccc;
 }
 
