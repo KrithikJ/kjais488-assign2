@@ -142,7 +142,7 @@ body {
     /* Adjust the height as needed */
     padding: 20px;
     background-color: #ccc;
-    background-image: url("../images/SpeakerImage2.png");
+    background-image: url("../images/SpeakerImage2.png"); /*https://www.shutterstock.com/image-photo/speakers-front-view-on-white-background-2112095705*/
     background-repeat: repeat-y;
     padding-right: 10px;
 }
@@ -165,7 +165,7 @@ body {
     height: 17280px;
     /* Adjust the height as needed */
     background-color: #ccc;
-    background-image: url("../images/SpeakerImage2.png");
+    background-image: url("../images/SpeakerImage2.png"); /*https://www.shutterstock.com/image-photo/speakers-front-view-on-white-background-2112095705*/
     background-repeat: repeat-y;
     padding: 20px;
     -moz-transform: scaleX(-1);
