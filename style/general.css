@@ -117,33 +117,51 @@ form button {
 }
 
 body {
+    display: flexbox;
     height: 100%;
     margin: 0;
 }
 
 #leftDiv {
-    width: 10%;
+    width: 135px;
     /* Adjust the width as needed */
     height: 17280px;
     /* Adjust the height as needed */
-    margin: 10px;
-    /* Adjust the margin as needed */
+    padding: 20px;
     background-color: #ccc;
+    background-image: url("../images/SpeakerImage2.png");
+    background-repeat: repeat-y;
+    padding-right: 10px;
+}
+
+#parentDiv {
+    align-items: center;
+    justify-content: center;
+    display: flex;
 }
 
 #centerDiv {
     width: 90%;
+    justify-content: center;
 }
 
 #rightDiv {
-    justify-content: flex-end;
-    width: 10%;
+    justify-content: flex-center;
+    width: 135px;
     /* Adjust the width as needed */
     height: 17280px;
     /* Adjust the height as needed */
-    margin: 10px;
-    /* Adjust the margin as needed */
     background-color: #ccc;
+    background-image: url("../images/SpeakerImage2.png");
+    background-repeat: repeat-y;
+    padding: 20px;
+    -moz-transform: scaleX(-1);
+    -o-transform: scaleX(-1);
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
+    filter: FlipH;
+    -ms-filter: "FlipH";
+    padding-left: 10px;
 }
 
 @keyframes boxAnimation {
