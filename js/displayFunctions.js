@@ -2,6 +2,10 @@
 songRetrival();
 document.addEventListener("DOMContentLoaded", function() {
 
+    setInterval(rgbEdges, 1);
+    setInterval(updateAnimation, 1);
+    //setInterval(function () { alert("alerttt")    }, 500)
+
     listData(songs, songsListFilter, 'all-songs', '#parentDiv', ['song-list-format']);
     let canvasElement = document.createElement('canvas');
     canvasElement.setAttribute("id", "test");
@@ -73,132 +77,10 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
 
-
-
-
-    //favourites = [];
-
-    /*
-
-        const songsListFilter = [
-            { header: "Title", type: 'str', values: ["title"], valueFunction: (obj, values) => obj[values[0]], prefix: "", sufix: "", spacing: "5" },
-            { header: "Artist", type: 'str', values: ["artist", "name"], valueFunction: (obj, values) => obj[values[0]][values[1]], prefix: "", sufix: "", spacing: "2" },
-            { header: "Year", type: 'str', values: ["year"], valueFunction: (obj, values) => obj[values[0]], prefix: "", sufix: "", spacing: "1" },
-            { header: "Genre", type: 'str', values: ["genre", "name"], valueFunction: (obj, values) => obj[values[0]][values[1]], prefix: "", sufix: "", spacing: "2" },
-            { header: "Popularity", type: 'str', values: ["details", "popularity"], valueFunction: (obj, values) => obj[values[0]][values[1]], prefix: "", sufix: "", spacing: "1" },
-            { header: "", type: 'btn', values: ["song_id"], valueFunction: (obj, values) => obj[values[0]], prefix: "", sufix: "", spacing: "1" } // favorites column
-        ];
-
-        const genresListFilter = [
-            { header: "Genre", type: 'str', values: ["name"], valueFunction: (obj, values) => obj[values[0]], prefix: "", sufix: "", spacing: "1" }
-        ];
-
-        const artistsListFilter = [
-            { header: "Artist", type: 'str', values: ["name"], valueFunction: (obj, values) => obj[values[0]], prefix: "", sufix: "", spacing: "1" },
-            { header: "Type", type: 'str', values: ["type"], valueFunction: (obj, values) => obj[values[0]], prefix: "", sufix: "", spacing: "1" }
-        ];
-    */
     //const sampleSongs = loadSampleSongs();
     const genres = loadGenres();
     const artists = loadArtists();
 
-    /*
-    function listData(data, columns, listName) {
-        // console.log(data);
-        let container = document.createElement('div');
-        container.id = listName;
-        container.style.display = 'grid';
-        container.style.backgroundColor = "red"
-        let spacing = "";
-        columns.forEach(element => {
-            spacing += element.spacing + "fr ";
-        });
-        container.style.gridTemplateColumns = spacing;
-        container.classList.add("data-list");
-        for (let column of columns) {
-            let header = document.createElement('button');
-            header.textContent = column.header;
-            header.classList.add("list-header");
-            container.appendChild(header);
-
-            //Working on the sorts here. Using event delegation
-
-
-            header.addEventListener("click", function(e) {
-
-                if (e.target.tagName == "BUTTON") {
-
-                    if (e.target.textContent == "Title") {
-
-                        data.sort(function(a, b) {
-
-                            if (a.title < b.title) {
-
-                                return -1;
-
-                            } else if (a.title > b.title) {
-                                return 1;
-                            } else {
-                                return 0;
-                            }
-
-
-                        });
-
-                    }
-                }
-            });
-        }
-
-        for (const obj of data) {
-            let row = generateListRow(obj, ((data.indexOf(obj) % 2) == 1), columns);
-            row.forEach(column => {
-                column.classList.toggle("hidden");
-                column.setAttribute("disabled", "disabled");
-                container.appendChild(column);
-            });
-        }
-        container.childNodes
-        return container;
-    }
-
-    function generateListRow(obj, alt, columns) {
-        let row = [];
-        for (let column of columns) {
-            let value;
-            switch (column['type']) {
-                case 'str':
-                    value = document.createElement('p');
-                    value.textContent = column.valueFunction(obj, column.values);
-                    break;
-                case 'link':
-                    value = document.createElement('a');
-                    value.textContent = obj[column.values[0]];
-                    value.href = column.valueFunction(obj, column.values);
-                    break;
-                case 'img':
-                    value = document.createElement('img');
-                    value.src = column.valueFunction(obj, column.values);
-                    break;
-                case 'btn':
-                    value = document.createElement('button');
-                    value.textContent = column.valueFunction(obj, column.values);
-                    break;
-                default:
-                    value = document.createElement('div');
-                    console.warn('Missing/Incorrect List Column Type');
-                    break;
-            }
-            if (alt) {
-                value.classList.add('altRowCell');
-            }
-            // value.style.display = "none";
-            row.push(value);
-        }
-        return row;
-    }
-
-*/
     //Do we even need these anymore?
     function loadArtists() {
         // for (artist of artistsArr) {
@@ -500,7 +382,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
                     //NOW ADD code for using data.
                     //Searching will most likely occur here?
-
                     console.log(text);
 
 
@@ -511,6 +392,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
                     d.appendChild(newDiv);
 
+                    filterListEvent(d); // for creating a filter for the list
 
                 }
 
@@ -520,11 +402,6 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 
-    function sortHandler(e) {
-
-
-
-    }
 
     //Still need to implement removing from playlist.
 
@@ -727,7 +604,7 @@ document.addEventListener("DOMContentLoaded", function() {
     document.querySelector("body").addEventListener('click', favouritesHandler);
 
 
-    document.querySelector("body").addEventListener('click', sortHandler);
+    document.querySelector("body").addEventListener('click', sortListEvent);
 
     document.querySelector("body").addEventListener('click', viewHandler);
     document.querySelector("body").addEventListener('click', viewHandler2);

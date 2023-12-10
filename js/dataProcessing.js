@@ -102,12 +102,12 @@ function generateSongRadar(id, canvas) {
                 label: song.title,
                 data: [song['analytics']['acousticness'], song['analytics']['danceability'], song['analytics']['energy'], song['analytics']['liveness'], song['analytics']['speechiness'], song['analytics']['valence']],
                 fill: true,
-                backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                borderColor: 'rgb(255, 99, 132)',
-                pointBackgroundColor: 'rgb(255, 99, 132)',
+                backgroundColor: 'rgba(162, 242, 221, 1)',
+                borderColor: 'rgb(235, 40, 53)',
+                pointBackgroundColor: 'rgb(235, 40, 53)',
                 pointBorderColor: '#fff',
                 pointHoverBackgroundColor: '#fff',
-                pointHoverBorderColor: 'rgb(255, 99, 132)'
+                pointHoverBorderColor: 'rgb(235, 40, 53)'
             }]
         },
         options: {
@@ -126,7 +126,7 @@ function generateSongRadar(id, canvas) {
 // Title s => s.querySelector('.title p').textContent.includes(searchquery))
 // year s => s.querySelector('.year p').textContent > #
 
-function songsLimiter(filtering) {
+function songsLimiter(filtering, s) {
     let songsFiltered = songs.filter(filtering(s));
     let sorted;
     let coloum = document.querySelector('#all-songs tr th.sorted');
