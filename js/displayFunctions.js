@@ -1,4 +1,4 @@
-// columns objects has a list of the following  {header: str, type: str, values: array/list, valueFunction: func, prefix: str, sufix: str}
+// columns objects has a list of the following  {header: str, type: str, values: array/list, valueFunction: func, prefix: str, sufix: str}di
 document.addEventListener("DOMContentLoaded", function () {
     let canvasElement = document.createElement('canvas');
 
@@ -33,7 +33,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const songUl = document.createElement("div");
     songUl.classList.add("info");
     songUl.classList.add("hidden");
-    document.querySelector("#centerDiv").appendChild(songUl);
+    document.querySelector("#single").appendChild(songUl);
 
     const backBtn = document.createElement("button");
 
@@ -55,7 +55,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             if (document.querySelector("form").classList.contains("hidden")) {
 
-                document.querySelector("form").classList.remove("hidden");
+                document.querySelector("fieldset").classList.remove("hidden");
             }
             if (document.querySelector(".list-headers").classList.contains("hidden")) {
                 document.querySelector(".list-headers").classList.remove("hidden");
@@ -67,7 +67,15 @@ document.addEventListener("DOMContentLoaded", function () {
 
             document.querySelector("#canvas").style.display = "none";
 
+            document.querySelector("fieldset").classList.remove("hidden");
             document.querySelector("#view").classList.remove("hidden");
+            document.querySelector("#all-songs").classList.remove("hidden");
+            document.querySelector("#filler").classList.remove("hidden");
+            document.querySelector('#canvas').classList.add("hidden");
+            document.querySelector('#canvasStand').classList.add("hidden");
+            document.querySelector('#single').classList.add("hidden");
+            document.querySelector('#canvas').classList.add("smoll");
+            document.querySelector('#canvasStand').classList.add("smoll");
 
         });
 
@@ -249,6 +257,17 @@ document.addEventListener("DOMContentLoaded", function () {
                     generateSongRadar(e.target.parentElement.parentElement.id, canvasElement);
 
                     document.querySelector("#view").classList.add("hidden");
+                    let tempId = e.target.parentElement.parentElement.id;
+                    document.querySelector('#all-songs').classList.add("hidden");
+                    document.querySelector('#filler').classList.add("hidden");
+                    document.querySelector('#canvas').classList.add("hidden");
+                    document.querySelector('#canvasStand').classList.add("hidden");
+                    document.querySelector("fieldset").classList.add("hidden");
+                    document.querySelector('#canvas').classList.remove("hidden");
+                    document.querySelector('#canvasStand').classList.remove("hidden");
+                    document.querySelector('#single').classList.remove("hidden");
+                    document.querySelector('#canvas').classList.remove("smoll");
+                    document.querySelector('#canvasStand').classList.remove("smoll");
 
                     console.log(rawSongs);
 
@@ -259,8 +278,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
                         let ul = document.createElement("ul");
 
-                        if (s["song_id"] == e.target.parentElement.parentElement.id) {
-
+                        if (s["song_id"] == tempId) {
+                            console.log("made it");
                             let listOfDataPoint = [];
 
                             console.log(s.song_id + s.title + s.year + s.analytics.energy);
@@ -358,7 +377,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         })
 
-        document.querySelector("form").classList.add("hidden");
+        document.querySelector("fieldset").classList.add("hidden");
     }
 
 

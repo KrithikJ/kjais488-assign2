@@ -37,10 +37,17 @@ function songRetrival(canvasElement) {
                 localStorage.setItem("songs", JSON.stringify(rawSongs));
                 listData(songs, songsListFilter, 'all-songs', '#parentDiv', ['song-list-format']);
                 canvasElement.setAttribute("id", "canvas");
-                console.log(canvasElement);
-                let content = document.querySelector("#centerDiv");
-
+                canvasElement.setAttribute("width", 500);
+                canvasElement.setAttribute("height", 500);
+                canvasElement.classList.add("smoll");
+                content.classList.add("smoll");
+                let content = document.querySelector("#canvasStand");
+                
                 content.appendChild(canvasElement);
+                document.querySelector('#canvas').classList.add("hidden");
+                document.querySelector('#canvasStand').classList.add("hidden");
+                document.querySelector('#single').classList.add("hidden");
+                console.log(canvasElement);
             })
             .catch(error => console.error(error));
     } else {
@@ -51,11 +58,17 @@ function songRetrival(canvasElement) {
         })
         listData(songs, songsListFilter, 'all-songs', '#parentDiv', ['song-list-format']);
         canvasElement.setAttribute("id", "canvas");
+        canvasElement.setAttribute("width", 500);
+        canvasElement.setAttribute("height", 500);
         console.log(canvasElement);
-        let content = document.querySelector("#centerDiv");
-
+        let content = document.querySelector("#canvasStand");
+        canvasElement.classList.add("smoll");
+        content.classList.add("smoll");
         content.appendChild(canvasElement);
         // console.log(songs);
+        document.querySelector('#canvas').classList.add("hidden");
+        document.querySelector('#canvasStand').classList.add("hidden");
+        document.querySelector('#single').classList.add("hidden");
     }
     // let canvasElement = document.createElement('canvas');
     // canvasElement.setAttribute("id", "test");
