@@ -4,8 +4,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     songRetrival(canvasElement);
 
-    setInterval(rgbEdges, 1);
-    setInterval(updateAnimation, 1);
+    setInterval(rgbEdges, 25);
+    setInterval(updateAnimation, 25);
     createPlaylistSnackbar();
     //setInterval(function () { alert("alerttt")    }, 500)
 
@@ -260,8 +260,6 @@ document.addEventListener("DOMContentLoaded", function () {
                     let tempId = e.target.parentElement.parentElement.id;
                     document.querySelector('#all-songs').classList.add("hidden");
                     document.querySelector('#filler').classList.add("hidden");
-                    document.querySelector('#canvas').classList.add("hidden");
-                    document.querySelector('#canvasStand').classList.add("hidden");
                     document.querySelector("fieldset").classList.add("hidden");
                     document.querySelector('#canvas').classList.remove("hidden");
                     document.querySelector('#canvasStand').classList.remove("hidden");
@@ -336,8 +334,35 @@ document.addEventListener("DOMContentLoaded", function () {
 
                             // document.querySelector("#centerDiv").appendChild(songUl);
 
-                            songUl.replaceChildren(ul);
+                            // "song_id": 1167,
+                            // "title": "Alarm",
+                            // "year": 2016,
+                            // "artist": {
+                            // 	"id": 9,
+                            // 	"name": "Anne-Marie"
+                            // },
+                            // "genre": {
+                            // 	"id": 110,
+                            // 	"name": "dance pop"
+                            // },
 
+                            let card = document.createElement("div");
+
+                            let cardTitle = document.createElement("p");
+                            cardTitle.textContent = s.title;
+                            card.appendChild(cardTitle);
+                            let cardArtist = document.createElement("p");
+                            cardArtist.textContent = s.artist.name;
+                            card.appendChild(cardArtist);
+                            let cardGenre = document.createElement("p");
+                            cardGenre.textContent = s.genre.name;
+                            card.appendChild(cardGenre);
+                            let cardYear = document.createElement("p");
+                            cardYear.textContent = s.year;
+                            card.appendChild(cardYear);
+
+                            songUl.replaceChildren(card);
+                            songUl.appendChild(ul);
 
 
                         }

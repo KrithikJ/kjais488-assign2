@@ -4,7 +4,7 @@ const songsListFilter = [
     { header: "Year", type: 'p', values: ["year"], valueFunction: (obj, values) => obj[values[0]], classList: ['year'], prefix: "", sufix: "" },
     { header: "Genre", type: 'p', values: ["genre", "name"], valueFunction: (obj, values) => obj[values[0]][values[1]], classList: ['genre'], prefix: "", sufix: "" },
     { header: "Popularity", type: 'p', values: ["details", "popularity"], valueFunction: (obj, values) => obj[values[0]][values[1]], classList: ['popularity'], prefix: "", sufix: "" },
-    { header: "", type: 'button', values: ["song_id"], valueFunction: (obj, values) => obj[values[0]], classList: ['fav-button'], prefix: "", sufix: "" } // favorites column
+    { header: "", type: 'button', values: ["song_id"], valueFunction: (obj, values) => "+", classList: ['fav-button'], prefix: "", sufix: "" } // favorites column
 ];
 
 const genresListFilter = [

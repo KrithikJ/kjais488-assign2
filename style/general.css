@@ -11,6 +11,19 @@ tr:nth-child(2n - 1) {
     background-color: red;
 }
 
+#single.hidden {
+    display: none;
+}
+
+#single {
+    display: flex;
+}
+
+#single * {
+    padding: 0.5vw;
+    border: solid black 2px;
+}
+
 .hidden {
     display: none;
 }
@@ -168,6 +181,7 @@ body {
     width: 700px;
     height: 700px;
 }
+
 
 .smoll {
     width:0;
