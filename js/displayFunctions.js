@@ -7,25 +7,11 @@ document.addEventListener("DOMContentLoaded", function () {
     setInterval(rgbEdges, 25);
     setInterval(updateAnimation, 25);
     createPlaylistSnackbar();
-    //setInterval(function () { alert("alerttt")    }, 500)
-
-    // listData(songs, songsListFilter, 'all-songs', '#parentDiv', ['song-list-format']);
-    // let canvasElement = document.createElement('canvas');
-    // canvasElement.setAttribute("id", "test");
-    // console.log(canvasElement);
-    // let content = document.querySelector("#centerDiv");
-
-    // content.appendChild(canvasElement);
-    //generateSongRadar(1168, canvasElement);
-
-    //need to simplify this
 
     const view = document.createElement("button");
     view.textContent = "View Playlist";
     view.setAttribute("id", "view");
     view.setAttribute("type", "button");
-
-
 
     document.querySelector("#span").appendChild(view);
     createCreditsButton()
@@ -61,8 +47,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 document.querySelector(".list-headers").classList.remove("hidden");
             }
 
-
-
             songUl.classList.add("hidden");
 
             document.querySelector("#canvas").style.display = "none";
@@ -78,7 +62,6 @@ document.addEventListener("DOMContentLoaded", function () {
             document.querySelector('#canvasStand').classList.add("smoll");
 
         });
-
 
         backBtn.classList.add("hidden");
         //remove.classList.add("hidden");
@@ -115,7 +98,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
      */
 
-
+        //handler that handles all the input
     function formHandler(e) {
 
 
@@ -137,7 +120,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     }
-
+    //handles the favorites
     function favouritesHandler(e) {
 
 
@@ -204,7 +187,7 @@ document.addEventListener("DOMContentLoaded", function () {
         console.log(favs);
     }
 
-
+    //triggers the playlist view
     function viewHandler(e) {
 
         if (e.target.tagName == "BUTTON" && e.target.id == "view") {
@@ -226,7 +209,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         }
     }
-
+    //this handler triggers single song view
     function viewHandler2(e) {
         if (e.target.tagName == "P" && e.target.parentElement.classList.contains("title")) {
             console.log(document.querySelector("#canvas"));
@@ -332,20 +315,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
                             listOfDataPoint.push(popularity.textContent);
 
-                            // document.querySelector("#centerDiv").appendChild(songUl);
-
-                            // "song_id": 1167,
-                            // "title": "Alarm",
-                            // "year": 2016,
-                            // "artist": {
-                            // 	"id": 9,
-                            // 	"name": "Anne-Marie"
-                            // },
-                            // "genre": {
-                            // 	"id": 110,
-                            // 	"name": "dance pop"
-                            // },
-
                             let card = document.createElement("div");
 
                             let cardTitle = document.createElement("p");
@@ -387,7 +356,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         }
     }
-
+    //displays the favorites list and favorites view
     function displayFavView() {
 
         //This function will be responsible for creating the view of the playlist
@@ -405,7 +374,7 @@ document.addEventListener("DOMContentLoaded", function () {
         document.querySelector("fieldset").classList.add("hidden");
     }
 
-
+    //handles the song filtering on search
     function filterHandler(e) {
 
         if (e.target.tagName == "BUTTON" && e.target.textContent == "Filter") {
@@ -420,18 +389,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
                     var input = d.querySelectorAll("input[type='text' i], select")[0];
 
-                    //NOW ADD code for using data.
-                    //Searching will most likely occur here?
-                    // console.log(input);
-
-
-                    //Test to see if the extracted value stays.
-                    // const newDiv = document.createElement("div");
-
-                    // newDiv.textContent = text;
-
-                    // d.appendChild(newDiv);
-
                     filterListEvent(input.value, input.id); // for creating a filter for the list
 
                 }
@@ -441,20 +398,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         }
     }
-
-
-    //Still need to implement removing from playlist.
-
-    //create side div bars - NOT CALLED HAVENT IMPLEMENTED
-    function createLeftDivBar() {
-        const body = this.querySelector("body");
-        const sideDivBarLeft = document.createElement("div")
-        sideDivBarLeft.setAttribute("class", "sidebar-left");
-        sideDivBarLeft.style.width = '100px';
-        sideDivBarLeft.style.backgroundColor = "red";
-        body.appendChild(sideDivBarLeft);
-    }
-
+    //creates the credits button
     function createCreditsButton() {
         const header1 = document.querySelector("#header1");
         const credits = document.createElement("button");
@@ -472,7 +416,7 @@ document.addEventListener("DOMContentLoaded", function () {
         document.querySelector("#span").appendChild(credits);
     }
 
-
+    //generates the song search form
     function generateSearchForm() {
 
         //This function loads the form via JS
@@ -650,48 +594,12 @@ document.addEventListener("DOMContentLoaded", function () {
     document.querySelector("body").addEventListener('click', viewHandler);
     document.querySelector("body").addEventListener('click', viewHandler2);
 
-    //leaving this like this for now
-    /*
-        document.querySelector("body").addEventListener('click', function(e) {
-
-            if (e.target.tagName == "P" && e.target.parentElement.classList.contains("title")) {
-
-                console.log(e.target);
-
-                e.target.classList.add("clicked");
-
-                const tds = document.querySelectorAll(".title");
-
-                let x = false;
-
-
-                for (td of tds) {
-                    if (!td.firstChild.classList.contains("clicked")) {
-
-                        td.parentElement.classList.add("hidden");
-
-                    } else if (td.firstChild.classList.contains("clicked")) {
-
-                        generateSongRadar(e.target.parentElement.parentElement.id, canvasElement);
-
-                    }
-                }
-
-                e.target.classList.remove("clicked");
-
-
-            }
-
-        });
-    */
-
-
     function loadPageComponents() {
         let list = listData(songs, songsListFilter, 'all-songs');
         document.querySelector('body').appendChild(list);
         animateLists(true, list, songsListFilter);
     }
-
+    //creates snackbar when song is added
     function createPlaylistSnackbar() {
         const playlistSnackbar = document.querySelectorAll(".fav-button");
 
@@ -726,40 +634,5 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
     }
-
-
-    /*
-        function snackBarHandler(e) {
-
-            if (e.target.tagName == "BUTTON" && e.target.classList.contains("fav-button")) {
-
-                if (e.target.style.backgroundColor == "yellow") {
-
-                    setTimeout(function() {
-                        playlistPanelAdd.style.display = "block";
-                    }, 3000);
-
-
-                } else if (e.target.style.backgroundColor == "") {
-
-                }
-
-
-
-            }
-
-
-        }
-
-    */
-
-
-
-    // loadPageComponents();
-    // setTimeout(loadPageComponents, 2000);
-    // let list = listData(songs, songsListFilter, 'all-songs');
-    // document.querySelector('body').appendChild(list);
-    // document.querySelector('body').appendChild(listData(genres, genresListFilter, 'all-genres'));
-    // document.querySelector('body').appendChild(listData(artists, artistsListFilter, 'all-artists')); 
 
 });

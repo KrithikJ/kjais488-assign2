@@ -8,18 +8,7 @@ let colorVector = [1, 1, 0];
 let rgbAnimation2 = [0, 0, 0];
 let colorVector2 = [1, 0, 1];
 
-// function animateLists(closed, listContainer) {
-
-//     if (closed) {
-//         console.log("opening");
-//         setTimeout(() => {
-//             if (x.classList.contains("hidden")) {
-//                 x.classList.toggle("hidden");
-//             }
-//         }, time);
-//     }
-// }
-
+//creates the rgb effect
 function updateAnimation() {
     // console.log(rgbAnimation);
     let songListTable = document.querySelectorAll("#all-songs tr");
@@ -86,6 +75,7 @@ function filterListEvent(value, coloum) {
     listData(songsLimiter(filter), songsListFilter, 'all-songs', '#parentDiv', ['song-list-format']);
 }
 
+//creates the rgb edges
 function rgbEdges() {
     const leftSpeakers = document.querySelector("#leftDiv");
     const rightSpeakers = document.querySelector("#rightDiv");
