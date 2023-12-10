@@ -5,6 +5,11 @@ let filter;
 let rgbAnimation = [0, 0, 0];
 let colorVector = [1, 1, 0];
 
+let rgbAnimation2 = [0, 0, 0];
+let colorVector2 = [1, 0, 1];
+
+setInterval(rgbEdges(), 20000);
+
 // function animateLists(closed, listContainer) {
 
 //     if (closed) {
@@ -101,3 +106,26 @@ function filterListEvent(e) {
         listData(songsLimiter(filter, sort), songsListFilter, 'all-songs', "#centerDiv", ['song-list-format']);
     }
 }
+
+function rgbEdges() {
+    const leftSpeakers = document.querySelector("#leftDiv");
+    const rightSpeakers = document.querySelector("#rightDiv");
+    
+    leftSpeakers.style.backgroundColor = 'rgb(' + rgbAnimation2.join(',') + ')';
+    rightSpeakers.style.backgroundColor = 'rgb(' + rgbAnimation2.join(',') + ')';
+    
+    for (let i = 0; i < 3; i++) {
+        if ((rgbAnimation2[i] + colorVector2[i]) > 255 || (rgbAnimation2[i] + colorVector2[i]) < 0) {
+            console.log(colorVector2[i] + colorVector2[(i + 2) % 3] + colorVector2[(i + 1) % 3]);
+            if (Math.abs(colorVector2[i]) + Math.abs(colorVector2[(i + 2) % 3]) + Math.abs(colorVector2[(i + 1) % 3]) != 3) {
+                colorVector2[(i + 1) % 3] = colorVector2[(i + 2) % 3] * colorVector2[i];
+            }
+            colorVector2[i] = ((colorVector2[(i + 1) % 3] == 0 || (colorVector2[(i + 2) % 3]) == 0) ? -colorVector2[i] : 0);
+        }
+        rgbAnimation2[i] += colorVector2[i];
+    }
+
+    //setTimeout(rgbEdges(), 20000);
+}
+
+    
