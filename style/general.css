@@ -176,6 +176,9 @@ body {
     -ms-filter: "FlipH";
     padding-left: 10px;
 }
+canvas {
+    background-color: rgba(236, 162, 50, 0.6);
+}
 
 @keyframes boxAnimation {
     0% {
