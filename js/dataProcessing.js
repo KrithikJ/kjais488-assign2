@@ -126,7 +126,7 @@ function generateSongRadar(id, canvas) {
 // Title s => s.querySelector('.title p').textContent.includes(searchquery))
 // year s => s.querySelector('.year p').textContent > #
 
-function songsLimiter(filtering) {
+function songsLimiter(filtering, s) {
     let songsFiltered = songs.filter(filtering(s));
     let sorted;
     let coloum = document.querySelector('#all-songs tr th.sorted');

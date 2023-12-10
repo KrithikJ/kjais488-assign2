@@ -21,13 +21,13 @@ let colorVector2 = [1, 0, 1];
 // }
 
 function updateAnimation() {
-    console.log(rgbAnimation);
+    // console.log(rgbAnimation);
     let songListTable = document.querySelectorAll("#all-songs tr");
     // console.log(songListTable);
     let counter = 0;
     let rgbAnimationTemp = [...rgbAnimation];
     let colorVectorTemp = [...colorVector];
-    console.log(rgbAnimation);
+    // console.log(rgbAnimation);
     songListTable.forEach(row => {
         row.style.backgroundColor = 'rgb(' + rgbAnimationTemp.join(',') + ')';
         row.querySelectorAll('* button').forEach((c) => {
@@ -38,7 +38,7 @@ function updateAnimation() {
         });
         for (let i = 0; i < 3; i++) {
             if ((rgbAnimationTemp[i] + colorVectorTemp[i]) > 255 || (rgbAnimationTemp[i] + colorVectorTemp[i]) < 0) {
-                console.log(colorVectorTemp[i] + colorVectorTemp[(i + 2) % 3] + colorVectorTemp[(i + 1) % 3]);
+                // console.log(colorVectorTemp[i] + colorVectorTemp[(i + 2) % 3] + colorVectorTemp[(i + 1) % 3]);
                 if (Math.abs(colorVectorTemp[i]) + Math.abs(colorVectorTemp[(i + 2) % 3]) + Math.abs(colorVectorTemp[(i + 1) % 3]) != 3) {
                     colorVectorTemp[(i + 1) % 3] = colorVectorTemp[(i + 2) % 3] * colorVectorTemp[i];
                 }
@@ -50,7 +50,7 @@ function updateAnimation() {
 
     for (let i = 0; i < 3; i++) {
         if ((rgbAnimation[i] + colorVector[i]) > 255 || (rgbAnimation[i] + colorVector[i]) < 0) {
-            console.log(colorVector[i] + colorVector[(i + 2) % 3] + colorVector[(i + 1) % 3]);
+            // console.log(colorVector[i] + colorVector[(i + 2) % 3] + colorVector[(i + 1) % 3]);
             if (Math.abs(colorVector[i]) + Math.abs(colorVector[(i + 2) % 3]) + Math.abs(colorVector[(i + 1) % 3]) != 3) {
                 colorVector[(i + 1) % 3] = colorVector[(i + 2) % 3] * colorVector[i];
             }
@@ -82,7 +82,8 @@ function sortListEvent(e) {
 }
 
 function filterListEvent(e) {
-    if (e.target.tagName === 'BUTTON' && e.target.parentElement.tagName === 'TH') {
+    console.log(e.target);
+    if (e.target.tagName === 'BUTTON') {
         // Title s => s.querySelector('.title p').textContent.includes(searchquery))
         // year s => s.querySelector('.year p').textContent > #
         switch (e.target.parentElement.classList[0]) {
@@ -114,7 +115,7 @@ function rgbEdges() {
     
     for (let i = 0; i < 3; i++) {
         if ((rgbAnimation2[i] + colorVector2[i]) > 255 || (rgbAnimation2[i] + colorVector2[i]) < 0) {
-            console.log(colorVector2[i] + colorVector2[(i + 2) % 3] + colorVector2[(i + 1) % 3]);
+            // console.log(colorVector2[i] + colorVector2[(i + 2) % 3] + colorVector2[(i + 1) % 3]);
             if (Math.abs(colorVector2[i]) + Math.abs(colorVector2[(i + 2) % 3]) + Math.abs(colorVector2[(i + 1) % 3]) != 3) {
                 colorVector2[(i + 1) % 3] = colorVector2[(i + 2) % 3] * colorVector2[i];
             }
@@ -122,7 +123,7 @@ function rgbEdges() {
         }
         rgbAnimation2[i] += colorVector2[i];
     }
-    console.log("its running");
+    // console.log("its running");
     //setTimeout(rgbEdges(), 20000);
 }
 
