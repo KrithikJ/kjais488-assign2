@@ -144,7 +144,7 @@ body {
     background-color: #ccc;
     background-image: url("../images/SpeakerImage2.png"); /*https://www.shutterstock.com/image-photo/speakers-front-view-on-white-background-2112095705*/
     background-repeat: repeat-y;
-    padding-right: 10px;
+    padding-right: 30px;
 }
 
 #parentDiv {
@@ -174,7 +174,7 @@ body {
     transform: scaleX(-1);
     filter: FlipH;
     -ms-filter: "FlipH";
-    padding-left: 10px;
+    padding-left: 30px;
 }
 canvas {
     background-color: rgba(236, 162, 50, 0.6);
