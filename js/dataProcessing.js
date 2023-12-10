@@ -4,7 +4,7 @@ const songsListFilter = [
     { header: "Year", type: 'p', values: ["year"], valueFunction: (obj, values) => obj[values[0]], classList: ['year'], prefix: "", sufix: "" },
     { header: "Genre", type: 'p', values: ["genre", "name"], valueFunction: (obj, values) => obj[values[0]][values[1]], classList: ['genre'], prefix: "", sufix: "" },
     { header: "Popularity", type: 'p', values: ["details", "popularity"], valueFunction: (obj, values) => obj[values[0]][values[1]], classList: ['popularity'], prefix: "", sufix: "" },
-    { header: "", type: 'button', values: ["song_id"], valueFunction: (obj, values) => obj[values[0]], classList: ['fav-button'], prefix: "", sufix: "" } // favorites column
+    { header: "", type: 'button', values: ["song_id"], valueFunction: (obj, values) => "+", classList: ['fav-button'], prefix: "", sufix: "" } // favorites column
 ];
 
 const genresListFilter = [
@@ -15,17 +15,17 @@ const artistsListFilter = [
     { header: "Artist", type: 'p', values: ["name"], valueFunction: (obj, values) => obj[values[0]], classList: [], prefix: "", sufix: "", spacing: "1" },
     { header: "Type", type: 'p', values: ["type"], valueFunction: (obj, values) => obj[values[0]], classList: [], prefix: "", sufix: "", spacing: "1" }
 ];
+let sortBy = '';
 let songs = [];
 let rawSongs = [];
 let songsHeaders = generateListHeader(songsListFilter);
 let favs = [];
 
-
 // listData([...data], songsListFilter, "search-songs-list", ['song-list-format'])
-function songRetrival() {
+function songRetrival(canvasElement) {
     if (localStorage.getItem("songs") === null) {
         localStorage.clear();
-        console.log("fetching");
+        // console.log("fetching");
         fetch(api)
             .then(response => response.json())
             .then(data => {
@@ -33,24 +33,42 @@ function songRetrival() {
                 [...data].forEach((s) => {
                     songs.push(generateListRow(s, songsListFilter));
                 });
+                // console.log(Test);
                 localStorage.setItem("songs", JSON.stringify(rawSongs));
-                // console.log(songs);
-                // listData(songs, songsListFilter, 'all-songs', "#centerDiv", ['song-list-format']);
-                // let canvasElement = document.createElement('canvas');
-                // canvasElement.setAttribute("id", "test");
-                // // console.log(canvasElement);
-                // let content = document.querySelector("#centerDiv");
-                // content.appendChild(canvasElement);
-                // generateSongRadar(1168, canvasElement);
+                listData(songs, songsListFilter, 'all-songs', '#parentDiv', ['song-list-format']);
+                canvasElement.setAttribute("id", "canvas");
+                canvasElement.setAttribute("width", 500);
+                canvasElement.setAttribute("height", 500);
+                canvasElement.classList.add("smoll");
+                content.classList.add("smoll");
+                let content = document.querySelector("#canvasStand");
+                
+                content.appendChild(canvasElement);
+                document.querySelector('#canvas').classList.add("hidden");
+                document.querySelector('#canvasStand').classList.add("hidden");
+                document.querySelector('#single').classList.add("hidden");
+                console.log(canvasElement);
             })
             .catch(error => console.error(error));
     } else {
-        console.log("retrieving");
+        // console.log("retrieving");
         rawSongs = JSON.parse(localStorage.getItem("songs"));
         [...rawSongs].forEach((s) => {
             songs.push(generateListRow(s, songsListFilter));
         })
+        listData(songs, songsListFilter, 'all-songs', '#parentDiv', ['song-list-format']);
+        canvasElement.setAttribute("id", "canvas");
+        canvasElement.setAttribute("width", 500);
+        canvasElement.setAttribute("height", 500);
+        console.log(canvasElement);
+        let content = document.querySelector("#canvasStand");
+        canvasElement.classList.add("smoll");
+        content.classList.add("smoll");
+        content.appendChild(canvasElement);
         // console.log(songs);
+        document.querySelector('#canvas').classList.add("hidden");
+        document.querySelector('#canvasStand').classList.add("hidden");
+        document.querySelector('#single').classList.add("hidden");
     }
     // let canvasElement = document.createElement('canvas');
     // canvasElement.setAttribute("id", "test");
@@ -92,7 +110,7 @@ function generateSongRadar(id, canvas) {
         Chart.getChart(canvas).destroy();
     }
     let song = rawSongs.find((s) => s.song_id == id);
-    console.log("test");
+    // console.log("test canvas");
 
     new Chart(canvas, {
         type: 'radar',
@@ -126,56 +144,75 @@ function generateSongRadar(id, canvas) {
 // Title s => s.querySelector('.title p').textContent.includes(searchquery))
 // year s => s.querySelector('.year p').textContent > #
 
-function songsLimiter(filtering, s) {
-    let songsFiltered = songs.filter(filtering(s));
+function songsLimiter(filtering) {
+    let songsFiltered = songs;
+    if (filtering["class"] != '' && filtering["value"] != '') {
+        songsFiltered = songsFiltered.filter(s => s.querySelector('.' + filtering["class"] + ' p').textContent.includes(filtering["value"]));
+        // songsFiltered.forEach((s) => { console.log(s.querySelector('.' + filtering["class"])) });
+    }
+    // console.log(songsFiltered);
     let sorted;
-    let coloum = document.querySelector('#all-songs tr th.sorted');
-    switch (coloum.classList[0]) {
+    let coloum = sortBy.split(" ")[0];
+    if (coloum == '' && document.querySelector('#all-songs tr th.sorted') != null) {
+        console.log(document.querySelector('#all-songs tr th.sorted'));
+        console.log(document.querySelector('.sorted'));
+        coloum = document.querySelector('#all-songs tr th.sorted').classList[0];
+    }
+    if (coloum == '') {
+        return songsFiltered;
+    }
+    // console.log(coloum);
+    switch (coloum) {
         case 'title':
-            sorted = songsFiltered.sort((s1, s2) => s1.querySelector('.title p').textContent.localCompare(s2));
-            break;
         case 'artist':
-            sorted = songsFiltered.sort((s1, s2) => s1.querySelector('.artist p').textContent.localCompare(s2));
+        case 'genre':
+            sorted = songsFiltered.sort((s1, s2) => {
+                // console.log('.' + coloum + 'p');
+                // console.log(s1.querySelector('.' + coloum + ' p'));
+                // console.log(s2.querySelector('.' + coloum + ' p'));
+                let text1 = s1.querySelector('.' + coloum + ' p').textContent;
+                let text2 = s2.querySelector('.' + coloum + ' p').textContent;
+                return text1.localeCompare(text2);
+            });
             break;
         case 'year':
-            sorted = songsFiltered.sort((s1, s2) => s1.querySelector('.year p').textContent.localCompare(s2));
-            break;
-        case 'genre':
-            sorted = songsFiltered.sort((s1, s2) => s1.querySelector('.genre p').textContent.localCompare(s2));
-            break;
         case 'popularity':
-            sorted = songsFiltered.sort((s1, s2) => parseInt(s1.querySelector('.popularity p').textContent) - parseInt(s2.querySelector('.title p').textContent));
+            sorted = songsFiltered.sort((s1, s2) => parseInt(s1.querySelector('.' + coloum + ' p').textContent) - parseInt(s2.querySelector('.' + coloum + ' p').textContent));
             break;
         case 'fav-button':
             sorted = songsFiltered.sort((s1, s2) => ((s1.classList.contains("favs")) ? -1 : 0) + ((s2.classList.contains("favs")) ? 0 : 1));
             break;
         default:
             console.warn("unsortable option");
+            break;
     }
-    return ((coloum.classList.contains("descending")) ? sorted : songsFiltered.reverse());
+    // console.log(sorted);
+    return (sortBy.includes("descending")) ? sorted : sorted.reverse();
 }
 
 function listData(data, columns, listName, parentNodeQuery = "body", extraclasses = []) {
+    // console.log("generating list ");
     // console.log(data);
     let parent = document.querySelector(parentNodeQuery);
     let container = document.createElement('table');;
     container.id = listName;
     container.style.backgroundColor = "red";
     container.classList.add("data-list");
-    container.replaceChildren(songsHeaders);
+    if (document.querySelector("#" + listName) != null) {
 
-    for (const obj of data) {
-        //console.log(obj);
-        container.appendChild(obj);
-    }
-
-    extraclasses.forEach((c) => { container.classList.add(c) });
-
-    if (document.querySelector("#" + listName) !== null) {
         container = document.querySelector("#" + listName);
     } else {
         document.querySelector(parentNodeQuery).appendChild(container);
     }
+    container.replaceChildren(songsHeaders);
+
+    for (const obj of data) {
+        // console.log(obj);
+        container.appendChild(obj);
+    }
+
+    extraclasses.forEach((c) => { container.classList.add(c) });
+    // console.log(container);
 }
 
 function generateListHeader(columns) {
@@ -188,6 +225,9 @@ function generateListHeader(columns) {
         let cell = document.createElement('th');
         cell.appendChild(header);
         column['classList'].forEach(c => { cell.classList.add(c); });
+        if (sortBy.includes(cell.classList[0])) {
+            header.textContent += (sortBy.includes("descending")) ? "&#9206;" : "&#9207;";
+        }
         headers.appendChild(cell);
         //parent.appendChild(headers);
     }

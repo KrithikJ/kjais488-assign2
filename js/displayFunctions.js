@@ -1,20 +1,21 @@
-// columns objects has a list of the following  {header: str, type: str, values: array/list, valueFunction: func, prefix: str, sufix: str}
-songRetrival();
-document.addEventListener("DOMContentLoaded", function() {
+// columns objects has a list of the following  {header: str, type: str, values: array/list, valueFunction: func, prefix: str, sufix: str}di
+document.addEventListener("DOMContentLoaded", function () {
+    let canvasElement = document.createElement('canvas');
 
-    setInterval(rgbEdges, 1);
-    setInterval(updateAnimation, 1);
+    songRetrival(canvasElement);
+
+    setInterval(rgbEdges, 25);
+    setInterval(updateAnimation, 25);
+    createPlaylistSnackbar();
     //setInterval(function () { alert("alerttt")    }, 500)
 
-    listData(songs, songsListFilter, 'all-songs', '#parentDiv', ['song-list-format']);
-    let canvasElement = document.createElement('canvas');
-    canvasElement.setAttribute("id", "test");
-    console.log(canvasElement);
-    let content = document.querySelector("#centerDiv");
+    // listData(songs, songsListFilter, 'all-songs', '#parentDiv', ['song-list-format']);
+    // let canvasElement = document.createElement('canvas');
+    // canvasElement.setAttribute("id", "test");
+    // console.log(canvasElement);
+    // let content = document.querySelector("#centerDiv");
 
-
-
-    content.appendChild(canvasElement);
+    // content.appendChild(canvasElement);
     //generateSongRadar(1168, canvasElement);
 
     //need to simplify this
@@ -32,20 +33,20 @@ document.addEventListener("DOMContentLoaded", function() {
     const songUl = document.createElement("div");
     songUl.classList.add("info");
     songUl.classList.add("hidden");
-    document.querySelector("#centerDiv").appendChild(songUl);
+    document.querySelector("#single").appendChild(songUl);
 
     const backBtn = document.createElement("button");
 
     backBtn.textContent = "Back";
     backBtn.setAttribute("id", "back");
-    //backBtn.classList.add("hidden");
+    backBtn.classList.add("hidden");
     document.querySelector("#span").appendChild(backBtn);
 
-    backBtn.addEventListener("click", function() {
+    backBtn.addEventListener("click", function () {
 
         const trs = document.querySelectorAll(".table-row");
 
-        trs.forEach(function(tr) {
+        trs.forEach(function (tr) {
 
 
             if (tr.classList.contains("hidden")) {
@@ -54,7 +55,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
             if (document.querySelector("form").classList.contains("hidden")) {
 
-                document.querySelector("form").classList.remove("hidden");
+                document.querySelector("fieldset").classList.remove("hidden");
             }
             if (document.querySelector(".list-headers").classList.contains("hidden")) {
                 document.querySelector(".list-headers").classList.remove("hidden");
@@ -64,9 +65,17 @@ document.addEventListener("DOMContentLoaded", function() {
 
             songUl.classList.add("hidden");
 
-            document.querySelector("#test").style.display = "none";
+            document.querySelector("#canvas").style.display = "none";
 
+            document.querySelector("fieldset").classList.remove("hidden");
             document.querySelector("#view").classList.remove("hidden");
+            document.querySelector("#all-songs").classList.remove("hidden");
+            document.querySelector("#filler").classList.remove("hidden");
+            document.querySelector('#canvas').classList.add("hidden");
+            document.querySelector('#canvasStand').classList.add("hidden");
+            document.querySelector('#single').classList.add("hidden");
+            document.querySelector('#canvas').classList.add("smoll");
+            document.querySelector('#canvasStand').classList.add("smoll");
 
         });
 
@@ -133,7 +142,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 
-        if (e.target.tagName == "BUTTON" && e.target.parentElement.classList.contains("fav-button")) {
+        if (e.target.tagName == "BUTTON" && e.target.parentElement.classList.contains("fav-button") && e.target.parentElement.tagName != "TH") {
 
             console.log(e.target);
             //check for favs class, 
@@ -142,9 +151,9 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
                 e.target.parentElement.parentElement.classList.remove("favs");
+                // e.target.parentElement.parentElement.classList.add("hidden");
 
-
-                favs = favs.filter(function(f) {
+                favs = favs.filter(function (f) {
                     if (e.target.parentElement.parentElement.id != f) {
 
                         return f;
@@ -152,10 +161,10 @@ document.addEventListener("DOMContentLoaded", function() {
 
                 });
 
-                e.target.style.backgroundColor = "";
+                // e.target.style.backgroundColor = "";
 
             } else {
-                e.target.style.backgroundColor = "yellow";
+                // e.target.style.backgroundColor = "yellow";
 
                 e.target.parentElement.parentElement.classList.add("favs");
 
@@ -176,7 +185,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
             }
 
-            favs.forEach(function(f) {
+            favs.forEach(function (f) {
 
                 if (f != e.target.parentElement.parentElement.id && !backBtn.classList.contains("hidden")) {
 
@@ -207,9 +216,9 @@ document.addEventListener("DOMContentLoaded", function() {
 
             displayFavView();
 
-            if (!document.querySelector("#test").classList.contains("hidden")) {
-                document.querySelector("#test").classList.add("hidden");
-                document.querySelector("#test").style.display = "none";
+            if (!document.querySelector("#canvas").classList.contains("hidden")) {
+                document.querySelector("#canvas").classList.add("hidden");
+                // document.querySelector("#canvas").style.display = "none";
 
 
             }
@@ -218,13 +227,11 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 
-    function viewHandler2(e)
-
-    {
+    function viewHandler2(e) {
         if (e.target.tagName == "P" && e.target.parentElement.classList.contains("title")) {
-
-            if (document.querySelector("#test").classList.contains("hidden")) {
-                document.querySelector("#test").classList.remove("hidden");
+            console.log(document.querySelector("#canvas"));
+            if (document.querySelector("#canvas").classList.contains("hidden")) {
+                document.querySelector("#canvas").classList.remove("hidden");
 
             }
 
@@ -250,18 +257,27 @@ document.addEventListener("DOMContentLoaded", function() {
                     generateSongRadar(e.target.parentElement.parentElement.id, canvasElement);
 
                     document.querySelector("#view").classList.add("hidden");
+                    let tempId = e.target.parentElement.parentElement.id;
+                    document.querySelector('#all-songs').classList.add("hidden");
+                    document.querySelector('#filler').classList.add("hidden");
+                    document.querySelector("fieldset").classList.add("hidden");
+                    document.querySelector('#canvas').classList.remove("hidden");
+                    document.querySelector('#canvasStand').classList.remove("hidden");
+                    document.querySelector('#single').classList.remove("hidden");
+                    document.querySelector('#canvas').classList.remove("smoll");
+                    document.querySelector('#canvasStand').classList.remove("smoll");
 
                     console.log(rawSongs);
 
-                    rawSongs.forEach(function(s) {
+                    rawSongs.forEach(function (s) {
 
 
                         songUl.classList.remove("hidden");
 
                         let ul = document.createElement("ul");
 
-                        if (s["song_id"] == e.target.parentElement.parentElement.id) {
-
+                        if (s["song_id"] == tempId) {
+                            console.log("made it");
                             let listOfDataPoint = [];
 
                             console.log(s.song_id + s.title + s.year + s.analytics.energy);
@@ -318,8 +334,35 @@ document.addEventListener("DOMContentLoaded", function() {
 
                             // document.querySelector("#centerDiv").appendChild(songUl);
 
-                            songUl.replaceChildren(ul);
+                            // "song_id": 1167,
+                            // "title": "Alarm",
+                            // "year": 2016,
+                            // "artist": {
+                            // 	"id": 9,
+                            // 	"name": "Anne-Marie"
+                            // },
+                            // "genre": {
+                            // 	"id": 110,
+                            // 	"name": "dance pop"
+                            // },
 
+                            let card = document.createElement("div");
+
+                            let cardTitle = document.createElement("p");
+                            cardTitle.textContent = s.title;
+                            card.appendChild(cardTitle);
+                            let cardArtist = document.createElement("p");
+                            cardArtist.textContent = s.artist.name;
+                            card.appendChild(cardArtist);
+                            let cardGenre = document.createElement("p");
+                            cardGenre.textContent = s.genre.name;
+                            card.appendChild(cardGenre);
+                            let cardYear = document.createElement("p");
+                            cardYear.textContent = s.year;
+                            card.appendChild(cardYear);
+
+                            songUl.replaceChildren(card);
+                            songUl.appendChild(ul);
 
 
                         }
@@ -350,8 +393,7 @@ document.addEventListener("DOMContentLoaded", function() {
         //This function will be responsible for creating the view of the playlist
 
         const trs = document.querySelectorAll(".table-row");
-
-        trs.forEach(function(tr) {
+        trs.forEach(function (tr) {
 
             if (!tr.classList.contains("favs")) {
 
@@ -360,7 +402,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
         })
 
-        document.querySelector("form").classList.add("hidden");
+        document.querySelector("fieldset").classList.add("hidden");
     }
 
 
@@ -374,25 +416,23 @@ document.addEventListener("DOMContentLoaded", function() {
             for (d of divs) {
 
                 if (d.firstChild.checked) {
-
-
                     e.target.style.backgroundColor = "yellow";
 
-                    var text = d.firstChild.nextSibling.nextSibling.value;
+                    var input = d.querySelectorAll("input[type='text' i], select")[0];
 
                     //NOW ADD code for using data.
                     //Searching will most likely occur here?
-                    console.log(text);
+                    // console.log(input);
 
 
                     //Test to see if the extracted value stays.
-                    const newDiv = document.createElement("div");
+                    // const newDiv = document.createElement("div");
 
-                    newDiv.textContent = text;
+                    // newDiv.textContent = text;
 
-                    d.appendChild(newDiv);
+                    // d.appendChild(newDiv);
 
-                    filterListEvent(d); // for creating a filter for the list
+                    filterListEvent(input.value, input.id); // for creating a filter for the list
 
                 }
 
@@ -420,12 +460,12 @@ document.addEventListener("DOMContentLoaded", function() {
         const credits = document.createElement("button");
         credits.textContent = "Credits";
         credits.setAttribute("id", "creditButton")
-            //header1.appendChild(credits);
+        //header1.appendChild(credits);
 
-        credits.addEventListener("mouseover", function() {
+        credits.addEventListener("mouseover", function () {
             creditPanel.style.display = "block";
 
-            setTimeout(function() {
+            setTimeout(function () {
                 creditPanel.style.display = "none";
             }, 3000);
         });
@@ -494,7 +534,7 @@ document.addEventListener("DOMContentLoaded", function() {
         divTwo.appendChild(labelTwo);
 
         const selectOne = document.createElement("select");
-        selectOne.setAttribute('id', 'selectOne');
+        selectOne.setAttribute('id', 'artist');
         selectOne.setAttribute("disabled", "disabled");
 
 
@@ -509,7 +549,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
             const option = document.createElement("option");
 
-            option.setAttribute("value", artist['id']);
+            option.setAttribute("value", artist['name']);
 
             option.textContent = artist['name'];
 
@@ -545,7 +585,7 @@ document.addEventListener("DOMContentLoaded", function() {
         divThree.appendChild(labelThree);
 
         const selectTwo = document.createElement("select");
-        selectTwo.setAttribute('id', 'selectTwo');
+        selectTwo.setAttribute('id', 'genre');
         selectTwo.setAttribute("disabled", "disabled");
 
         const blankOption2 = document.createElement("option");
@@ -558,7 +598,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
             const option = document.createElement("option");
 
-            option.setAttribute("value", genre['id']);
+            option.setAttribute("value", genre['name']);
 
             option.textContent = genre['name'];
 
@@ -600,6 +640,7 @@ document.addEventListener("DOMContentLoaded", function() {
     form.addEventListener('click', formHandler);
 
     form.addEventListener('click', filterHandler);
+    form.addEventListener('reset', (e) => { filterListEvent("", "") });
 
     document.querySelector("body").addEventListener('click', favouritesHandler);
 
@@ -651,49 +692,41 @@ document.addEventListener("DOMContentLoaded", function() {
         animateLists(true, list, songsListFilter);
     }
 
+    function createPlaylistSnackbar() {
+        const playlistSnackbar = document.querySelectorAll(".fav-button");
 
+        for (let p of playlistSnackbar) {
 
+            let computedStyle = window.getComputedStyle(p);
 
+            // Get the background color property
+            let backgroundColor = computedStyle.backgroundColor;
+            console.log('Background Color:', backgroundColor);
 
+            if (backgroundColor = "rgb(240, 240, 240)") {
+                p.addEventListener("click", function () {
+                    playlistPanelAdd.style.display = "block";
 
+                    setTimeout(function () {
+                        playlistPanelAdd.style.display = "none";
+                    }, 3000);
+                    console.log('Background Color:', backgroundColor);
+                });
+            } else {
+                p.addEventListener("click", function () {
+                    playlistPanelAdd.style.display = "block";
 
-
-    /*
-        function createPlaylistSnackbar() {
-            const playlistSnackbar = document.querySelectorAll(".fav-button");
-
-            for (let p of playlistSnackbar) {
-
-                let computedStyle = window.getComputedStyle(p);
-
-                // Get the background color property
-                let backgroundColor = computedStyle.backgroundColor;
-                console.log('Background Color:', backgroundColor);
-
-                if (backgroundColor = "rgb(240, 240, 240)") {
-                    p.addEventListener("click", function() {
-                        playlistPanelAdd.style.display = "block";
-
-                        setTimeout(function() {
-                            playlistPanelAdd.style.display = "none";
-                        }, 3000);
-                        console.log('Background Color:', backgroundColor);
-                    });
-                } else {
-                    p.addEventListener("click", function() {
-                        playlistPanelAdd.style.display = "block";
-
-                        setTimeout(function() {
-                            playlistPanelAdd.style.display = "none";
-                        }, 3000);
-                        console.log('Background Color:', backgroundColor);
-                    });
-                }
-
+                    setTimeout(function () {
+                        playlistPanelAdd.style.display = "none";
+                    }, 3000);
+                    console.log('Background Color:', backgroundColor);
+                });
             }
 
         }
-    */
+
+    }
+
 
     /*
         function snackBarHandler(e) {

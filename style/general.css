@@ -11,6 +11,19 @@ tr:nth-child(2n - 1) {
     background-color: red;
 }
 
+#single.hidden {
+    display: none;
+}
+
+#single {
+    display: flex;
+}
+
+#single * {
+    padding: 0.5vw;
+    border: solid black 2px;
+}
+
 .hidden {
     display: none;
 }
@@ -131,8 +144,10 @@ tr .year{
 
 body {
     display: flexbox;
-    height: 100%;
+    max-height: 100%;
+    max-width: 100%;
     margin: 0;
+
 }
 
 #leftDiv {
@@ -150,13 +165,41 @@ body {
 #parentDiv {
     align-items: center;
     justify-content: center;
-    display: flex;
+    display: block;
+    height: 65vh;
     overflow-y: scroll;
 }
 
-#centerDiv {
-    width: 90%;
+#filler {
+    height: 1vh;
+}
+
+#canvasStand {
+    align-items: center;
     justify-content: center;
+    display: block;
+    width: 700px;
+    height: 700px;
+}
+
+
+.smoll {
+    width:0;
+    height:0;
+}
+
+table {
+    width: 100%;
+}
+
+#centerDiv {
+    height: 100vh;
+    width: 90%;
+    align-items: center;
+    justify-content: center;
+    display: block;
+    padding-left: 2vw;
+    padding-right: 2vw;
 }
 
 #rightDiv {
@@ -179,6 +222,15 @@ body {
 }
 canvas {
     background-color: rgba(236, 162, 50, 0.6);
+}
+
+footer {
+    display: flex;
+    padding: 1vw;
+}
+
+footer * {
+    padding: 1vw;
 }
 
 @keyframes boxAnimation {
