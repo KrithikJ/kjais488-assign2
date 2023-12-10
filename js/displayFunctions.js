@@ -1,18 +1,20 @@
 // columns objects has a list of the following  {header: str, type: str, values: array/list, valueFunction: func, prefix: str, sufix: str}
-songRetrival();
 document.addEventListener("DOMContentLoaded", function() {
+    let canvasElement = document.createElement('canvas');
+
+    songRetrival(canvasElement);
 
     setInterval(rgbEdges, 1);
     setInterval(updateAnimation, 1);
     //setInterval(function () { alert("alerttt")    }, 500)
 
-    listData(songs, songsListFilter, 'all-songs', '#parentDiv', ['song-list-format']);
-    let canvasElement = document.createElement('canvas');
-    canvasElement.setAttribute("id", "test");
-    console.log(canvasElement);
-    let content = document.querySelector("#centerDiv");
+    // listData(songs, songsListFilter, 'all-songs', '#parentDiv', ['song-list-format']);
+    // let canvasElement = document.createElement('canvas');
+    // canvasElement.setAttribute("id", "test");
+    // console.log(canvasElement);
+    // let content = document.querySelector("#centerDiv");
     
-    content.appendChild(canvasElement);
+    // content.appendChild(canvasElement);
     //generateSongRadar(1168, canvasElement);
 
     //need to simplify this
@@ -327,25 +329,23 @@ document.addEventListener("DOMContentLoaded", function() {
             for (d of divs) {
 
                 if (d.firstChild.checked) {
-                    
-                    
                     e.target.style.backgroundColor = "yellow";
                     
-                    var text = d.firstChild.nextSibling.nextSibling.value;
+                    var input = d.querySelectorAll("input[type='text' i], select")[0];
                     
                     //NOW ADD code for using data.
                     //Searching will most likely occur here?
-                    console.log(text);
+                    // console.log(input);
                     
                     
                     //Test to see if the extracted value stays.
-                    const newDiv = document.createElement("div");
+                    // const newDiv = document.createElement("div");
                     
-                    newDiv.textContent = text;
+                    // newDiv.textContent = text;
                     
-                    d.appendChild(newDiv);
+                    // d.appendChild(newDiv);
                     
-                    filterListEvent(d); // for creating a filter for the list
+                    filterListEvent(input.value, input.id); // for creating a filter for the list
 
                 }
 
@@ -447,7 +447,7 @@ document.addEventListener("DOMContentLoaded", function() {
         divTwo.appendChild(labelTwo);
 
         const selectOne = document.createElement("select");
-        selectOne.setAttribute('id', 'selectOne');
+        selectOne.setAttribute('id', 'artist');
         selectOne.setAttribute("disabled", "disabled");
 
 
@@ -462,7 +462,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
             const option = document.createElement("option");
 
-            option.setAttribute("value", artist['id']);
+            option.setAttribute("value", artist['name']);
 
             option.textContent = artist['name'];
 
@@ -498,7 +498,7 @@ document.addEventListener("DOMContentLoaded", function() {
         divThree.appendChild(labelThree);
 
         const selectTwo = document.createElement("select");
-        selectTwo.setAttribute('id', 'selectTwo');
+        selectTwo.setAttribute('id', 'genre');
         selectTwo.setAttribute("disabled", "disabled");
 
         const blankOption2 = document.createElement("option");
@@ -511,7 +511,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
             const option = document.createElement("option");
 
-            option.setAttribute("value", genre['id']);
+            option.setAttribute("value", genre['name']);
 
             option.textContent = genre['name'];
 

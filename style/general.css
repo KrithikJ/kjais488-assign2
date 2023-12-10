@@ -118,8 +118,10 @@ form button {
 
 body {
     display: flexbox;
-    height: 100%;
+    max-height: 100%;
+    max-width: 100%;
     margin: 0;
+
 }
 
 #leftDiv {
@@ -138,6 +140,7 @@ body {
     align-items: center;
     justify-content: center;
     display: flex;
+    overflow-y: scroll;
 }
 
 #centerDiv {
@@ -163,6 +166,7 @@ body {
     -ms-filter: "FlipH";
     padding-left: 10px;
 }
+
 
 @keyframes boxAnimation {
     0% {
