@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", function() {
     console.log(canvasElement);
     let content = document.querySelector("#centerDiv");
     content.appendChild(canvasElement);
-    generateSongRadar(1175, canvasElement);
+    //generateSongRadar(1168, canvasElement);
 
     //need to simplify this
 
@@ -215,19 +215,18 @@ document.addEventListener("DOMContentLoaded", function() {
 
                 e.target.parentElement.parentElement.classList.remove("favs");
 
+
                 favs = favs.filter(function(f) {
-                    if (f != e.target.parentElement.parentElement.id) {
+                    if (e.target.parentElement.parentElement.id != f) {
+
                         return f;
                     }
-
 
                 });
 
 
+
                 e.target.style.backgroundColor = "";
-
-
-
 
             } else {
                 e.target.style.backgroundColor = "yellow";
@@ -270,36 +269,6 @@ document.addEventListener("DOMContentLoaded", function() {
         console.log(favs);
     }
 
-    /*
-    function addHandler(e) {
-       
-        if (e.target.tagName == "BUTTON" && e.target.id == "add") {
-
-            const trs = document.querySelectorAll(".favs");
-
-            const message = document.createElement("div");
-
-            message.textContent = "The selected song has been added to your playlist";
-
-
-            message.classList.add("animateBox");
-
-
-            document.querySelector("#span").appendChild(message);
-
-
-            for (tr of trs) {
-                tr.firstChild.nextSibling.nextSibling.nextSibling.nextSibling.nextSibling.firstChild.style.backgroundColor = "";
-            }
-
-            console.log(localStorage.getItem("favs"));
-
-
-        }
-
-    }*/
-
-
 
     function viewHandler(e) {
 
@@ -309,22 +278,14 @@ document.addEventListener("DOMContentLoaded", function() {
 
             backBtn.classList.remove("hidden");
 
-
-
-            // remove.classList.remove("hidden");
-
             displayFavView();
 
         }
-
-
 
     }
 
 
     function displayFavView() {
-
-
 
         //This function will be responsible for creating the view of the playlist
 
@@ -336,24 +297,12 @@ document.addEventListener("DOMContentLoaded", function() {
 
                 tr.classList.add("hidden");
 
-
-
-
             }
 
         })
 
         document.querySelector("form").classList.add("hidden");
 
-        /*
-                remove.addEventListener("click", function() {
-                    trs.forEach(function(tr) {
-
-                        if ((!tr.classList.contains("hidden") && !tr.classList.contains("favs"))) {
-                            tr.classList.add("hidden");
-                        }
-                    })
-                })*/
 
         backBtn.addEventListener("click", function() {
 
@@ -380,11 +329,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
     }
 
-
-    //This is a test function.
-    //This function is responsible for extracting the values that the user selected
-
-    //Need to fix this still
 
     function filterHandler(e) {
 
@@ -623,6 +567,7 @@ document.addEventListener("DOMContentLoaded", function() {
     generateSearchForm();
 
 
+
     form.addEventListener('click', formHandler);
 
     form.addEventListener('click', filterHandler);
@@ -630,22 +575,46 @@ document.addEventListener("DOMContentLoaded", function() {
     document.querySelector("body").addEventListener('click', favouritesHandler);
 
 
-
     document.querySelector("body").addEventListener('click', sortHandler);
 
     document.querySelector("body").addEventListener('click', viewHandler);
 
+    //leaving this like this for now
+
+    document.querySelector("body").addEventListener('click', function(e) {
+
+        if (e.target.tagName == "P" && e.target.parentElement.classList.contains("title")) {
+
+            console.log(e.target);
+
+            e.target.classList.add("clicked");
+
+
+            const tds = document.querySelectorAll(".title");
+
+            let x = false;
+
+
+            for (td of tds) {
+                if (!td.firstChild.classList.contains("clicked")) {
+
+                    td.parentElement.classList.add("hidden");
 
 
 
-    //add playlist button
+                } else if (td.firstChild.classList.contains("clicked")) {
 
-    //add add to playlist button
+                    generateSongRadar(e.target.parentElement.parentElement.id, canvasElement);
+                }
+            }
+
+            e.target.classList.remove("clicked");
+
+        }
+
+    });
 
 
-
-
-    //console.log(favourites);
 
     function loadPageComponents() {
         let list = listData(songs, songsListFilter, 'all-songs');
@@ -654,31 +623,37 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
 
-    function createPlaylistSnackbar() {
-        const playlistSnackbar = document.querySelectorAll(".fav-button");
 
-            for (let p of playlistSnackbar){
+
+
+
+
+
+    /*
+        function createPlaylistSnackbar() {
+            const playlistSnackbar = document.querySelectorAll(".fav-button");
+
+            for (let p of playlistSnackbar) {
 
                 let computedStyle = window.getComputedStyle(p);
 
                 // Get the background color property
                 let backgroundColor = computedStyle.backgroundColor;
                 console.log('Background Color:', backgroundColor);
-                
-                if (backgroundColor = "rgb(240, 240, 240)"){
-                p.addEventListener("click", function() {
-                playlistPanelAdd.style.display = "block";
 
-                setTimeout(function() {
-                    playlistPanelAdd.style.display = "none";
-                }, 3000);
-                console.log('Background Color:', backgroundColor);
-            });
-        }               
-                else {
+                if (backgroundColor = "rgb(240, 240, 240)") {
                     p.addEventListener("click", function() {
                         playlistPanelAdd.style.display = "block";
-        
+
+                        setTimeout(function() {
+                            playlistPanelAdd.style.display = "none";
+                        }, 3000);
+                        console.log('Background Color:', backgroundColor);
+                    });
+                } else {
+                    p.addEventListener("click", function() {
+                        playlistPanelAdd.style.display = "block";
+
                         setTimeout(function() {
                             playlistPanelAdd.style.display = "none";
                         }, 3000);
@@ -687,11 +662,35 @@ document.addEventListener("DOMContentLoaded", function() {
                 }
 
             }
-                
+
+        }
+    */
+
+    /*
+        function snackBarHandler(e) {
+
+            if (e.target.tagName == "BUTTON" && e.target.classList.contains("fav-button")) {
+
+                if (e.target.style.backgroundColor == "yellow") {
+
+                    setTimeout(function() {
+                        playlistPanelAdd.style.display = "block";
+                    }, 3000);
+
+
+                } else if (e.target.style.backgroundColor == "") {
+
+                }
+
+
+
             }
 
 
-            createPlaylistSnackbar()
+        }
+
+    */
+
 
 
     // loadPageComponents();
