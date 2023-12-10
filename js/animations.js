@@ -63,15 +63,18 @@ function updateAnimation() {
 
 function sortListEvent(e) {
     console.log(e.target);
-    if (e.target.tagName === 'BUTTON' && e.target.parentElement.tagName === 'TH') {
-        console.log(e.target.parentElement);
+    console.log(e.target.parentElement.parentElement);
+    if (e.target.tagName === 'BUTTON' && e.target.parentElement.parentElement.classList.contains('list-headers')) {
+        // console.log(e.target.parentElement);
         if(sortBy == e.target.parentElement.classList[0]){
             sortBy += " descending";
+            
         } else {
             sortBy = e.target.parentElement.classList[0];
         }
+        console.log(e.target.parentElement);
+        listData(songsLimiter(filter), songsListFilter, 'all-songs', '#parentDiv', ['song-list-format']);
     };
-    listData(songsLimiter(filter), songsListFilter, 'all-songs', '#parentDiv', ['song-list-format']);
 }
 
 function filterListEvent(value, coloum) {

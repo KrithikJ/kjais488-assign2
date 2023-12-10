@@ -1,11 +1,12 @@
 // columns objects has a list of the following  {header: str, type: str, values: array/list, valueFunction: func, prefix: str, sufix: str}
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     let canvasElement = document.createElement('canvas');
 
     songRetrival(canvasElement);
 
     setInterval(rgbEdges, 1);
     setInterval(updateAnimation, 1);
+    createPlaylistSnackbar();
     //setInterval(function () { alert("alerttt")    }, 500)
 
     // listData(songs, songsListFilter, 'all-songs', '#parentDiv', ['song-list-format']);
@@ -13,7 +14,7 @@ document.addEventListener("DOMContentLoaded", function() {
     // canvasElement.setAttribute("id", "test");
     // console.log(canvasElement);
     // let content = document.querySelector("#centerDiv");
-    
+
     // content.appendChild(canvasElement);
     //generateSongRadar(1168, canvasElement);
 
@@ -38,14 +39,14 @@ document.addEventListener("DOMContentLoaded", function() {
 
     backBtn.textContent = "Back";
     backBtn.setAttribute("id", "back");
-    //backBtn.classList.add("hidden");
+    backBtn.classList.add("hidden");
     document.querySelector("#span").appendChild(backBtn);
 
-    backBtn.addEventListener("click", function() {
+    backBtn.addEventListener("click", function () {
 
         const trs = document.querySelectorAll(".table-row");
 
-        trs.forEach(function(tr) {
+        trs.forEach(function (tr) {
 
 
             if (tr.classList.contains("hidden")) {
@@ -64,7 +65,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
             songUl.classList.add("hidden");
 
-            document.querySelector("#test").style.display = "none";
+            document.querySelector("#canvas").style.display = "none";
 
             document.querySelector("#view").classList.remove("hidden");
 
@@ -133,7 +134,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 
-        if (e.target.tagName == "BUTTON" && e.target.parentElement.classList.contains("fav-button")) {
+        if (e.target.tagName == "BUTTON" && e.target.parentElement.classList.contains("fav-button") && e.target.parentElement.tagName != "TH") {
 
             console.log(e.target);
             //check for favs class, 
@@ -142,9 +143,9 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
                 e.target.parentElement.parentElement.classList.remove("favs");
+                // e.target.parentElement.parentElement.classList.add("hidden");
 
-
-                favs = favs.filter(function(f) {
+                favs = favs.filter(function (f) {
                     if (e.target.parentElement.parentElement.id != f) {
 
                         return f;
@@ -176,7 +177,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
             }
 
-            favs.forEach(function(f) {
+            favs.forEach(function (f) {
 
                 if (f != e.target.parentElement.parentElement.id && !backBtn.classList.contains("hidden")) {
 
@@ -207,9 +208,9 @@ document.addEventListener("DOMContentLoaded", function() {
 
             displayFavView();
 
-            if (!document.querySelector("#test").classList.contains("hidden")) {
-                document.querySelector("#test").classList.add("hidden");
-                document.querySelector("#test").style.display = "none";
+            if (!document.querySelector("#canvas").classList.contains("hidden")) {
+                document.querySelector("#canvas").classList.add("hidden");
+                // document.querySelector("#canvas").style.display = "none";
 
 
             }
@@ -218,13 +219,11 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 
-    function viewHandler2(e)
-
-    {
+    function viewHandler2(e) {
         if (e.target.tagName == "P" && e.target.parentElement.classList.contains("title")) {
-
-            if (document.querySelector("#test").classList.contains("hidden")) {
-                document.querySelector("#test").classList.remove("hidden");
+            console.log(document.querySelector("#canvas"));
+            if (document.querySelector("#canvas").classList.contains("hidden")) {
+                document.querySelector("#canvas").classList.remove("hidden");
 
             }
 
@@ -253,7 +252,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
                     console.log(rawSongs);
 
-                    rawSongs.forEach(function(s) {
+                    rawSongs.forEach(function (s) {
 
 
                         songUl.classList.remove("hidden");
@@ -350,8 +349,7 @@ document.addEventListener("DOMContentLoaded", function() {
         //This function will be responsible for creating the view of the playlist
 
         const trs = document.querySelectorAll(".table-row");
-
-        trs.forEach(function(tr) {
+        trs.forEach(function (tr) {
 
             if (!tr.classList.contains("favs")) {
 
@@ -375,21 +373,21 @@ document.addEventListener("DOMContentLoaded", function() {
 
                 if (d.firstChild.checked) {
                     e.target.style.backgroundColor = "yellow";
-                    
+
                     var input = d.querySelectorAll("input[type='text' i], select")[0];
-                    
+
                     //NOW ADD code for using data.
                     //Searching will most likely occur here?
                     // console.log(input);
-                    
-                    
+
+
                     //Test to see if the extracted value stays.
                     // const newDiv = document.createElement("div");
-                    
+
                     // newDiv.textContent = text;
-                    
+
                     // d.appendChild(newDiv);
-                    
+
                     filterListEvent(input.value, input.id); // for creating a filter for the list
 
                 }
@@ -418,12 +416,12 @@ document.addEventListener("DOMContentLoaded", function() {
         const credits = document.createElement("button");
         credits.textContent = "Credits";
         credits.setAttribute("id", "creditButton")
-            //header1.appendChild(credits);
+        //header1.appendChild(credits);
 
-        credits.addEventListener("mouseover", function() {
+        credits.addEventListener("mouseover", function () {
             creditPanel.style.display = "block";
 
-            setTimeout(function() {
+            setTimeout(function () {
                 creditPanel.style.display = "none";
             }, 3000);
         });
@@ -598,6 +596,7 @@ document.addEventListener("DOMContentLoaded", function() {
     form.addEventListener('click', formHandler);
 
     form.addEventListener('click', filterHandler);
+    form.addEventListener('reset', (e) => { filterListEvent("", "") });
 
     document.querySelector("body").addEventListener('click', favouritesHandler);
 
@@ -649,49 +648,41 @@ document.addEventListener("DOMContentLoaded", function() {
         animateLists(true, list, songsListFilter);
     }
 
+    function createPlaylistSnackbar() {
+        const playlistSnackbar = document.querySelectorAll(".fav-button");
 
+        for (let p of playlistSnackbar) {
 
+            let computedStyle = window.getComputedStyle(p);
 
+            // Get the background color property
+            let backgroundColor = computedStyle.backgroundColor;
+            console.log('Background Color:', backgroundColor);
 
+            if (backgroundColor = "rgb(240, 240, 240)") {
+                p.addEventListener("click", function () {
+                    playlistPanelAdd.style.display = "block";
 
+                    setTimeout(function () {
+                        playlistPanelAdd.style.display = "none";
+                    }, 3000);
+                    console.log('Background Color:', backgroundColor);
+                });
+            } else {
+                p.addEventListener("click", function () {
+                    playlistPanelAdd.style.display = "block";
 
-
-    /*
-        function createPlaylistSnackbar() {
-            const playlistSnackbar = document.querySelectorAll(".fav-button");
-
-            for (let p of playlistSnackbar) {
-
-                let computedStyle = window.getComputedStyle(p);
-
-                // Get the background color property
-                let backgroundColor = computedStyle.backgroundColor;
-                console.log('Background Color:', backgroundColor);
-
-                if (backgroundColor = "rgb(240, 240, 240)") {
-                    p.addEventListener("click", function() {
-                        playlistPanelAdd.style.display = "block";
-
-                        setTimeout(function() {
-                            playlistPanelAdd.style.display = "none";
-                        }, 3000);
-                        console.log('Background Color:', backgroundColor);
-                    });
-                } else {
-                    p.addEventListener("click", function() {
-                        playlistPanelAdd.style.display = "block";
-
-                        setTimeout(function() {
-                            playlistPanelAdd.style.display = "none";
-                        }, 3000);
-                        console.log('Background Color:', backgroundColor);
-                    });
-                }
-
+                    setTimeout(function () {
+                        playlistPanelAdd.style.display = "none";
+                    }, 3000);
+                    console.log('Background Color:', backgroundColor);
+                });
             }
 
         }
-    */
+
+    }
+
 
     /*
         function snackBarHandler(e) {

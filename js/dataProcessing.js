@@ -25,7 +25,7 @@ let favs = [];
 function songRetrival(canvasElement) {
     if (localStorage.getItem("songs") === null) {
         localStorage.clear();
-        console.log("fetching");
+        // console.log("fetching");
         fetch(api)
             .then(response => response.json())
             .then(data => {
@@ -33,10 +33,10 @@ function songRetrival(canvasElement) {
                 [...data].forEach((s) => {
                     songs.push(generateListRow(s, songsListFilter));
                 });
-                console.log(Test);
+                // console.log(Test);
                 localStorage.setItem("songs", JSON.stringify(rawSongs));
                 listData(songs, songsListFilter, 'all-songs', '#parentDiv', ['song-list-format']);
-                canvasElement.setAttribute("id", "test");
+                canvasElement.setAttribute("id", "canvas");
                 console.log(canvasElement);
                 let content = document.querySelector("#centerDiv");
 
@@ -44,13 +44,13 @@ function songRetrival(canvasElement) {
             })
             .catch(error => console.error(error));
     } else {
-        console.log("retrieving");
+        // console.log("retrieving");
         rawSongs = JSON.parse(localStorage.getItem("songs"));
         [...rawSongs].forEach((s) => {
             songs.push(generateListRow(s, songsListFilter));
         })
         listData(songs, songsListFilter, 'all-songs', '#parentDiv', ['song-list-format']);
-        canvasElement.setAttribute("id", "test");
+        canvasElement.setAttribute("id", "canvas");
         console.log(canvasElement);
         let content = document.querySelector("#centerDiv");
 
@@ -97,7 +97,7 @@ function generateSongRadar(id, canvas) {
         Chart.getChart(canvas).destroy();
     }
     let song = rawSongs.find((s) => s.song_id == id);
-    console.log("test");
+    // console.log("test canvas");
 
     new Chart(canvas, {
         type: 'radar',
@@ -135,26 +135,28 @@ function songsLimiter(filtering) {
     let songsFiltered = songs;
     if (filtering["class"] != '' && filtering["value"] != '') {
         songsFiltered = songsFiltered.filter(s => s.querySelector('.' + filtering["class"] + ' p').textContent.includes(filtering["value"]));
-        songsFiltered.forEach((s) => { console.log(s.querySelector('.' + filtering["class"])) });
+        // songsFiltered.forEach((s) => { console.log(s.querySelector('.' + filtering["class"])) });
     }
     // console.log(songsFiltered);
     let sorted;
     let coloum = sortBy.split(" ")[0];
-    if (coloum == '') {
+    if (coloum == '' && document.querySelector('#all-songs tr th.sorted') != null) {
+        console.log(document.querySelector('#all-songs tr th.sorted'));
+        console.log(document.querySelector('.sorted'));
         coloum = document.querySelector('#all-songs tr th.sorted').classList[0];
     }
-    console.log(coloum);
-    if (coloum == null) {
+    if (coloum == '') {
         return songsFiltered;
     }
+    // console.log(coloum);
     switch (coloum) {
         case 'title':
         case 'artist':
         case 'genre':
             sorted = songsFiltered.sort((s1, s2) => {
-                console.log('.' + coloum + 'p');
-                console.log(s1.querySelector('.' + coloum + ' p'));
-                console.log(s2.querySelector('.' + coloum + ' p'));
+                // console.log('.' + coloum + 'p');
+                // console.log(s1.querySelector('.' + coloum + ' p'));
+                // console.log(s2.querySelector('.' + coloum + ' p'));
                 let text1 = s1.querySelector('.' + coloum + ' p').textContent;
                 let text2 = s2.querySelector('.' + coloum + ' p').textContent;
                 return text1.localeCompare(text2);
@@ -176,7 +178,7 @@ function songsLimiter(filtering) {
 }
 
 function listData(data, columns, listName, parentNodeQuery = "body", extraclasses = []) {
-    console.log("generating list ");
+    // console.log("generating list ");
     // console.log(data);
     let parent = document.querySelector(parentNodeQuery);
     let container = document.createElement('table');;
