@@ -2,6 +2,10 @@
 songRetrival();
 document.addEventListener("DOMContentLoaded", function() {
 
+    setInterval(rgbEdges, 1);
+    setInterval(updateAnimation, 1);
+    //setInterval(function () { alert("alerttt")    }, 500)
+
     listData(songs, songsListFilter, 'all-songs', '#parentDiv', ['song-list-format']);
     let canvasElement = document.createElement('canvas');
     canvasElement.setAttribute("id", "test");

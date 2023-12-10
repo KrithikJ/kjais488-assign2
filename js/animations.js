@@ -8,8 +8,6 @@ let colorVector = [1, 1, 0];
 let rgbAnimation2 = [0, 0, 0];
 let colorVector2 = [1, 0, 1];
 
-setInterval(rgbEdges(), 20000);
-
 // function animateLists(closed, listContainer) {
 
 //     if (closed) {
@@ -29,8 +27,8 @@ function updateAnimation() {
     let counter = 0;
     let rgbAnimationTemp = [...rgbAnimation];
     let colorVectorTemp = [...colorVector];
+    console.log(rgbAnimation);
     songListTable.forEach(row => {
-        // console.log(rgbAnimation);
         row.style.backgroundColor = 'rgb(' + rgbAnimationTemp.join(',') + ')';
         row.querySelectorAll('* button').forEach((c) => {
             c.style.backgroundColor = 'rgb(' + rgbAnimationTemp.join(',') + ')';
@@ -124,7 +122,7 @@ function rgbEdges() {
         }
         rgbAnimation2[i] += colorVector2[i];
     }
-
+    console.log("its running");
     //setTimeout(rgbEdges(), 20000);
 }
 
