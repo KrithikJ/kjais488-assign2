@@ -111,24 +111,33 @@ span button, form button {
     height: 100%;
 }
 body{
+    display: flexbox;
     height: 100%;
     margin: 0;
 }
 #leftDiv {
-    width: 10%; /* Adjust the width as needed */
+    width: 135px; /* Adjust the width as needed */
     height: 17280px; /* Adjust the height as needed */
-    margin: 10px; /* Adjust the margin as needed */
+    
     background-color: #ccc;
+    background-image: url("../images/SpeakerImage2.png");
 }
 #centerDiv {
     width: 90%;
 }
 #rightDiv {
-    justify-content: flex-end;
-    width: 10%; /* Adjust the width as needed */
+    justify-content: flex-center;
+    width: 135px; /* Adjust the width as needed */
     height: 17280px; /* Adjust the height as needed */
     margin: 10px; /* Adjust the margin as needed */
     background-color: #ccc;
+    background-image: url("../images/SpeakerImage2.png");
+    -moz-transform: scaleX(-1);
+    -o-transform: scaleX(-1);
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
+    filter: FlipH;
+    -ms-filter: "FlipH";
 }
 
 @keyframes boxAnimation {

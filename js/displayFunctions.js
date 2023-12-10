@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", function() {
     console.log(canvasElement);
     let content = document.querySelector("#centerDiv");
     content.appendChild(canvasElement);
-    generateSongRadar(1168, canvasElement);
+    generateSongRadar(1175, canvasElement);
 
     //need to simplify this
 
